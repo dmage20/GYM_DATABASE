@@ -1,0 +1,14 @@
+<div class="container">
+    <%= form_tag gyms_path, method: :get do %>
+    <%= text_field_tag :query,
+      params[:query],
+      class: "form-control",
+      placeholder: "Find a gym"
+    %>
+  <% end %>
+  <div class="row">
+    <div class="col-sm-8 col-sm-offset-2">
+      <%= render 'components/cards' %>
+    </div>
+  </div>
+</div>
