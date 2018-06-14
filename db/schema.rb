@@ -36,8 +36,6 @@ ActiveRecord::Schema.define(version: 2018_06_14_071921) do
     t.datetime "updated_at", null: false
     t.string "name"
     t.string "address"
-    t.string "country"
-    t.string "city"
     t.float "latitude"
     t.float "longitude"
     t.index ["city_id"], name: "index_gyms_on_city_id"

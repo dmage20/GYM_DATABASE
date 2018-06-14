@@ -6,9 +6,9 @@ class GymsController < ApplicationController
       sql_query = " \
         gyms.name @@ :query \
         OR gyms.address @@ :query \
-        OR countries.name @@ :query \
+        OR cities.name @@ :query \
       "
-      @gyms = Gym.joins(:country).where(sql_query, query: "%#{params[:query]}%")
+      @gyms = Gym.joins(:city).where(sql_query, query: "%#{params[:query]}%")
     else
       @gyms = Gym.all
     end
