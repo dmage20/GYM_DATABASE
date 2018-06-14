@@ -1,0 +1,12 @@
+
+<% @gyms.each do |gym| %>
+  <div class="card" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('https://picsum.photos/200/300/?random');">
+    <div class="card-category">Crossfit</div>
+    <div class="card-description">
+      <h2><%= gym.name %></h2>
+      <p><%= gym.country.name %></p>
+      <p><%= gym.city.name %></p>
+    </div>
+
+  </div>
+<% end %>
