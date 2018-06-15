@@ -14,6 +14,8 @@ gyms = JSON.parse(serialized_gyms)
 gyms.each do |gym|
   name = gym["name"]
   address = gym["address"]
+  latitude = gym["latlon"].split(",")[0]
+  longitude = gym["latlon"].split(",")[1]
 
   if Country.exists?(name: "#{gym["country"]}")
     country = Country.find_by_name("#{gym["country"]}")
@@ -30,7 +32,8 @@ gyms.each do |gym|
   # binding.pry
   end
 
-  box = Gym.new(name: name, address: address, country: country, city: city)
+  box = Gym.new(name: name, address: address, country: country, city: city, latitude: latitude, longitude: longitude)
   box.save!
+
 end
 
