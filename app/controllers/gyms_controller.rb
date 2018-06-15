@@ -4,9 +4,7 @@ class GymsController < ApplicationController
 
     if params[:query].present?
       sql_query = " \
-        gyms.name @@ :query \
-        OR gyms.address @@ :query \
-        OR cities.name @@ :query \
+        cities.name @@ :query \
       "
       @gyms = Gym.joins(:city).where(sql_query, query: "%#{params[:query]}%")
 
@@ -29,6 +27,8 @@ end
 
 
         # additional search params
+        # OR gyms.name @@ :query \
+        # OR gyms.address @@ :query \
 
 
         # current working query
