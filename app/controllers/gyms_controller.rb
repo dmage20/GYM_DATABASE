@@ -9,9 +9,19 @@ class GymsController < ApplicationController
         OR cities.name @@ :query \
       "
       @gyms = Gym.joins(:city).where(sql_query, query: "%#{params[:query]}%")
+
+        # @flats = Flat.where.not(latitude: nil, longitude: nil)
+        @markers = @gyms.map do |gym|
+        {
+          lat: gym.latitude,
+          lng: gym.longitude#,
+         # infoWindow: { content: render_to_string(partial: "/flats/map_box", locals: { flat: flat }) }
+        }
+      end
     else
       @gyms = Gym.all
     end
+
 
   end
 end
