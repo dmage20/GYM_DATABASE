@@ -17,7 +17,16 @@ class GymsController < ApplicationController
         }
       end
     else
-      @gyms = Gym.all
+      @gyms = Gym.all.last(9)
+
+
+        @markers = @gyms.map do |gym|
+        {
+          lat: gym.latitude,
+          lng: gym.longitude#,
+         # infoWindow: { content: render_to_string(partial: "/flats/map_box", locals: { flat: flat }) }
+        }
+      end
     end
 
 
