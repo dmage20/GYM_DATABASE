@@ -5,7 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-
+Booking.destroy_all
+Gym.destroy_all
+City.destroy_all
+Country.destroy_all
 
 filepath = 'crossfit_locations.json'
 
