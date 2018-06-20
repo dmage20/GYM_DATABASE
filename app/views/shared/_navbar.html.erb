@@ -8,15 +8,27 @@
   <div class="navbar-wagon-right hidden-xs hidden-sm">
 
     <% if user_signed_in? %>
-
-      <%= form_tag gyms_path, method: :get do %>
-      <%= text_field_tag :query,
+      <!-- Search Method -->
+      <%#= form_tag gyms_path, method: :get do %>
+      <%#= text_field_tag :query,
         params[:query],
         class: "form-control",
         placeholder: "Type a city name"
       %>
-      <% end %>
+      <%# end %>
+      <!-- Form Method -->
+    <%= simple_form_for(@gym, as: :gym, method: :get, url: gyms_path, wrapper: :inline_form, html: { class: 'form-inline' }) do |f| %>
+    <%= f.input :address %>
+    <%= f.submit 'find gyms' %>
+    <% end %>
 
+    <%#= simple_form_for(@gym) do |f| %>
+    <!-- <div class="form-inputs"> -->
+    <%#= f.input :address, label: false, url: :gyms_path, method: :get %>
+    <%#= f.button :submit %>
+    <!-- </div> -->
+
+    <%# end %>
       <!-- Links when logged in -->
       <%= link_to "Host", "#", class: "navbar-wagon-item navbar-wagon-link" %>
       <%= link_to "Trips", "#", class: "navbar-wagon-item navbar-wagon-link" %>

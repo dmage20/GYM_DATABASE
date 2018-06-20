@@ -1,14 +1,29 @@
 class GymsController < ApplicationController
 
   def index
+      @gym = Gym.new
 
-    if params[:query].present?
-      sql_query = " \
-        cities.name @@ :query \
-      "
-      @gyms = Gym.joins(:city).where(sql_query, query: "%#{params[:query]}%")
+    # if params[:query].present?
 
-        # @flats = Flat.where.not(latitude: nil, longitude: nil)
+    #   sql_query = " \
+    #     cities.name @@ :query \
+    #   "
+    #   @gyms = Gym.joins(:city).where(sql_query, query: "%#{params[:query]}%")
+
+    #     # @flats = Flat.where.not(latitude: nil, longitude: nil)
+    #     @markers = @gyms.map do |gym|
+    #     {
+    #       lat: gym.latitude,
+    #       lng: gym.longitude#,
+    #      # infoWindow: { content: render_to_string(partial: "/flats/map_box", locals: { flat: flat }) }
+    #     }
+    #   end
+    # else
+      country = Country.find_by_name(params["gym"]["address"].split(",").slice(-1).strip)
+      city = City.find_by_name(params["gym"]["address"].split(",")[0].strip)
+
+       @gyms = Gym.joins(:country , :city).where('cities.name' => city.name, 'countries.name' => country.name)
+
         @markers = @gyms.map do |gym|
         {
           lat: gym.latitude,
@@ -16,19 +31,7 @@ class GymsController < ApplicationController
          # infoWindow: { content: render_to_string(partial: "/flats/map_box", locals: { flat: flat }) }
         }
       end
-    else
-      @gyms = Gym.all.last(9)
-
-
-        @markers = @gyms.map do |gym|
-        {
-          lat: gym.latitude,
-          lng: gym.longitude#,
-         # infoWindow: { content: render_to_string(partial: "/flats/map_box", locals: { flat: flat }) }
-        }
-      end
-    end
-
+    # end
 
   end
 end
