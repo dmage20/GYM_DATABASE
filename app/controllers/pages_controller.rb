@@ -4,7 +4,7 @@ class PagesController < ApplicationController
   def home
     @gym = Gym.new
 
-          @gyms = Gym.all.last(9)
+          @gyms = Gym.all.sample(9)
 
 
         @markers = @gyms.map do |gym|

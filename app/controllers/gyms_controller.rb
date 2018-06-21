@@ -3,8 +3,21 @@ class GymsController < ApplicationController
   def index
       @gym = Gym.new
 
-    # if params[:query].present?
+    if params["gym"]["address"].present?
+        @gyms = Gym.near(params["gym"]["address"],10)
 
+    else
+      @city = City.all.sample
+      @gyms = Gym.joins(:city).where('cities.name' => @city.name)
+    end
+
+        @markers = @gyms.map do |gym|
+        {
+          lat: gym.latitude,
+          lng: gym.longitude#,
+         # infoWindow: { content: render_to_string(partial: "/flats/map_box", locals: { flat: flat }) }
+        }
+      end
     #   sql_query = " \
     #     cities.name @@ :query \
     #   "
@@ -18,20 +31,21 @@ class GymsController < ApplicationController
     #      # infoWindow: { content: render_to_string(partial: "/flats/map_box", locals: { flat: flat }) }
     #     }
     #   end
-    # else
-      country = Country.find_by_name(params["gym"]["address"].split(",").slice(-1).strip)
-      city = City.find_by_name(params["gym"]["address"].split(",")[0].strip)
+      # country = Country.find_by_name(params["gym"]["address"].split(",").slice(-1).strip)
+      # city = City.find_by_name(params["gym"]["address"].split(",")[0].strip)
+      # binding.pry
+      #  @gyms = Gym.joins(:country , :city).where('cities.name' => city.name, 'countries.name' => country.name)
 
-       @gyms = Gym.joins(:country , :city).where('cities.name' => city.name, 'countries.name' => country.name)
+      #   @markers = @gyms.map do |gym|
+      #   {
+      #     lat: gym.latitude,
+      #     lng: gym.longitude#,
+      #    # infoWindow: { content: render_to_string(partial: "/flats/map_box", locals: { flat: flat }) }
+      #   }
+      # end
 
-        @markers = @gyms.map do |gym|
-        {
-          lat: gym.latitude,
-          lng: gym.longitude#,
-         # infoWindow: { content: render_to_string(partial: "/flats/map_box", locals: { flat: flat }) }
-        }
-      end
-    # end
+    # end leve this out
+        # Second Method of searching - relying on google
 
   end
 end
