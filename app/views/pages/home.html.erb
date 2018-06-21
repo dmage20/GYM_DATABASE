@@ -1,5 +1,6 @@
-<div class="main-container">
   <div class="container">
+<%= render 'components/banner' %>
+<div class="main-container">
 <!--       <%#= form_tag gyms_path, method: :get do %>
       <%#= text_field_tag :query,
         params[:query],
@@ -11,7 +12,6 @@
   <div class="cards-container">
       <%= render 'components/cards' %>
   </div>
-  </div>
   <div
   id="map"
   style="width: 100%;
@@ -19,3 +19,4 @@
   data-markers="<%= @markers.to_json %>"
   ></div>
 </div>
+  </div>
