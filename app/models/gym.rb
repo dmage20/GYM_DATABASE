@@ -1,5 +1,5 @@
 class Gym < ApplicationRecord
-  belongs_to :city
+  belongs_to :city, counter_cache: true
   belongs_to :country
   has_many :bookings
   # belongs_to :user
