@@ -1,6 +1,6 @@
 class Gym < ApplicationRecord
   belongs_to :city, counter_cache: true
-  belongs_to :country
+  belongs_to :country, counter_cache: true
   has_many :bookings
   # belongs_to :user
   geocoded_by :address
