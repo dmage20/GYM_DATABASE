@@ -3,10 +3,13 @@ class GymsController < ApplicationController
   def index
       @gym = Gym.new
 
-    if params["gym"]["address"].present?
+    # the first search term is tied to the banner search button
+    if !params["gym"].blank? && !params["gym"]["address"].blank?
         @gyms = Gym.near(params["gym"]["address"],10)
+        puts "#{params["gym"].blank?}"
 
     else
+      puts "#{params["gym"].blank?}"
       @city = City.all.sample
       @gyms = Gym.joins(:city).where('cities.name' => @city.name)
     end
@@ -49,7 +52,6 @@ class GymsController < ApplicationController
 
   end
 end
-
 
 
         # additional search params
