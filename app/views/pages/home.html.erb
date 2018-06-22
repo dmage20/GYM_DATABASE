@@ -9,7 +9,6 @@
         placeholder: "Type a city name"
       %>
     <#% end %> -->
-
   <div class="cards-container">
     <%= render 'components/cards' %>
   </div>
@@ -20,4 +19,16 @@
   data-markers="<%= @markers.to_json %>"
   ></div>
 </div>
+<h3>Interesting facts</h3>
+  <%= render 'components/profile_cards' %>
+
+ <!--  <%# @coutries.each do |country| %>
+  <%# @city = country.cities.order('gyms_count').last %>
+  <div class="profile">
+    <div class="counrty"></div>
+      <div class="city"><%#= @city.name %><%#= country.name %></div>
   </div>
+  <%# end %> -->
+
+
+</div>

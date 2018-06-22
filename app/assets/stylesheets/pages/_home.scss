@@ -1,1 +1,21 @@
-// Specific CSS for your home-page
+.profile {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 50% 50%;
+  height: calc(100vh - 70px);
+  padding: 30px;
+}
+.profile .main {
+  grid-row: 1 / span 1;
+  grid-column: 1 / span 1;
+}
+
+.main, .not-main, {
+  background: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  padding: 50px;
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
