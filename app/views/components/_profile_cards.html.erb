@@ -1,0 +1,17 @@
+<div class="row">
+    <% @coutries.each do |country| %>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+     <div class="profile-card">
+
+        <div class="card-category"><%= country.name %></div>
+           <% @city = country.cities.order('gyms_count').last %>
+        <div class="card-description">
+          <h2><%= @city.name %></h2>
+          <p><%= @city.gyms_count %> Crossfit gyms</p>
+          <p>Explore <%= @city.name %> gyms</p>
+        </div>
+
+      </div>
+    </div>
+    <% end %>
+</div>

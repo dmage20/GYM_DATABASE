@@ -4,15 +4,20 @@ class PagesController < ApplicationController
   def home
     @gym = Gym.new
 
-          @gyms = Gym.all.sample(9)
+      @gyms = Gym.all.sample(9)
 
 
         @markers = @gyms.map do |gym|
         {
           lat: gym.latitude,
-          lng: gym.longitude#,
-         # infoWindow: { content: render_to_string(partial: "/flats/map_box", locals: { flat: flat }) }
+          lng: gym.longitude,
+          infoWindow: { content: render_to_string(partial: "/gyms/map_box", locals: { gym: gym }) }
         }
       end
+
+      # create items for the country profile
+      @coutries = Country.order('gyms_count').last(6)
+
+
   end
 end

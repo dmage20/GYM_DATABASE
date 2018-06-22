@@ -17,8 +17,8 @@ class GymsController < ApplicationController
         @markers = @gyms.map do |gym|
         {
           lat: gym.latitude,
-          lng: gym.longitude#,
-         # infoWindow: { content: render_to_string(partial: "/flats/map_box", locals: { flat: flat }) }
+          lng: gym.longitude,
+          infoWindow: { content: render_to_string(partial: "/gyms/map_box", locals: { gym: gym }) }
         }
       end
     #   sql_query = " \
