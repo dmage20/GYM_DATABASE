@@ -20,6 +20,7 @@ gyms.each do |gym|
   address = gym["address"]
   latitude = gym["latlon"].split(",")[0]
   longitude = gym["latlon"].split(",")[1]
+  website = gym["website"]
 
   if Country.exists?(name: "#{gym["country"]}")
     country = Country.find_by_name("#{gym["country"]}")
@@ -36,7 +37,7 @@ gyms.each do |gym|
   # binding.pry
   end
 
-  box = Gym.new(name: name, address: address, country: country, city: city, latitude: latitude, longitude: longitude)
+  box = Gym.new(name: name, address: address, country: country, city: city, latitude: latitude, longitude: longitude, website: website)
   box.save!
 
 end
