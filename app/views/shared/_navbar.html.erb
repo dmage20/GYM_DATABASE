@@ -7,6 +7,7 @@
   <!-- Right Navigation -->
   <div class="navbar-wagon-right hidden-xs hidden-sm">
 
+    <% if user_signed_in? %>
       <!-- Search Method -->
       <%#= form_tag gyms_path, method: :get do %>
       <%#= text_field_tag :query,
@@ -29,7 +30,6 @@
     <!-- </div> -->
 
     <%# end %>
-    <% if user_signed_in? %>
       <!-- Links when logged in -->
       <%= link_to "Host", "#", class: "navbar-wagon-item navbar-wagon-link" %>
       <%= link_to "Trips", "#", class: "navbar-wagon-item navbar-wagon-link" %>
