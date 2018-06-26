@@ -1,18 +1,28 @@
 class GymsController < ApplicationController
-  # skip_before_action :authenticate_user!, only: :index
+  require 'open-uri'
+  skip_before_action :authenticate_user!, only: :index
+
+  def show
+    @gym = Gym.find(params["id"])
+    url = "https://www.instagram.com/web/search/topsearch/?context=blended&query=#{@gym.name}"
+    user_serialized = open(url).read
+    @user = JSON.parse(user_serialized)
+    binding.pry
+  end
+
   def index
       @gym = Gym.new
 
     # the first search term is tied to the banner search button
     if !params["gym"].blank? && !params["gym"]["address"].blank?
         @gyms = Gym.near(params["gym"]["address"],10)
-        puts "#{params["gym"].blank?}"
 
     else
-      puts "#{params["gym"].blank?}"
+
       @city = City.all.sample
       @gyms = Gym.joins(:city).where('cities.name' => @city.name)
     end
+
 
         @markers = @gyms.map do |gym|
         {
