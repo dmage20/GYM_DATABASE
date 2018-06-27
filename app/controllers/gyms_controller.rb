@@ -1,14 +1,50 @@
 class GymsController < ApplicationController
   require 'open-uri'
+  require 'nokogiri'
   skip_before_action :authenticate_user!, only: :index
 
   def show
     @gym = Gym.find(params["id"])
-    url = "https://www.instagram.com/web/search/topsearch/?context=blended&query=#{@gym.name}"
-    user_serialized = open(url).read
-    @user = JSON.parse(user_serialized)
-    binding.pry
+
+   url_search = "https://www.instagram.com/web/search/topsearch/?context=blended&query=#{@gym.name}"
+   user_serialized = open(url_search).read
+   @user = JSON.parse(user_serialized)
+   @sorted = @user.first[1].sort_by { |each| each["user"]["follower_count"] }
+   @profile = @sorted.last
+   @username = @profile["user"]["username"]
+   # binding.pry
+   url = "https://www.instagram.com/#{@username}/"
+
+   html_file = open(url).read
+   html_doc = Nokogiri::HTML(html_file)
+   element = html_doc.text.strip
+   @results = []
+   html_doc.search('script').each do |element|
+    @results << element
+    # puts element.text.strip
+    # puts element.attribute('href')
+
+    end
+
+     @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
+     # access here to profile information
+     @user = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]
+     # access here to an array with the photos and information post level
+     @media = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]["edge_owner_to_timeline_media"]["edges"]
+
+
+
+    # url = "https://www.instagram.com/web/search/topsearch/?context=blended&query=#{@gym.name}"
+
+    # @profile_pic = @profile["user"]["profile_pic_url"]
+
+    # @second_url = "https://www.instagram.com/#{@username}/?__a=1"
+    # second_serialized = open(second_url).read
+    # @instagram = JSON.parse(second_serialized)
+
   end
+
+
 
   def index
       @gym = Gym.new
