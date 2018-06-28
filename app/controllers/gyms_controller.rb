@@ -5,14 +5,14 @@ class GymsController < ApplicationController
 
   def show
     @gym = Gym.find(params["id"])
-
+   # search for gym possible instagram ids and pick the one with most followers
    url_search = "https://www.instagram.com/web/search/topsearch/?context=blended&query=#{@gym.name}"
    user_serialized = open(url_search).read
    @user = JSON.parse(user_serialized)
    @sorted = @user.first[1].sort_by { |each| each["user"]["follower_count"] }
    @profile = @sorted.last
    @username = @profile["user"]["username"]
-   # binding.pry
+   # search for gym details
    url = "https://www.instagram.com/#{@username}/"
 
    html_file = open(url).read
@@ -29,10 +29,24 @@ class GymsController < ApplicationController
      @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
      # access here to profile information
      @user = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]
+     @bio = @user["biography"]
      # access here to an array with the photos and information post level
      @media = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]["edge_owner_to_timeline_media"]["edges"]
-
-
+     # google section
+     # get google places id
+     url_places = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=#{@gym.name} #{@gym.city.name}&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,place_id,geometry&key=#{ENV['GOOGLE_API_BROWSER_KEY']}"
+     places_serialized = open(url_places).read
+     @places = JSON.parse(places_serialized)
+     place_id = @places["candidates"][0]["place_id"]
+     url_details = "https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJM2pqU5A40i0RmupvZnBDMM8&fields=name,rating,formatted_phone_number,formatted_address,opening_hours&key=#{ENV['GOOGLE_API_BROWSER_KEY']}"
+     details_serialized = open(url_details).read
+     @details = JSON.parse(details_serialized)
+     # @hours is an array with days
+     @hours = @details["result"]["opening_hours"]["weekday_text"]
+     @formatted_address = @details["result"]["formatted_address"]
+     @formatted_phone_number = @details["result"]["formatted_phone_number"]
+     # true or false
+     @open_now = @details["result"]["opening_hours"]["open_now"]
 
     # url = "https://www.instagram.com/web/search/topsearch/?context=blended&query=#{@gym.name}"
 
