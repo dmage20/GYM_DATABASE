@@ -1,6 +1,41 @@
-<h1><%= @gym.name %></h1>
+<h1><%#= @gym.name %></h1>
+<div class="main-container">
+    <div class="cards-container">
 <%# binding.pry %>
-
 <%#= image_tag @profile["user"]["profile_pic_url"] %>
 <%#= render 'components/instagram_cards' %>
-<%= render 'components/instagram_cards' %>
+    <%= render 'components/instagram_cards' %>
+    </div>
+
+
+<!--       <%#= form_tag gyms_path, method: :get do %>
+      <%#= text_field_tag :query,
+        params[:query],
+        class: "form-control",
+        placeholder: "Type a city name"
+      %>
+    <#% end %> -->
+  <!-- <div
+  id="map"
+  style="width: 100%;
+  height: 600px;"
+  data-markers="<%= @markers.to_json %>"
+  ></div> -->
+  <div class="information">
+    <h2><%= @gym.name %></h2>
+  <div class="intro">
+    <%= image_tag @profile["user"]["profile_pic_url"], :class=> "avatar" %>
+    <p> <%= @user["biography"] %> </p>
+  </div>
+  <ul>
+  <% @hours.each do |thing| %>
+    <li><%= thing %></li>
+  <% end %>
+  </ul>
+  <p> <%= @formatted_address %></p>
+  <p> <%= @formatted_phone_number %></p>
+  <h3> <%= @open_now %></h3>
+  </div>
+
+
+</div>
