@@ -38,15 +38,21 @@ class GymsController < ApplicationController
      places_serialized = open(url_places).read
      @places = JSON.parse(places_serialized)
      place_id = @places["candidates"][0]["place_id"]
-     url_details = "https://maps.googleapis.com/maps/api/place/details/json?placeid=ChIJM2pqU5A40i0RmupvZnBDMM8&fields=name,rating,formatted_phone_number,formatted_address,opening_hours&key=#{ENV['GOOGLE_API_BROWSER_KEY']}"
+     url_details = "https://maps.googleapis.com/maps/api/place/details/json?placeid=#{place_id}&fields=name,rating,formatted_address,formatted_phone_number,opening_hours&key=#{ENV['GOOGLE_API_BROWSER_KEY']}"
+
+     # "https://maps.googleapis.com/maps/api/place/details/json?placeid=#{place_id}&fields=name,rating,formatted_phone_number,formatted_address,opening_hours&key=#{ENV['GOOGLE_API_BROWSER_KEY']}"
+
      details_serialized = open(url_details).read
      @details = JSON.parse(details_serialized)
      # @hours is an array with days
+
+     if !@details["result"]["opening_hours"].blank?
      @hours = @details["result"]["opening_hours"]["weekday_text"]
+     @open_now = @details["result"]["opening_hours"]["open_now"]
+      end
      @formatted_address = @details["result"]["formatted_address"]
      @formatted_phone_number = @details["result"]["formatted_phone_number"]
      # true or false
-     @open_now = @details["result"]["opening_hours"]["open_now"]
 
     # url = "https://www.instagram.com/web/search/topsearch/?context=blended&query=#{@gym.name}"
 
