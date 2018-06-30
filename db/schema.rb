@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_22_151940) do
+ActiveRecord::Schema.define(version: 2018_06_30_070324) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,16 @@ ActiveRecord::Schema.define(version: 2018_06_22_151940) do
     t.bigint "gym_id"
     t.index ["gym_id"], name: "index_bookings_on_gym_id"
     t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
+
+  create_table "bookmarks", force: :cascade do |t|
+    t.boolean "bookmarked", default: false
+    t.bigint "user_id"
+    t.bigint "gym_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["gym_id"], name: "index_bookmarks_on_gym_id"
+    t.index ["user_id"], name: "index_bookmarks_on_user_id"
   end
 
   create_table "cities", force: :cascade do |t|
@@ -77,6 +87,8 @@ ActiveRecord::Schema.define(version: 2018_06_22_151940) do
 
   add_foreign_key "bookings", "gyms"
   add_foreign_key "bookings", "users"
+  add_foreign_key "bookmarks", "gyms"
+  add_foreign_key "bookmarks", "users"
   add_foreign_key "cities", "countries"
   add_foreign_key "gyms", "cities"
   add_foreign_key "gyms", "countries"
