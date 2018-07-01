@@ -22,11 +22,14 @@
   data-markers="<%= @markers.to_json %>"
   ></div> -->
   <div class="information">
+
     <div class="show-container">
     <%= image_tag @profile["user"]["profile_pic_url"], :class=> "avatar-large" %>
+
   <div class="intro">
     <h2><%= @gym.name %></h2>
     <p> <%= @user["biography"] %> </p>
+     <i class="far fa-bookmark"></i>
   </div>
   <div class="hours">
     <% if !@hours.blank? %>
