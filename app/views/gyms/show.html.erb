@@ -24,7 +24,11 @@
   <div class="information">
 
     <div class="show-container">
-    <%= image_tag @profile["user"]["profile_pic_url"], :class=> "avatar-large" %>
+      <% if  !@profile.blank? %>
+
+        <%= image_tag @profile["user"]["profile_pic_url"], :class=> "avatar-large" %>
+
+      <% end %>
 
   <div class="intro">
     <h2><%= @gym.name %></h2>

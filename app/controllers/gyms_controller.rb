@@ -1,14 +1,33 @@
 class GymsController < ApplicationController
   require 'open-uri'
   require 'nokogiri'
+  require 'i18n'
   skip_before_action :authenticate_user!, only: :index
 
   def show
     @gym = Gym.find(params["id"])
    # search for gym possible instagram ids and pick the one with most followers
    url_search = "https://www.instagram.com/web/search/topsearch/?context=blended&query=#{@gym.name}"
-   user_serialized = open(url_search).read
+   user_serialized = open(I18n.transliterate(url_search)).read
    @user = JSON.parse(user_serialized)
+    if @user["users"].blank?
+      # binding.pry
+      @pk =  @user["places"][0]["place"]["location"]["pk"]
+      url = "https://www.instagram.com/explore/locations/#{@pk}/#{@gym.name.split[0]}-#{@gym.name.split[1]}/"
+      html_file = open(I18n.transliterate(url)).read
+      html_doc = Nokogiri::HTML(html_file)
+      element = html_doc.text.strip
+      @results = []
+      html_doc.search('script').each do |element|
+        @results << element
+
+        end
+      @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
+      @media = @instagram["entry_data"]["LocationsPage"][0]["graphql"]["location"]["edge_location_to_media"]["edges"]
+      # @user = ""
+      # @bio = ""
+      # binding.pry
+    else
    @sorted = @user.first[1].sort_by { |each| each["user"]["follower_count"] }
    @profile = @sorted.last
    @username = @profile["user"]["username"]
@@ -32,10 +51,11 @@ class GymsController < ApplicationController
      @bio = @user["biography"]
      # access here to an array with the photos and information post level
      @media = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]["edge_owner_to_timeline_media"]["edges"]
+    end
      # google section
      # get google places id
      url_places = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=#{@gym.name} #{@gym.city.name}&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,place_id,geometry&key=#{ENV['GOOGLE_API_BROWSER_KEY']}"
-     places_serialized = open(url_places).read
+     places_serialized = open(I18n.transliterate(url_places)).read
      @places = JSON.parse(places_serialized)
      place_id = @places["candidates"][0]["place_id"]
      url_details = "https://maps.googleapis.com/maps/api/place/details/json?placeid=#{place_id}&fields=name,rating,formatted_address,formatted_phone_number,opening_hours&key=#{ENV['GOOGLE_API_BROWSER_KEY']}"
