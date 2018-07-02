@@ -10,8 +10,13 @@
           <p><%= @city.gyms_count %> Crossfit gyms</p>
           <p>Explore <%= @city.name %> gyms</p>
         </div>
+            <div class="card-link">
 
+              <%= link_to "Link", gyms_path(:profile_card => "#{@city.name}"), :class => "card-link" %>
+
+            </div>
       </div>
     </div>
     <% end %>
 </div>
+

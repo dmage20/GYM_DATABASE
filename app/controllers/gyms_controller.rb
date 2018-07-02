@@ -11,7 +11,7 @@ class GymsController < ApplicationController
    user_serialized = open(I18n.transliterate(url_search)).read
    @user = JSON.parse(user_serialized)
     if @user["users"].blank?
-      # binding.pry
+
       @pk =  @user["places"][0]["place"]["location"]["pk"]
       url = "https://www.instagram.com/explore/locations/#{@pk}/#{@gym.name.split[0]}-#{@gym.name.split[1]}/"
       html_file = open(I18n.transliterate(url)).read
@@ -89,14 +89,19 @@ class GymsController < ApplicationController
   def index
       @gym = Gym.new
 
+    if params.has_key?(:profile_card)
+      @gyms = Gym.joins(:city).where('cities.name' => params["profile_card"])
+      # @gyms = Gym.near(params["profile_card"],10)
+
+
     # the first search term is tied to the banner search button
-    if !params["gym"].blank? && !params["gym"]["address"].blank?
+    elsif !params["gym"].blank? && !params["gym"]["address"].blank?
         @gyms = Gym.near(params["gym"]["address"],10)
 
     else
-
       @city = City.all.sample
       @gyms = Gym.joins(:city).where('cities.name' => @city.name)
+
     end
 
 
