@@ -1,5 +1,5 @@
 
   <%= image_tag "https://maps.googleapis.com/maps/api/streetview?size=600x300&location=#{gym.latitude},#{gym.longitude}&heading=151.78&pitch=-0.76&key=#{ENV['GOOGLE_API_BROWSER_KEY']}", class: "picture" %>
 
-<div style="font-weight: bold;"><%= gym.name %></div>
-<%= link_to 'website', gym.website, target: '_blank' %>
+<div style="font-weight: bold;"><%= link_to gym.name, gym_path(gym) %></div>
+<%#= link_to 'website', gym.website, target: '_blank' %>

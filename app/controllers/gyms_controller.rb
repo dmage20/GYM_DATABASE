@@ -5,7 +5,16 @@ class GymsController < ApplicationController
   skip_before_action :authenticate_user!, only: :index
 
   def show
+    @gyms = []
     @gym = Gym.find(params["id"])
+    @gyms << @gym
+        @markers = @gyms.map do |gym|
+        {
+          lat: gym.latitude,
+          lng: gym.longitude,
+          infoWindow: { content: render_to_string(partial: "/gyms/map_box", locals: { gym: gym }) }
+        }
+      end
    # search for gym possible instagram ids and pick the one with most followers
    url_search = "https://www.instagram.com/web/search/topsearch/?context=blended&query=#{@gym.name}"
    user_serialized = open(I18n.transliterate(url_search)).read
@@ -89,8 +98,9 @@ class GymsController < ApplicationController
   def index
       @gym = Gym.new
 
-    if params.has_key?(:profile_card)
-      @gyms = Gym.joins(:city).where('cities.name' => params["profile_card"])
+    if params.has_key?(:city)
+      @gyms = Gym.joins(:country , :city).where('cities.name' => params["city"], 'countries.name' => params["country"])
+      # @gyms = Gym.joins(:city).where('cities.name' => params["profile_card"])
       # @gyms = Gym.near(params["profile_card"],10)
 
 
