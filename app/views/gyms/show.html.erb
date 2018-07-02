@@ -31,7 +31,13 @@
       <% end %>
 
   <div class="intro">
-    <h2><%= @gym.name %></h2>
+
+      <ul class="list-inline">
+        <li><h2><%= @gym.name %></h2> </li>
+        <li><%= link_to 'website', @gym.website, target: '_blank' %> </li>
+      </ul>
+
+
     <p> <%= @user["biography"] %> </p>
      <i class="far fa-bookmark"></i>
   </div>
@@ -50,6 +56,7 @@
     <% if @open_now %>
       <a href="#" class="open-now">Open</a>
     <% end %>
+
   </div>
 </div>
 
