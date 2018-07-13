@@ -45,18 +45,18 @@
      <!-- <i class="far fa-bookmark"></i> -->
   </div>
 
- <div class="classes">
-      <p>Classes for <%= @location_schedule[0]["start_date_time"].split("  ")[0] %></p>
+<!--  <div class="classes">
+      <p>Classes for <%#= @location_schedule[0]["start_date_time"].split("  ")[0] %></p>
     <ul class="hours">
-    <% @location_schedule.each do |thing| %>
+    <%# @location_schedule.each do |thing| %>
       <div class="element list-inline">
-      <li><strong> <%= thing["class_name"] %></strong></li>
-      <li>Start: <%= thing["start_date_time"].split("  ")[1] %></li>
-      <li>End: <%= thing["end_date_time"].split("  ")[1] %></li>
+      <li><strong> <%#= thing["class_name"] %></strong></li>
+      <li>Start: <%#= thing["start_date_time"].split("  ")[1] %></li>
+      <li>End: <%#= thing["end_date_time"].split("  ")[1] %></li>
       </div>
-    <% end %>
+    <%# end %>
     </ul>
-  </div>
+  </div> -->
 
   <p> <strong>Address:</strong> <%= @formatted_address %></p>
   <p> <strong>Phone:</strong> <%= @formatted_phone_number %></p>
