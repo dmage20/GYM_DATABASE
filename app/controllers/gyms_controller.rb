@@ -126,13 +126,13 @@ class GymsController < ApplicationController
     end
      # google section
      # get google places id
-     url_places = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=#{@gym.name} #{@gym.city.name}&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,place_id,geometry&key=#{ENV['GOOGLE_API_BROWSER_KEY']}"
+     url_places = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=#{@gym.name} #{@gym.city.name}&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,place_id,geometry&key=#{ENV['GOOGLE_API_SERVER_KEY']}"
      places_serialized = open(I18n.transliterate(url_places)).read
      @places = JSON.parse(places_serialized)
-
+     # binding.pry
      if !@places["candidates"].blank?
       place_id = @places["candidates"][0]["place_id"]
-      url_details = "https://maps.googleapis.com/maps/api/place/details/json?placeid=#{place_id}&fields=name,rating,formatted_address,formatted_phone_number,opening_hours&key=#{ENV['GOOGLE_API_BROWSER_KEY']}"
+      url_details = "https://maps.googleapis.com/maps/api/place/details/json?placeid=#{place_id}&fields=name,rating,formatted_address,formatted_phone_number,opening_hours&key=#{ENV['GOOGLE_API_SERVER_KEY']}"
 
      # "https://maps.googleapis.com/maps/api/place/details/json?placeid=#{place_id}&fields=name,rating,formatted_phone_number,formatted_address,opening_hours&key=#{ENV['GOOGLE_API_BROWSER_KEY']}"
       details_serialized = open(url_details).read
