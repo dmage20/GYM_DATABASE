@@ -2,7 +2,70 @@ class GymsController < ApplicationController
   require 'open-uri'
   require 'nokogiri'
   require 'i18n'
+  require 'savon'
   skip_before_action :authenticate_user!, only: :index
+
+  def class_schedule
+    # Setup credentials
+    site_ids = { 'int' => -99 } # Use your site ID here
+    source_credentials = {
+      'SourceName' => 'gngbase',
+      'Password' => 'VtA5jsaF3ShKtoaw2e2/tBepZLU=',
+      'SiteIDs' => site_ids
+    }
+    user_credentials = {
+      'Username' => 'Siteowner',
+      'Password' => 'apitest1234',
+      'SiteIDs' => site_ids
+    }
+      #######################
+      ## Standard API call ##
+      #######################
+
+      # Create Savon client using default settings
+      http_client = Savon.client(wsdl: "https://api.mindbodyonline.com/0_5/ClassService.asmx?WSDL")
+
+      # Create request and package it for the call
+      http_request = {
+        'SourceCredentials' => source_credentials,
+        'UserCredentials' => user_credentials
+      }
+      params = { 'Request' => http_request }
+
+      # Fetch current day's classes via GetClasses
+      # https://developers.mindbodyonline.com/Documentation/ClassService?version=v5.0
+      result = http_client.call(:get_classes, message: params)
+
+      # Parse class data
+      class_data = result.body.dig(:get_classes_response, :get_classes_result, :classes, :class)
+
+      formatted_classes = class_data.map do |scheduled_class|
+        {
+          name: scheduled_class.dig(:class_description, :name),
+          description: scheduled_class.dig(:class_description, :description),
+          start_date_time: scheduled_class[:start_date_time].strftime("%B %d, %Y %l:%M%P"),
+          end_date_time: scheduled_class[:end_date_time].strftime("%B %d, %Y %l:%M%P")
+        }
+      end
+
+      # Display class info
+      puts "Class schedule:"
+      @location_schedule = []
+      formatted_classes.each do |formatted_class|
+        # puts "Name: #{formatted_class[:name]} (#{formatted_class[:start_date_time]} - #{formatted_class[:end_date_time]})"
+        # puts "Description: #{formatted_class[:description]}"
+        # puts "-----------------------------------------------------------"
+        each_class = {
+        "class_name" => "#{formatted_class[:name]}",
+        "start_date_time" => "#{formatted_class[:start_date_time]}",
+        "end_date_time" => "#{formatted_class[:end_date_time]}",
+        "description" => "#{formatted_class[:description]}"
+      }
+      @location_schedule << each_class
+
+      end
+
+  end
 
   def show
     @gyms = []
@@ -66,21 +129,23 @@ class GymsController < ApplicationController
      url_places = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=#{@gym.name} #{@gym.city.name}&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,place_id,geometry&key=#{ENV['GOOGLE_API_BROWSER_KEY']}"
      places_serialized = open(I18n.transliterate(url_places)).read
      @places = JSON.parse(places_serialized)
-     place_id = @places["candidates"][0]["place_id"]
-     url_details = "https://maps.googleapis.com/maps/api/place/details/json?placeid=#{place_id}&fields=name,rating,formatted_address,formatted_phone_number,opening_hours&key=#{ENV['GOOGLE_API_BROWSER_KEY']}"
+
+     if !@places["candidates"].blank?
+      place_id = @places["candidates"][0]["place_id"]
+      url_details = "https://maps.googleapis.com/maps/api/place/details/json?placeid=#{place_id}&fields=name,rating,formatted_address,formatted_phone_number,opening_hours&key=#{ENV['GOOGLE_API_BROWSER_KEY']}"
 
      # "https://maps.googleapis.com/maps/api/place/details/json?placeid=#{place_id}&fields=name,rating,formatted_phone_number,formatted_address,opening_hours&key=#{ENV['GOOGLE_API_BROWSER_KEY']}"
-
-     details_serialized = open(url_details).read
-     @details = JSON.parse(details_serialized)
+      details_serialized = open(url_details).read
+      @details = JSON.parse(details_serialized)
+    end
      # @hours is an array with days
 
-     if !@details["result"]["opening_hours"].blank?
+     if !@details.blank? && !@details["result"]["opening_hours"].blank?
      @hours = @details["result"]["opening_hours"]["weekday_text"]
      @open_now = @details["result"]["opening_hours"]["open_now"]
-      end
      @formatted_address = @details["result"]["formatted_address"]
      @formatted_phone_number = @details["result"]["formatted_phone_number"]
+      end
      # true or false
 
     # url = "https://www.instagram.com/web/search/topsearch/?context=blended&query=#{@gym.name}"
@@ -90,6 +155,7 @@ class GymsController < ApplicationController
     # @second_url = "https://www.instagram.com/#{@username}/?__a=1"
     # second_serialized = open(second_url).read
     # @instagram = JSON.parse(second_serialized)
+    class_schedule
 
   end
 
