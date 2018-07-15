@@ -18,7 +18,7 @@
       <!-- Form Method -->
     <div class="search-bar">
     <%= simple_form_for(@gym, as: :gym, method: :get, url: gyms_path, wrapper: :inline_form, html: { class: 'form-inline' }) do |f| %>
-    <%= f.input :address %>
+    <%= f.input :address, placeholder: 'Try "Barcelona"' %>
     <%= f.submit 'find gyms', class: "btn btn-primary" %>
     <% end %>
     </div>
