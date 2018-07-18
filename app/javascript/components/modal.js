@@ -8,7 +8,6 @@
             // console.log(event);
             // console.log(event.currentTarget.innerHTML);
             var photo_url = event.currentTarget.innerHTML;
-            console.log(photo_url);
             document.getElementById('placehere').src = photo_url;
           });
 
