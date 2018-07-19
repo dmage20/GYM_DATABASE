@@ -16,12 +16,13 @@
       %>
       <%# end %>
       <!-- Form Method -->
-    <div class="search-bar">
-    <%= simple_form_for(@gym, as: :gym, method: :get, url: gyms_path, wrapper: :inline_form, html: { class: 'form-inline' }) do |f| %>
-    <%= f.input :address, placeholder: 'Try "Barcelona"' %>
-    <%= f.submit 'Find gyms', class: "btn btn-primary" %>
-    <% end %>
-    </div>
+    <!-- <div class="search-bar"> -->
+    <%#= simple_form_for(@gym, as: :gym, method: :get, url: gyms_path, wrapper: :inline_form, html: { class: 'form-inline' }) do |f| %>
+    <%#= f.input :address, placeholder: 'Try "Barcelona"' %>
+    <%#= f.submit 'Find gyms', class: "btn btn-primary" %>
+    <%# end %>
+    <!-- </div> -->
+    <%= render 'shared/search_bar' %>
     <%#= simple_form_for(@gym) do |f| %>
     <!-- <div class="form-inputs"> -->
     <%#= f.input :address, label: false, url: :gyms_path, method: :get %>
