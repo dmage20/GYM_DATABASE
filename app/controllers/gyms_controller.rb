@@ -169,10 +169,10 @@ class GymsController < ApplicationController
       # @gyms = Gym.joins(:city).where('cities.name' => params["profile_card"])
       # @gyms = Gym.near(params["profile_card"],10)
 
-
     # the first search term is tied to the banner search button
     elsif !params["gym"].blank? && !params["gym"]["address"].blank?
         @gyms = Gym.near(params["gym"]["address"],10)
+
 
     else
       @city = City.all.sample
