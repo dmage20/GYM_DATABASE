@@ -1,0 +1,7 @@
+<div class="banner publicity" style= "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= image_url '2018-Gameslogo.jpg' %>);">
+  <div class="banner-content">
+    <h1>Going to the CrossFit Games?</h1>
+    <p>Checkout local gyms you could visit</p>
+    <%= link_to "Madison", gyms_path(:gym => {:address => "Madison, WI, USA"}), :class => "btn btn-primary btn-lg" %>
+  </div>
+</div>
