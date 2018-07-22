@@ -23,6 +23,7 @@ gem 'webpacker'
 gem "geocoder"
 gem "httparty"
 gem 'savon'
+gem 'unsplash'
 
 # gem 'bootstrap'
 gem 'jquery-rails'

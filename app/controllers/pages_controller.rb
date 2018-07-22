@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  require 'unsplash'
   skip_before_action :authenticate_user!, only: [:home, :gyms]
 
   def home
@@ -17,7 +18,14 @@ class PagesController < ApplicationController
 
       # create items for the country profile
       @coutries = Country.order('gyms_count').last(50).sample(6)
-
+      # @cities = []
+      #  @coutries.each do |country|
+      #   city = country.cities.order('gyms_count').last
+      #   # search_results = Unsplash::Photo.search(city.name)
+      #   # background = search_results.sample.urls.small
+      #   @cities << city
+      #  end
+      # binding.pry
 
   end
 end
