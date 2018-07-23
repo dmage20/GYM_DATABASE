@@ -1,23 +1,22 @@
 <div class="row">
-    <% @coutries.each do |country| %>
+    <% @cities.each do |city| %>
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-           <% @city = country.cities.order('gyms_count').last %>
-           <% search_results = Unsplash::Photo.search(@city.name,country.name)%>
+           <% search_results = Unsplash::Photo.search(city.name,city.country.name)%>
            <% if !search_results[0].blank? %>
            <% @background = search_results.sample.urls.small %>
            <% else %>
            <% @background = image_url ['upsidedown.jpg','lady-stretching.jpg','weights.jpg'].sample %>
            <% end %>
      <div class="card" style= "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= @background %>);">
-        <div class="card-category"><%= country.name %></div>
+        <div class="card-category"><%= city.country.name %></div>
         <div class="card-description">
-          <h2><%= @city.name %></h2>
-          <p><%= @city.gyms_count %> Crossfit gyms</p>
-          <p>Explore <%= @city.name %> gyms</p>
+          <h2><%= city.name %></h2>
+          <p><%= city.gyms_count %> Crossfit gyms</p>
+          <p>Explore <%= city.name %> gyms</p>
         </div>
             <div class="card-link">
 
-              <%= link_to "Link", gyms_path(:city => "#{@city.name}", :country => "#{country.name}"), :class => "card-link" %>
+              <%= link_to "Link", gyms_path(:city => "#{city.name}", :country => "#{city.country.name}"), :class => "card-link" %>
 
             </div>
       </div>
