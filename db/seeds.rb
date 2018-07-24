@@ -10,7 +10,7 @@ Booking.destroy_all
 Gym.destroy_all
 City.destroy_all
 Country.destroy_all
-
+puts "Done Destroying"
 filepath = 'crossfit_locations.json'
 
 serialized_gyms = File.read(filepath)
@@ -21,6 +21,9 @@ gyms.each do |gym|
   latitude = gym["latlon"].split(",")[0]
   longitude = gym["latlon"].split(",")[1]
   website = gym["website"]
+  state = gym["full_state"] if !gym["full_state"].blank?
+  existing_states = City.where(name: gym["city"]).map { |city| city.state} if !gym["full_state"].blank?
+  existing_countries = City.where(name: gym["city"]).map { |city| city.country.name}
 
   if Country.exists?(name: "#{gym["country"]}")
     country = Country.find_by_name("#{gym["country"]}")
@@ -29,16 +32,21 @@ gyms.each do |gym|
     country.save!
   end
 
-  if City.exists?(name: "#{gym["city"]}")
-    city = City.find_by_name("#{gym["city"]}")
+  if City.exists?(name: "#{gym["city"]}") && !state.present? && existing_countries.include?(country.name)
+    city = City.joins(:country).where('countries.name' => country.name, 'cities.name' => gym["city"]).first
+    # City.find_by_name("#{gym["city"]}")
+  elsif City.exists?(name: "#{gym["city"]}") && !existing_states.blank? && existing_states.include?(state)
+      city = City.where(name: "#{gym["city"]}", state: gym["full_state"]).first
+      # City.find_by_name("#{gym["city"]}")
   else
   city = City.new(name: "#{gym["city"]}", country_id: "#{country.id}")
+  city.state = state if state.present?
   city.save!
-  # binding.pry
   end
 
   box = Gym.new(name: name, address: address, country: country, city: city, latitude: latitude, longitude: longitude, website: website)
   box.save!
 
+  # binding.pry if gym["city"] == "Berlin"
 end
 

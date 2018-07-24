@@ -10,7 +10,7 @@
      <div class="card" style= "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= @background %>);">
         <div class="card-category"><%= city.country.name %></div>
         <div class="card-description">
-          <h2><%= city.name %></h2>
+          <h2><%= city.name + " " + city.state.to_s %></h2>
           <p><%= city.gyms_count %> Crossfit gyms</p>
           <p>Explore <%= city.name %> gyms</p>
         </div>
