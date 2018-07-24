@@ -18,6 +18,7 @@ class PagesController < ApplicationController
 
       # create items for the country profile
       # @coutries = Country.order('gyms_count').last(25).sample(6)
+      # City.order('gyms_count').last(50).sample(9)
       @cities = City.order('gyms_count').last(50).sample(9)
   end
 end
