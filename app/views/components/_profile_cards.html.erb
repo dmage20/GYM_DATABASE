@@ -16,7 +16,7 @@
         </div>
             <div class="card-link">
 
-              <%= link_to "Link", gyms_path(:city => "#{city.name}", :country => "#{city.country.name}"), :class => "card-link" %>
+              <%= link_to "Link", gyms_path(:city => "#{city.name}", :country => "#{city.country.name}", :state => "#{city.state.to_s}" ), :class => "card-link" %>
 
             </div>
       </div>

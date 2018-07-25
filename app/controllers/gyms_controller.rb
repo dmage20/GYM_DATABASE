@@ -160,12 +160,13 @@ class GymsController < ApplicationController
   end
 
 
-
   def index
       @gym = Gym.new
-
-    if params.has_key?(:city)
+    if params.has_key?(:city) & !params["state"].blank?
+      @gyms = Gym.joins(:country , :city).where('cities.name' => params["city"], 'countries.name' => params["country"], 'cities.state' => params["state"])
+    elsif params.has_key?(:city) && params["state"].blank?
       @gyms = Gym.joins(:country , :city).where('cities.name' => params["city"], 'countries.name' => params["country"])
+      # binding.pry
       # @gyms = Gym.joins(:city).where('cities.name' => params["profile_card"])
       # @gyms = Gym.near(params["profile_card"],10)
 
