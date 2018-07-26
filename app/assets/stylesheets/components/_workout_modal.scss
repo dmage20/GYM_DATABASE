@@ -1,0 +1,11 @@
+.modal-content{
+  display: flex !important;
+  justify-content: space-between;
+}
+.image{
+  flex: 0 0 560px;
+}
+.text{
+  flex: 0 0 340px;
+  align-items: center;
+}
