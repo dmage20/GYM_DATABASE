@@ -1,0 +1,40 @@
+
+  <div class="row">
+    <% @workouts.first(3).each do |post| %>
+    <% url = post["node"]["thumbnail_src"] %>
+    <% text = post["node"]["edge_media_to_caption"]["edges"].first["node"]["text"] %>
+    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
+     <div class="card" style= "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= url %>');">
+
+        <div class="card-category"><%= @username %></div>
+        <div class="card-description">
+          <h2><%#= gym.name %></h2>
+
+          <p><%= text.split(".")[0] %></p>
+          <p><%#= gym.city.name %></p>
+        </div>
+        <div class="card-link">
+          <%#= link_to "Link", gym_path(gym), :class=> "card-link" %>
+            <!-- <button type="button" class="btn btn-primary card-link" data-toggle="modal"  data-target="#exampleModal">
+          </button> -->
+          <%= link_to url, "#", :class => "card-link link", :id => "clickme", data: {toggle: "modal", target: ".bd-example-modal-lg", texto: text} %>
+        </div>
+      </div>
+    </div>
+    <% end %>
+</div>
+
+<!-- Modal -->
+
+<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" style="width: 900px;">
+    <div class="modal-content">
+      <div class="image">
+        <%= image_tag("", :id => "placehere",  :style => "width: 560px") %>
+      </div>
+       <div class="text container">
+          <p id="instructions"></p>
+       </div>
+    </div>
+  </div>
+</div>

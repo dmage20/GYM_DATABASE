@@ -9,6 +9,8 @@
             // console.log(event.currentTarget.innerHTML);
             var photo_url = event.currentTarget.innerHTML;
             document.getElementById('placehere').src = photo_url;
+            var text_to_copy = event.currentTarget.dataset.texto;
+            document.getElementById('instructions').innerHTML = text_to_copy
           });
 
       });

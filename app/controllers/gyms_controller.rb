@@ -98,7 +98,7 @@ class GymsController < ApplicationController
       @media = @instagram["entry_data"]["LocationsPage"][0]["graphql"]["location"]["edge_location_to_media"]["edges"]
       # @user = ""
       # @bio = ""
-      # binding.pry
+
     else
    @sorted = @user.first[1].sort_by { |each| each["user"]["follower_count"] }
    @profile = @sorted.last
@@ -114,8 +114,12 @@ class GymsController < ApplicationController
     @results << element
     # puts element.text.strip
     # puts element.attribute('href')
-
     end
+    # puts "------------------------"
+    # puts "full name of chosen #{@profile["user"]["full_name"]}"
+    # puts "------------------------------"
+    # puts "this is the matched #{@user.first[1].each { |each| puts each["user"]["full_name"].match(@gym.name)}}"
+    # puts "----------------------------"
 
      @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
      # access here to profile information
@@ -123,6 +127,8 @@ class GymsController < ApplicationController
      @bio = @user["biography"]
      # access here to an array with the photos and information post level
      @media = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]["edge_owner_to_timeline_media"]["edges"]
+
+    # binding.pry if !@user["users"].blank?
     end
      # google section
      # get google places id
