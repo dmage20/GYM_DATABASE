@@ -35,6 +35,16 @@
       <ul class="list-inline">
         <li><h2><%= @gym.name %></h2> </li>
         <li><%= link_to 'website', @gym.website, target: '_blank' %> </li>
+        <li>
+          <% if !@profile.blank? %>
+            <%= link_to "https://www.instagram.com/#{@profile["user"]["username"]}", target: '_blank' do %>
+              <i class="fab fa-instagram"></i> instagram
+            <% end %>
+          <% end %>
+          <%#= link_to "", "https://www.instagram.com/#{@profile["user"]["username"]}" do %>
+            <%#= fa_icon "fa-instagram" %>
+          <%# end %>
+        </li>
         <% if @open_now %>
           <li> <a href="#" class="open-now">Open now</a> </li>
         <% end %>
@@ -72,7 +82,16 @@
   </div>
 
 
+<!--       <div class="link-container">
+        <div class="left">
+          <i class="fab fa-instagram">
+          <%#= link_to "", "https://www.instagram.com/#{@profile["user"]["username"]}", :class => "card-link link", :id => "to_instagram", target: '_blank' %>
+          </i>
+        </div>
+      </div> -->
+  <!-- here -->
   </div>
+
 </div>
 
 </div>
