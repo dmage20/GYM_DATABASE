@@ -8,7 +8,7 @@
 
         <div class="card-category"><%= @username %></div>
         <div class="card-description">
-          <h2><%#= gym.name %></h2>
+          <%= image_tag @profile_pic_url, :class=> "avatar-large" %>
 
           <p><%= text.split(".")[0] %></p>
           <p><%#= gym.city.name %></p>
@@ -33,6 +33,7 @@
         <%= image_tag("", :id => "placehere",  :style => "width: 560px") %>
       </div>
        <div class="text container">
+          <!-- <div id="instructions"></div> -->
           <p id="instructions"></p>
        </div>
     </div>

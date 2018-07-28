@@ -1,11 +1,12 @@
 <div class="row">
-    <% @cities.each do |city| %>
+    <% @unsplash_cities.each do |city| %>
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-           <% search_results = Unsplash::Photo.search(city.name,city.country.name)%>
-           <% if !search_results[0].blank? %>
-           <% @background = search_results.sample.urls.small %>
+           <%#search_results = Unsplash::Photo.search(city.name,city.country.name)
+           %>
+           <% if !city.url.blank? %>
+           <% @background = city.url %>
            <% else %>
-           <% @background = image_url ['upsidedown.jpg','lady-stretching.jpg','weights.jpg'].sample %>
+           <% @background = image_url ['upsidedown.jpg','lady-stretching.jpg','weights.jpg','woman-lifting.jpg'].sample %>
            <% end %>
      <div class="card" style= "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= @background %>);">
         <div class="card-category"><%= city.country.name %></div>

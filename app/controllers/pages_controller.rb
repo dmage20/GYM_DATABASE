@@ -26,25 +26,37 @@ class PagesController < ApplicationController
 
       # call the workout_profile function and pass it crossfit mayhem
       workout_profile("thecrossfitmayhem")
-      # binding.pry
+      # add unsplash image to each city in @cities
+      @unsplash_cities = @cities.each do |city|
+      url = "https://api.unsplash.com/search/collections?client_id=7f4b6697803bdc15bc73567bde8958a895445fbf1b0af13352b8169bf99b84b3&query=#{city.name}&per_page=10"
+      response = open(I18n.transliterate(url)).read
+      @response_parsed = JSON.parse(response)
+      city.url = @response_parsed["results"].first(5).sample["cover_photo"]["urls"]["small"] if !@response_parsed["results"].blank?
+      end
+
   end
+
+    # helper_method :unsplash
+
 
   def workout_profile(username)
     url = "https://www.instagram.com/#{username}/"
     @username = username.downcase
-   html_file = open(url).read
-   html_doc = Nokogiri::HTML(html_file)
-   element = html_doc.text.strip
-   @results = []
-   html_doc.search('script').each do |element|
-    @results << element
+    html_file = open(url).read
+    html_doc = Nokogiri::HTML(html_file)
+    element = html_doc.text.strip
+    @results = []
+    html_doc.search('script').each do |element|
+      @results << element
     end
 
      @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
      @media = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]["edge_owner_to_timeline_media"]["edges"]
+     @profile_pic_url =  @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]["profile_pic_url"]
      @workouts = []
      @media.each do |post|
       @workouts << post if !post["node"]["edge_media_to_caption"]["edges"].first["node"]["text"].downcase.match('post score').blank?
      end
+
   end
 end
