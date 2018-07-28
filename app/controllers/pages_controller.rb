@@ -28,10 +28,11 @@ class PagesController < ApplicationController
       workout_profile("thecrossfitmayhem")
       # add unsplash image to each city in @cities
       @unsplash_cities = @cities.each do |city|
-      url = "https://api.unsplash.com/search/collections?client_id=7f4b6697803bdc15bc73567bde8958a895445fbf1b0af13352b8169bf99b84b3&query=#{city.name}&per_page=10"
+      url = "https://api.unsplash.com/search/photos?client_id=7f4b6697803bdc15bc73567bde8958a895445fbf1b0af13352b8169bf99b84b3&query=#{city.name}&per_page=10"
       response = open(I18n.transliterate(url)).read
       @response_parsed = JSON.parse(response)
-      city.url = @response_parsed["results"].first(5).sample["cover_photo"]["urls"]["small"] if !@response_parsed["results"].blank?
+      # binding.pry
+      city.url =  @response_parsed["results"].first(5).sample["urls"]["small"] if !@response_parsed["results"].blank?
       end
 
   end
