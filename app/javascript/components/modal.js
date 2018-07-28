@@ -9,8 +9,12 @@
             // console.log(event.currentTarget.innerHTML);
             var photo_url = event.currentTarget.innerHTML;
             document.getElementById('placehere').src = photo_url;
+
             var text_to_copy = event.currentTarget.dataset.texto;
             document.getElementById('instructions').innerHTML = text_to_copy
+            var insta_user = event.currentTarget.dataset.user;
+            document.getElementById('to_instagram').innerHTML = `${insta_user}`
+            document.getElementById('to_instagram').href = `https://www.instagram.com/${insta_user}/`
           });
 
       });
