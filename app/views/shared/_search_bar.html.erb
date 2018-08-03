@@ -1,6 +1,12 @@
-    <div class="search-bar">
-    <%= simple_form_for(@gym, as: :gym, method: :get, url: gyms_path, wrapper: :inline_form, html: { class: 'form-inline' }) do |f| %>
-    <%= f.input :address, placeholder: 'Try "Barcelona"' %>
-    <%= f.submit 'Find gyms', class: "btn btn-primary" %>
-    <% end %>
+<div class="search-bar">
+  <%= simple_form_for(@gym, as: :gym, method: :get, url: gyms_path, wrapper: :inline_form, html: { class: 'form-row' }) do |f| %>
+    <div class="row">
+      <div class="col-xs-4 col-sm-4 col-lg-4">
+        <%= f.input :address, placeholder: 'Try "Barcelona"'%>
+      </div>
+      <div class="col">
+        <%= f.submit 'Find gyms', class: "btn btn-primary" %>
+      </div>
     </div>
+  <% end %>
+</div>
