@@ -52,7 +52,7 @@ class GymsController < ApplicationController
         end
       @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
       @media = @instagram["entry_data"]["LocationsPage"][0]["graphql"]["location"]["edge_location_to_media"]["edges"]
-      @user = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]
+      # @user = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]
  # --------------work with places above this line --------------------
     else
       hashtag = @user["hashtags"][0]["hashtag"]["name"]
