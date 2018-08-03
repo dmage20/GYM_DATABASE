@@ -38,7 +38,7 @@
         <li>
           <% if !@profile.blank? %>
             <%= link_to "https://www.instagram.com/#{@profile["user"]["username"]}", target: '_blank' do %>
-              <i class="fab fa-instagram" style="font-size: 30px"></i> instagram
+              <i class="fab fa-instagram" style="font-size: 30px"></i> <%= @username %>
             <% end %>
           <% end %>
           <%#= link_to "", "https://www.instagram.com/#{@profile["user"]["username"]}" do %>
