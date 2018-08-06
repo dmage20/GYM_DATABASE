@@ -45,7 +45,7 @@
             <%#= fa_icon "fa-instagram" %>
           <%# end %>
         </li>
-        <% if @open_now %>
+        <% if  @open_now %>
           <!-- <li> <a href="#" class="open-now">Open now</a> </li> -->
           <li><i class="fas fa-door-open" style="color: green; font-size: 30px"></i> Open Now</li>
         <% end %>
@@ -69,9 +69,9 @@
     </ul>
   </div> -->
 
-  <p> <strong>Address:</strong> <%= @formatted_address %></p>
-  <p> <strong>Phone:</strong> <%= @formatted_phone_number %></p>
-  <p> <strong>Hours:</strong></p>
+  <p> <span class="title-size">Address:</span> <%= @spot.formatted_address %></p>
+  <p> <span class="title-size">Phone:</span> <%= @spot.international_phone_number %></p>
+  <p> <span class="title-size">Hours:</span></p>
   <div class="hours">
     <% if !@hours.blank? %>
       <ul>
@@ -82,15 +82,22 @@
     <% end %>
   </div>
 
+    <div class="google-reviews">
+      <h3>Google Reviews</h3>
+     <% @spot.reviews.first(3).each do |review| %>
+      <div class="google-review">
+      <div class="review-avatar">
+        <%# binding.pry %>
+        <%= image_tag review.profile_photo_url, :class=> "avatar-google" %>
+      </div>
+      <div class="review-text">
+        <%= review.text.split(".")[0] %>
+      </div>
+      </div>
+     <% end %>
+    </div>
 
-<!--       <div class="link-container">
-        <div class="left">
-          <i class="fab fa-instagram">
-          <%#= link_to "", "https://www.instagram.com/#{@profile["user"]["username"]}", :class => "card-link link", :id => "to_instagram", target: '_blank' %>
-          </i>
-        </div>
-      </div> -->
-  <!-- here -->
+
   </div>
 
 </div>

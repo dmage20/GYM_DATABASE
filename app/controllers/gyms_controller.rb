@@ -3,6 +3,7 @@ class GymsController < ApplicationController
   require 'nokogiri'
   require 'i18n'
   require 'savon'
+  require 'google_places'
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def show
@@ -37,6 +38,8 @@ class GymsController < ApplicationController
       end
       @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
       @media = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]["edge_owner_to_timeline_media"]["edges"]
+      @user = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]
+
 # --------------work with users above this line --------------------
     elsif !@user["places"].blank?
 
@@ -53,7 +56,6 @@ class GymsController < ApplicationController
       @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
       @media = @instagram["entry_data"]["LocationsPage"][0]["graphql"]["location"]["edge_location_to_media"]["edges"]
       #
-      # @user = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]
  # --------------work with places above this line --------------------
     else
       hashtag = @user["hashtags"][0]["hashtag"]["name"]
@@ -74,27 +76,32 @@ class GymsController < ApplicationController
       @bio = @user["biography"]
      # access here to an array with the photos and information post level
 # ------------google places section -------------------------------------
+     @client = GooglePlaces::Client.new(ENV['GOOGLE_API_SERVER_KEY'])
+     spot = @client.spots(@gym.latitude, @gym.longitude, :name => @gym.name)
+     spot_id = spot.first.place_id
+     @spot = @client.spot(spot_id)
+     # url_places = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=#{@gym.name} #{@gym.city.name}&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,place_id,geometry&key=#{ENV['GOOGLE_API_SERVER_KEY']}"
+     # places_serialized = open(I18n.transliterate(url_places)).read
+     # @places = JSON.parse(places_serialized)
 
-     url_places = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=#{@gym.name} #{@gym.city.name}&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,place_id,geometry&key=#{ENV['GOOGLE_API_SERVER_KEY']}"
-     places_serialized = open(I18n.transliterate(url_places)).read
-     @places = JSON.parse(places_serialized)
+    #  if !@places["candidates"].blank?
+    #   place_id = @places["candidates"][0]["place_id"]
+    #   url_details = "https://maps.googleapis.com/maps/api/place/details/json?placeid=#{place_id}&fields=name,rating,formatted_address,formatted_phone_number,opening_hours&key=#{ENV['GOOGLE_API_SERVER_KEY']}"
 
-     if !@places["candidates"].blank?
-      place_id = @places["candidates"][0]["place_id"]
-      url_details = "https://maps.googleapis.com/maps/api/place/details/json?placeid=#{place_id}&fields=name,rating,formatted_address,formatted_phone_number,opening_hours&key=#{ENV['GOOGLE_API_SERVER_KEY']}"
+    #  # "https://maps.googleapis.com/maps/api/place/details/json?placeid=#{place_id}&fields=name,rating,formatted_phone_number,formatted_address,opening_hours&key=#{ENV['GOOGLE_API_BROWSER_KEY']}"
+    #   details_serialized = open(url_details).read
+    #   @details = JSON.parse(details_serialized)
+    # end
 
-     # "https://maps.googleapis.com/maps/api/place/details/json?placeid=#{place_id}&fields=name,rating,formatted_phone_number,formatted_address,opening_hours&key=#{ENV['GOOGLE_API_BROWSER_KEY']}"
-      details_serialized = open(url_details).read
-      @details = JSON.parse(details_serialized)
-    end
-
-     if !@details.blank? && !@details["result"]["opening_hours"].blank?
+     if !@spot.opening_hours.blank?
      # @hours is an array with days
-     @hours = @details["result"]["opening_hours"]["weekday_text"]
-     @open_now = @details["result"]["opening_hours"]["open_now"]
-     @formatted_address = @details["result"]["formatted_address"]
-     @formatted_phone_number = @details["result"]["formatted_phone_number"]
+     @hours = @spot.opening_hours["weekday_text"]
+
+     @open_now = @spot.opening_hours["open_now"]
+     # @formatted_address = @details["result"]["formatted_address"]
+     # @formatted_phone_number = @details["result"]["formatted_phone_number"]
       end
+
      # true or false
 
     # url = "https://www.instagram.com/web/search/topsearch/?context=blended&query=#{@gym.name}"
