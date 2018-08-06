@@ -54,7 +54,7 @@ class GymsController < ApplicationController
 
         end
       @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
-      @media = @instagram["entry_data"]["LocationsPage"][0]["graphql"]["location"]["edge_location_to_media"]["edges"]
+      @media = @instagram["entry_data"]["LocationsPage"][0]["graphql"]["location"]["edge_location_to_media"]["edges"].first(12)
       #
  # --------------work with places above this line --------------------
     else
@@ -78,8 +78,19 @@ class GymsController < ApplicationController
 # ------------google places section -------------------------------------
      @client = GooglePlaces::Client.new(ENV['GOOGLE_API_SERVER_KEY'])
      spot = @client.spots(@gym.latitude, @gym.longitude, :name => @gym.name)
-     spot_id = spot.first.place_id
-     @spot = @client.spot(spot_id)
+     if spot.blank?
+       spot = @client.spots_by_query("#{@gym.name} near #{@gym.city.name} #{@gym.city.state.to_s}")
+     end
+     if !spot.blank?
+      spot_id = spot.first.place_id
+      @spot = @client.spot(spot_id)
+      if !@spot.opening_hours.blank?
+        @hours = @spot.opening_hours["weekday_text"]
+        @open_now = @spot.opening_hours["open_now"]
+      end
+
+     end
+     # binding.pry
      # url_places = "https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=#{@gym.name} #{@gym.city.name}&inputtype=textquery&fields=photos,formatted_address,name,rating,opening_hours,place_id,geometry&key=#{ENV['GOOGLE_API_SERVER_KEY']}"
      # places_serialized = open(I18n.transliterate(url_places)).read
      # @places = JSON.parse(places_serialized)
@@ -93,14 +104,10 @@ class GymsController < ApplicationController
     #   @details = JSON.parse(details_serialized)
     # end
 
-     if !@spot.opening_hours.blank?
      # @hours is an array with days
-     @hours = @spot.opening_hours["weekday_text"]
 
-     @open_now = @spot.opening_hours["open_now"]
      # @formatted_address = @details["result"]["formatted_address"]
      # @formatted_phone_number = @details["result"]["formatted_phone_number"]
-      end
 
      # true or false
 
