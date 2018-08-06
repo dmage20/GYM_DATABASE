@@ -24,6 +24,7 @@ gem "geocoder"
 gem "httparty"
 gem 'savon'
 gem 'unsplash'
+gem 'google_places'
 
 # gem 'bootstrap'
 gem 'jquery-rails'

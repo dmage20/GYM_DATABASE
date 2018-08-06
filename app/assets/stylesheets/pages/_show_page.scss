@@ -15,6 +15,10 @@
   box-shadow: 0 1px 3px rgba(0,0,0,0.6);
   margin-right: 12px;
   position: relative;
+  font-size: medium;
+}
+.information h3{
+  font-size: 21px;
 }
 .show-container{
   padding-left: 12px;
@@ -41,4 +45,27 @@ list-style-type: none;
   background: #6AD58B;
   transition: background 0.3s ease;
   text-decoration: none;
+}
+.google-reviews h3{
+  font-size: 21px;
+}
+.google-review{
+display: flex;
+align-items:center;
+padding-top: 8px;
+}
+.review-avatar{
+flex: 0 0 12%;
+}
+.review-text{
+flex: 0 0 88%;
+font-size: small !important;
+background-color: lightgoldenrodyellow;
+padding: 5px;
+border-radius: 8px
+}
+.title-size{
+  font-size: 21px;
+  font-family: "Raleway", "Helvetica", "sans-serif";
+  font-weight: 500;
 }
