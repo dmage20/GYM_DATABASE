@@ -68,7 +68,7 @@
     <%# end %>
     </ul>
   </div> -->
-
+<% if !@spot.blank? %>
   <p> <span class="title-size">Address:</span> <%= @spot.formatted_address %></p>
   <p> <span class="title-size">Phone:</span> <%= @spot.international_phone_number %></p>
   <p> <span class="title-size">Hours:</span></p>
@@ -96,7 +96,7 @@
       </div>
      <% end %>
     </div>
-
+<% end %>
 
   </div>
 
