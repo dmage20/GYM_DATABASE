@@ -1,5 +1,5 @@
 <div class="row">
-    <% @unsplash_cities.each do |city| %>
+    <% @unsplash_cities.each_with_index do |city, index| %>
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
            <%#search_results = Unsplash::Photo.search(city.name,city.country.name)
            %>
@@ -19,6 +19,10 @@
 
               <%= link_to "Link", gyms_path(:city => "#{city.name}", :country => "#{city.country.name}", :state => "#{city.state.to_s}" ), :class => "card-link" %>
 
+            </div>
+            <div class="unsplash-credits">
+              Photo by <%= link_to "#{@photograpers[index]}", "https://unsplash.com/@#{@photograpers[index]}?utm_source=gngbase&utm_gngbase=referral", target: '_blank' %> on
+              <%= link_to "Unsplash", "https://unsplash.com/?utm_source=gngbase&utm_gngbase=referral", target: '_blank' %>
             </div>
       </div>
     </div>
