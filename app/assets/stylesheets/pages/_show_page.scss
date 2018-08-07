@@ -70,3 +70,14 @@ border-radius: 8px
   font-family: "Raleway", "Helvetica", "sans-serif";
   font-weight: 500;
 }
+@media (max-width: 400px) {
+   #find-gyms {
+      position: absolute;
+      right: 10px;
+  }
+}
+@media (max-width: 400px) {
+   #gym_address {
+      width: 90%;
+  }
+}
