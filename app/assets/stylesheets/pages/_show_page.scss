@@ -4,7 +4,7 @@
   padding-left: 7px;
 }
 .information{
-  flex: 0 0 450px;
+  // flex: 0 0 450px;
   height: auto;
   position: sticky !important; /* !important to override Gmaps inline CSS */
   top: 0 !important;
@@ -17,6 +17,11 @@
   margin-right: 12px;
   position: relative;
   font-size: medium;
+}
+@media (min-width: 400px) {
+   .information {
+      flex: 0 0 450px;
+  }
 }
 .information h3{
   font-size: 21px;
@@ -31,6 +36,11 @@
   position: absolute;
   top: -32px;
   left: 179px;
+}
+@media (max-width: 400px) {
+   .avatar-large {
+      left: 140px !important;
+  }
 }
 .hours{
   font-size: 14px;
@@ -81,3 +91,10 @@ border-radius: 8px
       width: 90%;
   }
 }
+@media (max-width: 400px) {
+   .information {
+      margin: 0px;
+  }
+}
+
+
