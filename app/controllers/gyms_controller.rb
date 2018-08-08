@@ -136,7 +136,9 @@ class GymsController < ApplicationController
     # the first search term is tied to the banner search button
     elsif !params["gym"].blank? && !params["gym"]["address"].blank?
         @gyms = Gym.near(params["gym"]["address"],10)
-
+          if @gyms.blank?
+            @gyms = Gym.near(params["gym"]["address"],30)
+          end
 
     else
       @city = City.all.sample
