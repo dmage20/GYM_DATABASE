@@ -21,7 +21,7 @@
 
             </div>
             <div class="unsplash-credits">
-              Photo by <%= link_to "#{@photograpers[index]}", "https://unsplash.com/@#{@photograpers[index]}?utm_source=gngbase&utm_gngbase=referral", target: '_blank' %> on
+              Photo by <%= link_to "#{@photograpers[index + (index + 1)]}", "https://unsplash.com/@#{@photograpers[@photograpers.length - (@photograpers.length - (index + (1 * index)))]}?utm_source=gngbase&utm_gngbase=referral", target: '_blank' %> on
               <%= link_to "Unsplash", "https://unsplash.com/?utm_source=gngbase&utm_gngbase=referral", target: '_blank' %>
             </div>
       </div>
@@ -29,3 +29,5 @@
     <% end %>
 </div>
 
+<!-- "https://unsplash.com/@#{@photograpers[index + (index + 1)]}?utm_source=gngbase&utm_gngbase=referral", "#{@photograpers[@photograpers.length - (@photograpers.length - (index + (1 * index)))]}"
+ -->
