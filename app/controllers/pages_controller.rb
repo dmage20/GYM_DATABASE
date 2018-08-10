@@ -37,7 +37,8 @@ class PagesController < ApplicationController
       city.url =  chosen_unsplash["urls"]["small"] if !@response_parsed["results"].blank?
       # ["urls"]["small"]
       photograper = chosen_unsplash["user"]["username"] if !@response_parsed["results"].blank?
-      @photograpers << photograper
+      photograper_name = chosen_unsplash["user"]["name"] if !@response_parsed["results"].blank?
+      @photograpers << photograper << photograper_name
       end
   end
 
