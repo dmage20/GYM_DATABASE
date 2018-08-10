@@ -22,10 +22,13 @@ class GymsController < ApplicationController
     user_serialized = open(I18n.transliterate(url_search)).read
     @user = JSON.parse(user_serialized)
 # -------------- initial get to instagram above with gym name --------------
+  # !@gym.username.blank?
+
     if !@user["users"].blank?
       @sorted = @user.first[1].sort_by { |each| each["user"]["follower_count"] }
       @profile = @sorted.last
       @username = @profile["user"]["username"]
+      @username = @gym.username if !@gym.username.blank?
    # search for gym details
       url = "https://www.instagram.com/#{@username}/"
 
