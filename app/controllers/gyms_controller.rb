@@ -6,25 +6,13 @@ class GymsController < ApplicationController
   require 'google_places'
   skip_before_action :authenticate_user!, only: [:index, :show]
 
-  def show
-    @gyms = []
-    @gym = Gym.find(params["id"])
-    @gyms << @gym
-        @markers = @gyms.map do |gym|
-        {
-          lat: gym.latitude,
-          lng: gym.longitude,
-          infoWindow: { content: render_to_string(partial: "/gyms/map_box", locals: { gym: gym }) }
-        }
-      end
-# -----search for gym possible instagram ids and pick the one with most followers
+  def instagram_web_search(gym_instance)
     url_search = "https://www.instagram.com/web/search/topsearch/?context=blended&query=#{@gym.name}"
     user_serialized = open(I18n.transliterate(url_search)).read
     @user = JSON.parse(user_serialized)
-# -------------- initial get to instagram above with gym name --------------
-  # !@gym.username.blank?
+  end
 
-    if !@user["users"].blank?
+  def instagram_user_method(instagram_web_search_result)
       @sorted = @user.first[1].sort_by { |each| each["user"]["follower_count"] }
       @profile = @sorted.last
       @username = @profile["user"]["username"]
@@ -42,9 +30,9 @@ class GymsController < ApplicationController
       @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
       @media = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]["edge_owner_to_timeline_media"]["edges"]
       @user = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]
+  end
 
-# --------------work with users above this line --------------------
-    elsif !@user["places"].blank?
+  def instagram_place_method(instagram_web_search_result)
 
       @pk =  @user["places"][0]["place"]["location"]["pk"]
       url = "https://www.instagram.com/explore/locations/#{@pk}/#{@gym.name.split[0]}-#{@gym.name.split[1]}/"
@@ -58,9 +46,10 @@ class GymsController < ApplicationController
         end
       @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
       @media = @instagram["entry_data"]["LocationsPage"][0]["graphql"]["location"]["edge_location_to_media"]["edges"].first(12)
-      #
- # --------------work with places above this line --------------------
-    else
+  end
+
+  def instagram_hashtag_method(instagram_web_search_result)
+
       hashtag = @user["hashtags"][0]["hashtag"]["name"]
       url = "https://www.instagram.com/explore/tags/#{hashtag}/"
       html_file = open(I18n.transliterate(url)).read
@@ -73,9 +62,81 @@ class GymsController < ApplicationController
         end
       @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
       @media =  @instagram["entry_data"]["TagPage"][0]["graphql"]["hashtag"]["edge_hashtag_to_media"]["edges"].first(12)
+  end
 
+  def show
+    @gyms = []
+    @gym = Gym.find(params["id"])
+    @gyms << @gym
+        @markers = @gyms.map do |gym|
+        {
+          lat: gym.latitude,
+          lng: gym.longitude,
+          infoWindow: { content: render_to_string(partial: "/gyms/map_box", locals: { gym: gym }) }
+        }
+      end
+# -----search for gym possible instagram ids and pick the one with most followers
+    instagram_web_search(@gym)
+# -------------- initial get to instagram above with gym name --------------
+  # !@gym.username.blank?
+  if !@gym.username.present? && !@gym.igplace.present? && !@gym.hashtag.present?
+
+    if !@user["users"].blank?
+
+    instagram_user_method(@user)
+# --------------work with users above this line --------------------
+    elsif !@user["places"].blank?
+    instagram_place_method(@user)
+      #
+ # --------------work with places above this line --------------------
+    else
+    instagram_hashtag_method(@user)
     end
 #--------------line where three options converge-----------------------
+  elsif @gym.username.present?
+    @username = @gym.username
+   # search for gym details
+      url = "https://www.instagram.com/#{@username}/"
+
+      html_file = open(url).read
+      html_doc = Nokogiri::HTML(html_file)
+      element = html_doc.text.strip
+      @results = []
+      html_doc.search('script').each do |element|
+        @results << element
+      end
+      @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
+      @media = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]["edge_owner_to_timeline_media"]["edges"]
+      @user = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]
+      @profile = @instagram["entry_data"]["ProfilePage"][0]["graphql"]
+      binding.pry
+  elsif @gym.igplace.present?
+      @pk = @gym.igplace
+      url = "https://www.instagram.com/explore/locations/#{@pk}/#{@gym.name.split[0]}-#{@gym.name.split[1]}/"
+      html_file = open(I18n.transliterate(url)).read
+      html_doc = Nokogiri::HTML(html_file)
+      element = html_doc.text.strip
+      @results = []
+      html_doc.search('script').each do |element|
+        @results << element
+
+        end
+      @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
+      @media = @instagram["entry_data"]["LocationsPage"][0]["graphql"]["location"]["edge_location_to_media"]["edges"].first(12)
+  elsif @gym.hashtag.present?
+      hashtag = @gym.hashtag
+      url = "https://www.instagram.com/explore/tags/#{hashtag}/"
+      html_file = open(I18n.transliterate(url)).read
+      html_doc = Nokogiri::HTML(html_file)
+      element = html_doc.text.strip
+      @results = []
+      html_doc.search('script').each do |element|
+        @results << element
+
+        end
+      @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
+      @media =  @instagram["entry_data"]["TagPage"][0]["graphql"]["hashtag"]["edge_hashtag_to_media"]["edges"].first(12)
+  end
       @bio = @user["biography"]
      # access here to an array with the photos and information post level
 # ------------google places section -------------------------------------
