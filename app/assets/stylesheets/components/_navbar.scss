@@ -83,6 +83,17 @@
   // left: 105px;
   width: 600px;
 }
+@media (max-width: 400px) {
+   #find-gyms {
+      position: absolute;
+      right: 10px;
+  }
+}
+@media (max-width: 400px) {
+   #gym_address {
+      width: 90%;
+  }
+}
 .btn-primary {
     color: #4ecca3;
     background-color: #393e46;
