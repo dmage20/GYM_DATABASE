@@ -1,11 +1,14 @@
+.main-container{
+}
 .cards-container{
   flex-grow: 1;
   padding-right: 7px;
   padding-left: 7px;
 }
 .information{
+  height: 1500px;
   flex: 0 0 400px;
-  height: auto;
+
   // position: sticky !important; /* !important to override Gmaps inline CSS */
   // top: 13px !important;
   // background-color: white;
@@ -42,11 +45,11 @@
   top: -167px;
   right: 212px
 }
-@media (max-width: 400px) {
-   .show-map {
-      display: none;
-  }
-}
+// @media (max-width: 400px) {
+//    .show-map {
+//       display: none;
+//   }
+// }
 .hours{
   font-size: 14px;
 }
@@ -86,20 +89,14 @@ border-radius: 8px
   font-weight: 500;
 }
 @media (max-width: 400px) {
-   #find-gyms {
-      position: absolute;
-      right: 10px;
-  }
-}
-@media (max-width: 400px) {
-   #gym_address {
-      width: 90%;
-  }
-}
-@media (max-width: 400px) {
    .information {
       margin: 0px;
+      flex: 0 0 360px;
   }
 }
-
+@media (max-width: 400px) {
+   .avatar-large-show {
+      right: 98px;
+  }
+}
 

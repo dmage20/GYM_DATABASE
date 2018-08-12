@@ -9,6 +9,13 @@
   flex: 0 0 340px;
   align-items: center;
 }
+@media (max-width: 400px) {
+   .modal-dialog {
+      width: 330px !important;
+      position: absolute;
+      bottom: 290px
+  }
+}
 #instructions{
   height: 70%;
 
