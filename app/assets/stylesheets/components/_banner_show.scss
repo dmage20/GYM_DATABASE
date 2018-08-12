@@ -1,0 +1,37 @@
+.banner-show {
+  color: white;
+  text-align: center;
+  height: 35vh;
+  width: 100vw;
+  /* if you have a 70px navbar => height: calc(100vh - 70px); */
+  background-size: cover !important;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 3px;
+}
+.banner-show h1 {
+  font-size: 50px;
+  font-weight: bold;
+  text-shadow: 0px 1px rgba(0, 0, 0, 0.2);
+}
+.banner-show p {
+  font-size: 25px;
+  font-weight: lighter;
+  color: rgb(255, 255, 255);
+  opacity: 0.6;
+  margin-bottom: 30px;
+}
+.banner-footer{
+  background-color: white;
+  height: 60px;
+  position: relative;
+}
+// .avatar-large-show {
+//   width: 180px;
+//   border-radius: 50%;
+//   position: absolute;
+//   top: -98px;
+//   right: 166px;
+// }

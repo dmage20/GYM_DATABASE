@@ -1,0 +1,33 @@
+<div class="banner-show" style="background-image: url(<%= @media.first["node"]["thumbnail_src"] %>);">
+  <div class="banner-content">
+    <!-- <h1>CrossFit anywhere</h1> -->
+    <!-- <p class="hidden-xs">find a gym around the corner or around the world</p> -->
+    <%#= link_to "Search", gyms_path, class: "btn btn-primary btn-lg" %>
+  </div>
+</div>
+  <div class="banner-footer">
+    <% if  !@profile.blank? %>
+        <%= image_tag @profile["user"]["profile_pic_url"], :class=> "avatar-large-show" %>
+      <% end %>
+    <ul class="list-inline">
+        <li><h2><%= @gym.name %></h2></li>
+        <li><%= link_to @gym.website, target: '_blank' do %>
+          <i class="fas fa-link"></i>
+            <% end %>
+        </li>
+        <li>
+          <% if !@profile.blank? %>
+            <%= link_to "https://www.instagram.com/#{@profile["user"]["username"]}", target: '_blank' do %>
+              <i class="fab fa-instagram"></i> <%= @username %>
+            <% end %>
+          <% end %>
+          <%#= link_to "", "https://www.instagram.com/#{@profile["user"]["username"]}" do %>
+            <%#= fa_icon "fa-instagram" %>
+          <%# end %>
+        </li>
+        <% if  @open_now %>
+          <!-- <li> <a href="#" class="open-now">Open now</a> </li> -->
+          <li><i class="fas fa-door-open" style="color: green; font-size: 30px"></i> Open Now</li>
+        <% end %>
+      </ul>
+  </div>

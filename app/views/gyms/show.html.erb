@@ -1,4 +1,4 @@
-<h1><%#= @gym.name %></h1>
+  <%#= render 'components/banner_show' %>
 <div class="main-container">
     <div class="cards-container hidden-xs">
 <%# binding.pry %>
@@ -24,33 +24,20 @@
   <div class="information">
 
     <div class="show-container">
-      <% if  !@profile.blank? %>
+      <%# if  !@profile.blank? %>
 
-        <%= image_tag @profile["user"]["profile_pic_url"], :class=> "avatar-large" %>
+        <%#= image_tag @profile["user"]["profile_pic_url"], :class=> "avatar-large" %>
 
-      <% end %>
+      <%# end %>
 
   <div class="intro">
 
-      <h2><%= @gym.name %></h2>
-      <ul class="list-inline">
-        <li><%= link_to 'website', @gym.website, target: '_blank' %> </li>
-        <li>
-          <% if !@profile.blank? %>
-            <%= link_to "https://www.instagram.com/#{@profile["user"]["username"]}", target: '_blank' do %>
-              <i class="fab fa-instagram" style="font-size: 30px"></i> <%= @username %>
-            <% end %>
-          <% end %>
-          <%#= link_to "", "https://www.instagram.com/#{@profile["user"]["username"]}" do %>
-            <%#= fa_icon "fa-instagram" %>
-          <%# end %>
-        </li>
-        <% if  @open_now %>
-          <!-- <li> <a href="#" class="open-now">Open now</a> </li> -->
-          <li><i class="fas fa-door-open" style="color: green; font-size: 30px"></i> Open Now</li>
-        <% end %>
-      </ul>
-
+ <% if  !@profile.blank? %>
+        <%= image_tag @profile["user"]["profile_pic_url"], :class=> "avatar-large-show" %>
+      <% end %>
+    <ul class="list-inline">
+        <li><h2><%= @gym.name %></h2></li>
+    </ul>
 
     <p> <%= @user["biography"] %> </p>
      <!-- <i class="far fa-bookmark"></i> -->
@@ -69,9 +56,21 @@
     </ul>
   </div> -->
 <% if !@spot.blank? %>
-  <p> <span class="title-size">Address:</span> <%= @spot.formatted_address %></p>
-  <p> <span class="title-size">Phone:</span> <%= @spot.international_phone_number %></p>
-  <p> <span class="title-size">Hours:</span></p>
+  <p>
+    <% if !@profile.blank? %>
+      <%= link_to "https://www.instagram.com/#{@profile["user"]["username"]}", target: '_blank' do %>
+          <i class="fab fa-instagram"></i> <%= @username %>
+      <% end %>
+    <% end %>
+  </p>
+  <p>
+    <%= link_to @gym.website, target: '_blank' do %>
+      <i class="fas fa-link"></i> <%= @gym.website %>
+    <% end %>
+  </p>
+  <p> <i class="fas fa-map-marker-alt fa-lg"></i> <%= @spot.formatted_address %></p>
+  <p> <i class="fas fa-phone-volume fa-lg"></i> <%= @spot.international_phone_number %></p>
+  <p> <i class="far fa-clock fa-lg"></i></p>
   <div class="hours">
     <% if !@hours.blank? %>
       <ul>
@@ -81,6 +80,7 @@
       </ul>
     <% end %>
   </div>
+<% end %>
 
     <div class="google-reviews">
       <h3>Google Reviews</h3>
@@ -96,15 +96,19 @@
       </div>
      <% end %>
     </div>
-<% end %>
 
+      <div
+  id="map" class=" show-map"
+  style="width: 100%;
+  height: 600px;"
+  data-markers="<%= @markers.to_json %>"
+  ></div>
   </div>
 
-</div>
-
+  </div>
 </div>
 <div
-  id="map" class=" show-map"
+  id="map" class="show-map"
   style="width: 100%;
   height: 600px;"
   data-markers="<%= @markers.to_json %>"
