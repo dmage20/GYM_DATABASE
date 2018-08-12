@@ -4,42 +4,47 @@
   padding-left: 7px;
 }
 .information{
-  // flex: 0 0 450px;
+  flex: 0 0 400px;
   height: auto;
-  position: sticky !important; /* !important to override Gmaps inline CSS */
-  top: 0 !important;
-  background-color: white;
-  border-style: solid;
-  border-radius: 3px;
-  border-color: lightgrey;
-  border-width: 1px;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.6);
+  // position: sticky !important; /* !important to override Gmaps inline CSS */
+  // top: 13px !important;
+  // background-color: white;
+  // border-style: solid;
+  // border-radius: 3px;
+  // border-color: lightgrey;
+  // border-width: 1px;
+  // box-shadow: 0 1px 3px rgba(0,0,0,0.6);
   margin-right: 12px;
-  position: relative;
-  font-size: medium;
+  // position: relative;
+  font-size: 14px;
 }
-@media (min-width: 400px) {
-   .information {
-      flex: 0 0 450px;
-  }
-}
+// @media (min-width: 400px) {
+//    .information {
+//       flex: 0 0 400px;
+//   }
+// }
 .information h3{
   font-size: 21px;
+}
+.information h2{
+  font-size: 24px;
 }
 .show-container{
   padding-left: 12px;
   padding-right: 12px;
+  position: relative;
+  top: 190px;
 }
-.avatar-large {
-  width: 60px;
+.avatar-large-show {
+  width: 180px;
   border-radius: 50%;
   position: absolute;
-  top: -32px;
-  left: 179px;
+  top: -167px;
+  right: 212px
 }
 @media (max-width: 400px) {
-   .avatar-large {
-      left: 140px !important;
+   .show-map {
+      display: none;
   }
 }
 .hours{

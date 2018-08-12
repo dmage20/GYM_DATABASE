@@ -2,11 +2,20 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <meta property="og:title" content="Gngbase - CrossFit anywhere in the world">
-      <meta property="og:image" content="<%= image_url 'rower.jpg' %>">
-      <meta property="og:description" content="Find places to workout around the world or around the corner. Don't lose your gains!">
-      <meta property="og:site_name" content="Gngbase"/>
+      <!-- facebook -->
+      <meta property="og:title"       content="Gngbase">
+      <meta property="og:type"        content="website">
+      <meta property="og:url"         content="https://gngbase.com">
+      <meta property="og:image"       content="upsidedown.jpg">
+      <meta property="og:site_name"   content="Gngbase">
+      <meta property="og:description" content="Find a CrossFit anywhere you go.">
+
+      <!-- google plus meta tags -->
+      <meta itemprop="name"        content="Gngbase">
+      <meta itemprop="description" content="Find a CrossFit anywhere you go.">
+      <meta itemprop="image"       content="upsidedown.jpg">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="viewport" content="target-densitydpi=device-dpi">
     <title>Gngbase</title>
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
@@ -16,8 +25,8 @@
   <body>
     <%= render 'shared/navbar' %>
     <%= render 'shared/flashes' %>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <!-- <p class="notice"><%= notice %></p> -->
+    <!-- <p class="alert"><%= alert %></p> -->
     <%= yield %>
     <%= render 'shared/footer' %>
     <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?libraries=places&key=#{ENV['GOOGLE_API_BROWSER_KEY']}" %>

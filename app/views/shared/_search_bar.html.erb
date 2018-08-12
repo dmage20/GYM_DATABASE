@@ -1,5 +1,5 @@
 <div class="search-bar">
-  <%= simple_form_for(@gym, as: :gym, method: :get, url: gyms_path, wrapper: :inline_form, html: { class: 'form-row' }) do |f| %>
+  <%= simple_form_for(Gym.new, as: :gym, method: :get, url: gyms_path, wrapper: :inline_form, html: { class: 'form-row' }) do |f| %>
     <div class="row">
       <div class="col-xs-4 col-sm-4 col-lg-4">
         <%= f.input :address, placeholder: 'Try "Barcelona"' %>
