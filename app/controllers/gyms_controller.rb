@@ -203,6 +203,9 @@ class GymsController < ApplicationController
           if @gyms.blank?
             @gyms = Gym.near(params["gym"]["address"],30)
           end
+          if @gyms.blank? || params["gym"]["address"].split(',').count == 1
+            @gyms = Gym.joins(:country).where('countries.name' => params["gym"]["address"]).first(30)
+          end
 
     else
       @city = City.all.sample
