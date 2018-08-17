@@ -89,6 +89,28 @@
       right: 10px;
   }
 }
+.errspan {
+  position: relative;
+  float: left;
+  top: 24px;
+  right: 0px;
+  z-index: 2;
+  color: grey;
+}
+#gym_address{
+  border-width: 0px 0px 2px 0px;
+  box-shadow:none;
+  // background-image: url('http://localhost:3000/assets/search.png');
+  // background-repeat: no-repeat;
+}
+input[type=text]:focus {
+    // border-width: 0px 0px 3px 0px;
+    border-color: #4ecca3;
+    // background-image: url('http://localhost:3000/assets/search.png');
+/*     background-position: 10px 10px;
+    background-repeat: no-repeat;
+    padding-left: 40px; */
+}
 @media (max-width: 400px) {
    #gym_address {
       width: 90%;
@@ -105,4 +127,7 @@
 .btn-primary:hover {
     background-color: #4ecca3;
     color: #393e46;
+}
+.pac-container.pac-logo.hdpi{
+  // display:block !important;
 }
