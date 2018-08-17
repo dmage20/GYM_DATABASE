@@ -12,4 +12,7 @@ class BookmarksController < ApplicationController
 
   end
 
+  def show
+
+  end
 end

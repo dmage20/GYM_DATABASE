@@ -12,9 +12,10 @@ gem 'pry'
 gem 'devise'
 
 gem 'autoprefixer-rails'
-gem 'bootstrap-sass', '~> 3.3'
+gem 'bootstrap-sass', '~> 3.3.7'
+gem 'sass-rails', '>= 3.2'
 gem 'font-awesome-sass', '~> 5.0.9'
-gem 'sass-rails'
+# gem 'sass-rails'
 gem 'simple_form'
 gem 'uglifier'
 gem 'webpacker'
@@ -26,7 +27,6 @@ gem 'savon'
 gem 'unsplash'
 gem 'google_places'
 
-# gem 'bootstrap'
 gem 'jquery-rails'
 
 
