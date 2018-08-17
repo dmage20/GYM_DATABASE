@@ -69,19 +69,19 @@ list-style-type: none;
   font-size: 21px;
 }
 .google-review{
-display: flex;
-align-items:center;
-padding-top: 8px;
+  display: flex;
+  align-items:center;
+  padding-top: 8px;
 }
 .review-avatar{
-flex: 0 0 12%;
+  flex: 0 0 12%;
 }
 .review-text{
-flex: 0 0 88%;
-font-size: small !important;
-background-color: lightgoldenrodyellow;
-padding: 5px;
-border-radius: 8px
+  flex: 0 0 88%;
+  font-size: small !important;
+  background-color: lightgoldenrodyellow;
+  padding: 5px;
+  border-radius: 8px
 }
 .title-size{
   font-size: 21px;
@@ -99,4 +99,16 @@ border-radius: 8px
       right: 98px;
   }
 }
-
+// .table{
+//   padding: 0px !important;
+// }
+tr td{
+  padding: 0 !important;
+  // margin: 0 !important;
+}
+.table tbody tr th{
+  padding: 0px !important;
+}
+.hours{
+  width: 250px;
+}
