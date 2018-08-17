@@ -73,11 +73,20 @@
   <p> <i class="far fa-clock fa-lg"></i></p>
   <div class="hours">
     <% if !@hours.blank? %>
-      <ul>
-        <% @hours.each do |thing| %>
-        <li><%= thing %></li>
-        <% end %>
-      </ul>
+      <table class="table table-sm">
+  <thead>
+  </thead>
+  <tbody>
+    <% @hours.each do |thing| %>
+    <tr>
+      <th scope="row" style="
+    width: 103px;"><%= thing.partition(":").first %></th>
+      <td><%= thing.partition(":").third.delete(' ') %></td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
     <% end %>
   </div>
 <% end %>

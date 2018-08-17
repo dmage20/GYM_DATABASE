@@ -83,12 +83,12 @@
   // left: 105px;
   width: 600px;
 }
-@media (max-width: 400px) {
-   #find-gyms {
-      position: absolute;
-      right: 10px;
-  }
-}
+// @media (max-width: 400px) {
+//    #find-gyms {
+//       position: absolute;
+//       right: 10px;
+//   }
+// }
 .errspan {
   position: relative;
   float: left;
@@ -111,23 +111,29 @@ input[type=text]:focus {
     background-repeat: no-repeat;
     padding-left: 40px; */
 }
-@media (max-width: 400px) {
-   #gym_address {
-      width: 90%;
-  }
-}
+// @media (max-width: 400px) {
+//    #gym_address {
+//       width: 90%;
+//   }
+// }
 .btn-primary {
-    color: #4ecca3;
-    background-color: #393e46;
+    // color: white;
+    background-color: #4ecca3;
     border-color: #4ecca3;
-    border-radius: 50px;
+    // border-radius: 2px;
     transition: background 0.35s ease;
+    // padding: 0 16px;
+    text-transform: uppercase;
+    // height: 36px;
+    // vertical-align: middle;
 }
 
 .btn-primary:hover {
+    opacity: .85;
     background-color: #4ecca3;
-    color: #393e46;
+    color: black;
+    border-color: #4ecca3;
 }
-.pac-container.pac-logo.hdpi{
-  // display:block !important;
-}
+// .pac-container.pac-logo.hdpi{
+//   // display:block !important;
+// }
