@@ -6,6 +6,22 @@ class GymsController < ApplicationController
   require 'google_places'
   skip_before_action :authenticate_user!, only: [:index, :show]
 
+  def media_hash_to_object(array_of_hashes)
+    @array_of_posts = []
+    array_of_hashes.each do |dumb|
+    post = OpenStruct.new
+    post.id = dumb["node"]["id"]
+    post.type = dumb["node"]["__typename"]
+    post.caption = dumb["node"]["edge_media_to_caption"]['edges'][0]['node']['text']
+    post.time = dumb["node"]['taken_at_timestamp']
+    post.url = dumb["node"]['display_url']
+    post.likes = dumb["node"]['edge_liked_by']['count']
+    post.owner = dumb["node"]['owner']['id']
+    @array_of_posts << post
+    end
+
+  end
+
   def instagram_web_search(gym_instance)
     url_search = "https://www.instagram.com/web/search/topsearch/?context=blended&query=#{@gym.name}"
     user_serialized = open(I18n.transliterate(url_search)).read
@@ -29,6 +45,7 @@ class GymsController < ApplicationController
       end
       @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
       @media = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]["edge_owner_to_timeline_media"]["edges"]
+      media_hash_to_object(@media)
       @user = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]
   end
 
@@ -46,6 +63,7 @@ class GymsController < ApplicationController
         end
       @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
       @media = @instagram["entry_data"]["LocationsPage"][0]["graphql"]["location"]["edge_location_to_media"]["edges"].first(12)
+      media_hash_to_object(@media)
   end
 
   def instagram_hashtag_method(instagram_web_search_result)
@@ -62,6 +80,7 @@ class GymsController < ApplicationController
         end
       @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
       @media =  @instagram["entry_data"]["TagPage"][0]["graphql"]["hashtag"]["edge_hashtag_to_media"]["edges"].first(12)
+      media_hash_to_object(@media)
   end
 
   def show
@@ -107,9 +126,9 @@ class GymsController < ApplicationController
       end
       @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
       @media = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]["edge_owner_to_timeline_media"]["edges"]
+      media_hash_to_object(@media)
       @user = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]
       @profile = @instagram["entry_data"]["ProfilePage"][0]["graphql"]
-      binding.pry
   elsif @gym.igplace.present?
       @pk = @gym.igplace
       url = "https://www.instagram.com/explore/locations/#{@pk}/#{@gym.name.split[0]}-#{@gym.name.split[1]}/"
@@ -123,6 +142,7 @@ class GymsController < ApplicationController
         end
       @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
       @media = @instagram["entry_data"]["LocationsPage"][0]["graphql"]["location"]["edge_location_to_media"]["edges"].first(12)
+      media_hash_to_object(@media)
   elsif @gym.hashtag.present?
       hashtag = @gym.hashtag
       url = "https://www.instagram.com/explore/tags/#{hashtag}/"
@@ -136,6 +156,7 @@ class GymsController < ApplicationController
         end
       @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
       @media =  @instagram["entry_data"]["TagPage"][0]["graphql"]["hashtag"]["edge_hashtag_to_media"]["edges"].first(12)
+      media_hash_to_object(@media)
   end
       @bio = @user["biography"]
      # access here to an array with the photos and information post level
