@@ -12,7 +12,7 @@ class GymsController < ApplicationController
     post = OpenStruct.new
     post.id = dumb["node"]["id"]
     post.type = dumb["node"]["__typename"]
-    post.caption = dumb["node"]["edge_media_to_caption"]['edges'][0]['node']['text']
+    post.caption = dumb["node"]["edge_media_to_caption"]['edges'][0]['node']['text'] if !dumb["node"]['edge_media_to_caption']['edges'].blank?
     post.time = dumb["node"]['taken_at_timestamp']
     post.url = dumb["node"]['display_url']
     post.likes = dumb["node"]['edge_liked_by']['count']
@@ -224,7 +224,7 @@ class GymsController < ApplicationController
           if @gyms.blank?
             @gyms = Gym.near(params["gym"]["address"],30)
           end
-          if @gyms.blank? || params["gym"]["address"].split(',').count == 1
+          if @gyms.blank? || params["gym"]["address"].split.count == 1
             @gyms = Gym.joins(:country).where('countries.name' => params["gym"]["address"]).first(30)
           end
 

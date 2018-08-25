@@ -8,7 +8,7 @@ class PagesController < ApplicationController
   def home
     @gym = Gym.new
 
-      @gyms = Gym.all.sample(8)
+      @gyms = Gym.all.sample(9)
 
 
         @markers = @gyms.map do |gym|
