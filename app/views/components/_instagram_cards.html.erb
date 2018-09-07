@@ -1,24 +1,28 @@
 
   <div class="row">
-    <% @media.each do |post| %>
-    <% url = post["node"]["thumbnail_src"] %>
+    <% @array_of_posts.each do |post| %>
+    <%# url = post["node"]["thumbnail_src"] %>
 
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-     <div class="card" style= "background-image: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.15)), url('<%= url %>');">
-
-        <div class="card-category">Crossfit</div>
-        <div class="card-description">
-          <h2><%#= gym.name %></h2>
-          <p><%#= gym.country.name %></p>
-          <p><%#= gym.city.name %></p>
-        </div>
+    <div class="col-sm-4 instagram-card" style="padding-bottom: 10px">
+      <div class="card">
+        <img class="card-img-top" src='<%= post.picture.large %>' alt="Card image cap">
+       <!-- <div class="card-body"> -->
+        <!-- <h6 class="card-title text-truncate"><%#= post.likes %></h6> -->
+        <!-- <p><%#= post.caption.first(50) %></p> -->
+      <!-- <p class="card-text"><%#= gym.city.name %></p> -->
+       <!-- </div> -->
         <div class="card-link">
-          <%#= link_to "Link", gym_path(gym), :class=> "card-link" %>
-            <!-- <button type="button" class="btn btn-primary card-link" data-toggle="modal"  data-target="#exampleModal">
-          </button> -->
-          <%= link_to url, "#", :class => "card-link link", :id => "clickme", data: {toggle: "modal", target: ".bd-example-modal-lg"} %>
+          <%= link_to post.picture.large, "#", :class => "card-link link", :id => "clickme", data: {toggle: "modal", target: ".bd-example-modal-lg"} %>
+
         </div>
       </div>
+       <div class="card-footer">
+         <small class="text-muted text-truncate">
+          <%= link_to "https://www.instagram.com/#{post.owner.username}", target: '_blank', class: 'text-truncate' do %>
+            <i class="fab fa-instagram"></i> <%= post.owner.username %>
+              <% end %>
+         </small>
+       </div>
     </div>
     <% end %>
 </div>
@@ -26,7 +30,7 @@
 <!-- Modal -->
 
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" style="width: 500px;">
+  <div class="modal-dialog modal-lg" >
     <div class="modal-content">
       <%= image_tag("", :id => "placehere",  :style => "height: auto") %>
     </div>

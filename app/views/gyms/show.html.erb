@@ -1,29 +1,13 @@
   <%#= render 'components/banner_show' %>
 <div class="main-container">
-    <div class="cards-container hidden-xs">
-<%# binding.pry %>
-<%#= image_tag @profile["user"]["profile_pic_url"] %>
-<%#= render 'components/instagram_cards' %>
+  <div class="d-flex flex-md-row flex-column-reverse mb-3">
+  <div class="p-2 bd-highlight flex-shrink-1">
     <%= render 'components/instagram_cards' %>
-    </div>
+  </div>
+  <div class="p-2 bd-highlight information ">
+  <!-- <div class="information"> -->
 
-
-<!--       <%#= form_tag gyms_path, method: :get do %>
-      <%#= text_field_tag :query,
-        params[:query],
-        class: "form-control",
-        placeholder: "Type a city name"
-      %>
-    <#% end %> -->
-  <!-- <div
-  id="map"
-  style="width: 100%;
-  height: 600px;"
-  data-markers="<%= @markers.to_json %>"
-  ></div> -->
-  <div class="information">
-
-    <div class="show-container">
+    <!-- <div class="show-container"> -->
       <%# if  !@profile.blank? %>
 
         <%#= image_tag @profile["user"]["profile_pic_url"], :class=> "avatar-large" %>
@@ -33,7 +17,7 @@
   <div class="intro">
 
  <% if  !@profile.blank? %>
-        <%= image_tag @profile["user"]["profile_pic_url"], :class=> "avatar-large-show" %>
+        <%#= image_tag @profile["user"]["profile_pic_url"], :class=> "avatar-large-show" %>
       <% end %>
     <ul class="list-inline">
         <li><h2><%= @gym.name %></h2></li>
@@ -97,7 +81,7 @@
       <div class="google-review">
       <div class="review-avatar">
         <%# binding.pry %>
-        <%= image_tag review.profile_photo_url, :class=> "avatar-google" %>
+        <%#= image_tag review.profile_photo_url, :class=> "avatar-google" %>
       </div>
       <div class="review-text">
         <%= review.text.split(".")[0] %>
@@ -112,9 +96,21 @@
   height: 600px;"
   data-markers="<%= @markers.to_json %>"
   ></div>
-  </div>
+
+  <!-- </div> -->
+  <!-- </div> -->
 
   </div>
+</div>
+    <!-- <div class="cards-container"> -->
+<%# binding.pry %>
+<%#= image_tag @profile["user"]["profile_pic_url"] %>
+<%#= render 'components/instagram_cards' %>
+    <!-- </div> -->
+
+
+
+
 </div>
 <!-- <div
   id="map" class="show-map"

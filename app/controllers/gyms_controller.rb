@@ -14,10 +14,21 @@ class GymsController < ApplicationController
     post.type = dumb["node"]["__typename"]
     post.caption = dumb["node"]["edge_media_to_caption"]['edges'][0]['node']['text'] if !dumb["node"]['edge_media_to_caption']['edges'].blank?
     post.time = dumb["node"]['taken_at_timestamp']
-    post.url = dumb["node"]['display_url']
+    post.picture = OpenStruct.new
+    post.picture.small = dumb["node"]["thumbnail_resources"][0]["src"]
+    post.picture.medium = dumb["node"]["thumbnail_resources"][1]["src"]
+    post.picture.large = dumb["node"]["thumbnail_resources"][2]["src"]
+    post.picture.xl = dumb["node"]["thumbnail_resources"][3]["src"]
+    post.picture.xxl = dumb["node"]["thumbnail_resources"][4]["src"]
     post.likes = dumb["node"]['edge_liked_by']['count']
-    post.owner = dumb["node"]['owner']['id']
+    post.owner = OpenStruct.new
+    post.owner.id = dumb["node"]['owner']['id']
+    post.owner.username = @profile['user']['username'] if ! @profile.blank?
+    post.owner.profile_pic = @profile['user']['profile_pic_url'] if ! @profile.blank?
+    post.owner.follower_count = @profile['user']['follower_count'] if ! @profile.blank?
+    post.owner.follower_count_text = @profile['user']['byline'] if ! @profile.blank?
     @array_of_posts << post
+    # binding.pry
     end
 
   end

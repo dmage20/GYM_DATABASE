@@ -1,61 +1,61 @@
-.modal-content{
-  display: flex !important;
-  justify-content: space-between;
-}
-.image{
-  flex: 0 0 560px;
-}
-.text{
-  flex: 0 0 340px;
-  align-items: center;
-}
-@media (max-width: 400px) {
-   .modal-dialog {
-      width: 330px !important;
-      position: absolute;
-      bottom: 290px
-  }
-}
-#instructions{
-  height: 70%;
+// .modal-content{
+//   display: flex !important;
+//   justify-content: space-between;
+// }
+// .image{
+//   flex: 0 0 560px;
+// }
+// .text{
+//   flex: 0 0 340px;
+//   align-items: center;
+// }
+// @media (max-width: 400px) {
+//    .modal-dialog {
+//       width: 330px !important;
+//       position: absolute;
+//       bottom: 290px
+//   }
+// }
+// #instructions{
+//   height: 70%;
 
-}
-#instructions p{
-  height: 70%;
-}
-.more-info{
-  justify-content: center;
-}
-.link-container{
-  height:100px;
-  width: 300px;
-  display: grid;
-  grid-template-columns: 30% 70%;
-  grid-template-rows: 100%;
-  border-radius: 3px;
-  box-shadow: 3px 3px #F7F4F4;
-  position: relative;
+// }
+// #instructions p{
+//   height: 70%;
+// }
+// .more-info{
+//   justify-content: center;
+// }
+// .link-container{
+//   height:100px;
+//   width: 300px;
+//   display: grid;
+//   grid-template-columns: 30% 70%;
+//   grid-template-rows: 100%;
+//   border-radius: 3px;
+//   box-shadow: 3px 3px #F7F4F4;
+//   position: relative;
 
-}
-.left{
-  grid-column: 1 / span 1;
-  grid-row: 1 / span 1;
-  background-color: #F4F4F4;
-  justify-content: center;
-  color: #5297E9;
-  font-size: 70px;
-  text-align: center;
-  border-radius: 3px;
-}
-.right{
-  grid-column: 2 / span 1;
-  grid-row: 1 / span 1;
-  background-color: #E0EDFC;
-  border-radius: 3px;
-  text-align: center;
-}
-.right a{
-  position: absolute;
-  top: 40px;
-  right: 20px;
-}
+// }
+// .left{
+//   grid-column: 1 / span 1;
+//   grid-row: 1 / span 1;
+//   background-color: #F4F4F4;
+//   justify-content: center;
+//   color: #5297E9;
+//   font-size: 70px;
+//   text-align: center;
+//   border-radius: 3px;
+// }
+// .right{
+//   grid-column: 2 / span 1;
+//   grid-row: 1 / span 1;
+//   background-color: #E0EDFC;
+//   border-radius: 3px;
+//   text-align: center;
+// }
+// .right a{
+//   position: absolute;
+//   top: 40px;
+//   right: 20px;
+// }

@@ -1,20 +1,21 @@
 
+<div class="row">
+  <% @gyms.each do |gym| %>
+  <div class="col-sm-4 gym-card" style="padding-bottom: 10px">
+  <div class="card">
+    <img class="card-img-top" src='https://maps.googleapis.com/maps/api/streetview?size=600x300&location=<%= gym.latitude %>,<%= gym.longitude %>&heading=151.78&pitch=-0.76&key=<%= "#{ENV['GOOGLE_API_BROWSER_KEY']}" %>' alt="Card image cap">
+    <div class="card-body">
+      <h6 class="card-title text-truncate"><%= gym.name %></h6>
+      <small class="text-muted text-truncate"> <%= gym.city.name %> <%= gym.country.name %></small>
+      <!-- <p class="card-text"><%#= gym.city.name %></p> -->
+    </div>
+    <div class="card-footer">
 
-  <div class="row">
-    <% @gyms.each do |gym| %>
-    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
-     <div class="card" style= "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('https://maps.googleapis.com/maps/api/streetview?size=600x300&location=<%= gym.latitude %>,<%= gym.longitude %>&heading=151.78&pitch=-0.76&key=<%= "#{ENV['GOOGLE_API_BROWSER_KEY']}" %>');">
-
-        <div class="card-category"></div>
-        <div class="card-description">
-          <h2><%= gym.name %></h2>
-          <p><%= gym.country.name %></p>
-          <p><%= gym.city.name %></p>
-        </div>
-        <div class="card-link">
+    </div>
+    <div class="card-link">
           <%= link_to "Link", gym_path(gym), :class=> "card-link" %>
         </div>
-      </div>
-    </div>
-    <% end %>
+  </div>
+</div>
+  <% end %>
 </div>

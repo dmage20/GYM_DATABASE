@@ -1,30 +1,42 @@
+
+
 <div class="row">
-    <% @unsplash_cities.each_with_index do |city, index| %>
-    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-           <%#search_results = Unsplash::Photo.search(city.name,city.country.name)
-           %>
-           <% if !city.url.blank? %>
-           <% @background = city.url %>
-           <% else %>
-           <% @background = image_url ['upsidedown.jpg','lady-stretching.jpg','weights.jpg','woman-lifting.jpg'].sample %>
-           <% end %>
-     <div class="card" style= "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url(<%= @background %>);">
-        <div class="card-category"><%= city.country.name %></div>
-        <div class="card-description">
-          <h2><%= city.name + " " + city.state.to_s %></h2>
-          <p><%= city.gyms_count %> Crossfit gyms</p>
-          <p>Explore <%= city.name %> gyms</p>
-        </div>
-            <div class="card-link">
+  <% @unsplash_cities.each_with_index do |city, index| %>
+  <div class="col-sm-4 profile-card" style="padding-bottom: 10px">
+        <% if !city.url.blank? %>
+        <% @background = city.url %>
+        <% else %>
+        <% @background = image_url ['upsidedown.jpg','lady-stretching.jpg','weights.jpg','woman-lifting.jpg'].sample %>
+          <% end %>
+  <div class="card">
+    <img class="card-img-top img-fluid" src='<%= @background %>' alt="Card image cap">
 
-              <%= link_to "Link", gyms_path(:city => "#{city.name}", :country => "#{city.country.name}", :state => "#{city.state.to_s}" ), :class => "card-link" %>
-
-            </div>
-            <div class="unsplash-credits">
-              Photo by <%= link_to "#{@photograpers[index + (index + 1)]}", "https://unsplash.com/@#{@photograpers[@photograpers.length - (@photograpers.length - (index + (1 * index)))]}?utm_source=gngbase&utm_gngbase=referral", target: '_blank' %> on
-              <%= link_to "Unsplash", "https://unsplash.com/?utm_source=gngbase&utm_gngbase=referral", target: '_blank' %>
-            </div>
-      </div>
+    <div class="card-body">
+      <!-- <div class="row"> -->
+        <!-- <div class="col text-truncate"> -->
+          <h6 class="card-title text-truncate"><%= city.name + " " + city.state.to_s %></h6>
+        <!-- </div> -->
+        <!-- <div class="col text-truncate"> -->
+        <!-- </div> -->
+          <button type="button" class="btn btn-primary gyms">
+            Gyms <span class="badge badge-light"><%= city.gyms_count %></span>
+          </button> <br>
+          <small class="card-title text-right"><%= city.country.name %></small>
+      <!-- </div> -->
+      <!-- <p><%#= city.gyms_count %> Crossfit gyms</p> -->
+      <!-- <p>Explore <%#= city.name %> gyms</p> -->
+      <!-- <p class="card-text"><%#= gym.city.name %></p> -->
     </div>
-    <% end %>
+    <div class="card-link">
+          <%= link_to "Link", gyms_path(:city => "#{city.name}", :country => "#{city.country.name}", :state => "#{city.state.to_s}" ), :class => "card-link" %>
+        </div>
+  </div>
+    <div class="card-footer">
+      <small class="text-muted text-truncate">
+        Photo by <%= link_to "#{@photograpers[index + (index + 1)]}", "https://unsplash.com/@#{@photograpers[@photograpers.length - (@photograpers.length - (index + (1 * index)))]}?utm_source=gngbase&utm_gngbase=referral", target: '_blank' %> on
+          <%= link_to "Unsplash", "https://unsplash.com/?utm_source=gngbase&utm_gngbase=referral", target: '_blank' %>
+      </small>
+    </div>
+  </div>
+  <% end %>
 </div>
