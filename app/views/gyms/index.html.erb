@@ -3,7 +3,20 @@
 <h3 class=""><%= "#{@gyms.first.city.name} #{@gyms.first.city.state.to_s}"%></h3>
 <% end %>
 <div class="main-container">
-
+  <div class="d-flex flex-md-row flex-column mb-3">
+  <div class="p-2 bd-highlight ">
+  <!-- <div class="cards-container"> -->
+      <%= render 'components/cards' %>
+  </div>
+  <div class="p-2 bd-highlight information ">
+  <div
+  id="map" class="hidden-xs"
+  style="width: 100%;
+  height: 600px;"
+  data-markers="<%= @markers.to_json %>"
+  ></div>
+</div>
+  <!-- </div> -->
 <!--       <%#= form_tag gyms_path, method: :get do %>
       <%#= text_field_tag :query,
         params[:query],
@@ -12,14 +25,6 @@
       %>
     <#% end %> -->
 
-  <div class="cards-container">
-      <%= render 'components/cards' %>
-  </div>
 
-  <div
-  id="map" class="hidden-xs"
-  style="width: 100%;
-  height: 600px;"
-  data-markers="<%= @markers.to_json %>"
-  ></div>
+  </div>
 </div>

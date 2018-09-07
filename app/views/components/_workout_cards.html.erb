@@ -4,21 +4,27 @@
     <% url = post["node"]["thumbnail_src"] %>
     <% text = post["node"]["edge_media_to_caption"]["edges"].first["node"]["text"] %>
     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-4">
-     <div class="card" style= "background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.2)), url('<%= url %>');">
-
-        <div class="card-category"><%= @username %></div>
-        <div class="card-description">
-          <%= image_tag @profile_pic_url, :class=> "avatar-small" %>
-
-          <p><%= text.split(".")[0] %></p>
-          <p><%#= gym.city.name %></p>
+      <div class="card">
+        <img class="card-img-top" src='<%= url %>' alt="Card image cap">
+      <div class="card-body">
+          <p><%= text %></p>
+        <div class="card-img-overlay">
+         <ul class="list-inline">
+          <li class="list-inline-item">
+            <%= image_tag @profile_pic_url, :class=> "avatar-small" %>
+          </li>
+          <li class="list-inline-item">
+            <%= link_to "https://www.instagram.com/#{@username}", target: '_blank', class: 'text-white' do %>
+            <i class="fab fa-instagram text-white"></i> <%= @username %>
+              <% end %>
+          </li>
+         </ul>
+          <!-- <p><%#= text.split(".")[0] %></p> -->
         </div>
-        <div class="card-link">
-          <%#= link_to "Link", gym_path(gym), :class=> "card-link" %>
-            <!-- <button type="button" class="btn btn-primary card-link" data-toggle="modal"  data-target="#exampleModal">
-          </button> -->
-          <%= link_to url, "#", :class => "card-link link", :id => "clickme", data: {toggle: "modal", target: ".bd-example-modal-lg", texto: text, user: @username.downcase} %>
-        </div>
+      </div>
+        <!-- <div class="card-link"> -->
+          <%#= link_to url, "#", :class => "card-link link", :id => "clickme", data: {toggle: "modal", target: ".bd-example-modal-lg", texto: text, user: @username.downcase} %>
+        <!-- </div> -->
       </div>
     </div>
     <% end %>
@@ -26,27 +32,27 @@
 
 <!-- Modal -->
 
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<!-- <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" style="width: 900px;">
     <div class="modal-content">
-      <div class="image hidden-xs">
-        <%= image_tag("", :id => "placehere",  :style => "width: 560px") %>
-      </div>
-       <div class="text container">
+      <div class="image"> -->
+        <%#= image_tag("", :id => "placehere",  :style => "width: 560px") %>
+     <!--  </div>
+       <div class="text container"> -->
           <!-- <div id="instructions"></div> -->
-          <p id="instructions"></p>
+        <!--   <p id="instructions"></p>
           <div class="more-info">
             <div class="link-container hidden-xs">
               <div class="left">
                 <i class="fab fa-instagram"></i>
               </div>
-              <div class="right">
-                <%= link_to "","", :class => "link", :id => "to_instagram", target: '_blank' %>
+              <div class="right"> -->
+                <%#= link_to "","", :class => "link", :id => "to_instagram", target: '_blank' %>
 
-              </div>
+  <!--             </div>
             </div>
           </div>
        </div>
     </div>
   </div>
-</div>
+</div> -->

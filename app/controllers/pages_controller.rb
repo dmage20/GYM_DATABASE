@@ -8,7 +8,7 @@ class PagesController < ApplicationController
   def home
     @gym = Gym.new
 
-      @gyms = Gym.all.sample(9)
+      @gyms = Gym.all.sample(6)
 
 
         @markers = @gyms.map do |gym|
@@ -22,22 +22,23 @@ class PagesController < ApplicationController
       # create items for the country profile
       # @coutries = Country.order('gyms_count').last(25).sample(6)
       # City.order('gyms_count').last(50).sample(9)
-      @cities = City.order('gyms_count').last(50).sample(9)
+      @cities = City.order('gyms_count').last(50).sample(6)
 
       # call the workout_profile function and pass it crossfit mayhem
       workout_profile("thecrossfitmayhem")
       # add unsplash image to each city in @cities
       @photograpers = []
       @unsplash_cities = @cities.each do |city|
-      search_results = Unsplash::Photo.search(city.name, page = 1, per_page = 10, orientation = "landscape").sample
-      url = "https://api.unsplash.com/search/photos?client_id=7f4b6697803bdc15bc73567bde8958a895445fbf1b0af13352b8169bf99b84b3&query=#{city.name}&per_page=10"
-      response = open(I18n.transliterate(url)).read
-      @response_parsed = JSON.parse(response)
-      chosen_unsplash = @response_parsed["results"].first(5).sample if !@response_parsed["results"].blank?
-      city.url =  chosen_unsplash["urls"]["small"] if !@response_parsed["results"].blank?
-      # ["urls"]["small"]
-      photograper = chosen_unsplash["user"]["username"] if !@response_parsed["results"].blank?
-      photograper_name = chosen_unsplash["user"]["name"] if !@response_parsed["results"].blank?
+      search_results = Unsplash::Photo.search(city.name, page = 1, per_page = 10, orientation = "landscape").first(3).sample
+      # url = "https://api.unsplash.com/search/photos?client_id=7f4b6697803bdc15bc73567bde8958a895445fbf1b0af13352b8169bf99b84b3&query=#{city.name}&per_page=10"
+      # response = open(I18n.transliterate(url)).read
+      # @response_parsed = JSON.parse(response)
+      # chosen_unsplash = @response_parsed["results"].first(5).sample if !@response_parsed["results"].blank?
+      # city.url =  chosen_unsplash["urls"]["small"] if !@response_parsed["results"].blank?
+      chosen_unsplash = search_results.urls.small if !search_results.blank?
+      city.url = chosen_unsplash if !chosen_unsplash.blank?
+      photograper = search_results.user.username if !chosen_unsplash.blank?
+      photograper_name = search_results.user.name if !chosen_unsplash.blank?
       @photograpers << photograper << photograper_name
       end
   end

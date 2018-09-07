@@ -12,7 +12,7 @@ gem 'pry'
 gem 'devise'
 
 gem 'autoprefixer-rails'
-gem 'bootstrap-sass', '~> 3.3.7'
+gem 'bootstrap', '~> 4.1.3'
 gem 'sass-rails', '>= 3.2'
 gem 'font-awesome-sass', '~> 5.0.9'
 # gem 'sass-rails'
