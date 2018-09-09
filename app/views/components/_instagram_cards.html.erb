@@ -5,14 +5,14 @@
 
     <div class="col-sm-4 instagram-card" style="padding-bottom: 10px">
       <div class="card">
-        <img class="card-img-top" src='<%= post.picture.large %>' alt="Card image cap">
+        <img class="card-img-top" src='<%= post.picture.xl %>' alt="Card image cap">
        <!-- <div class="card-body"> -->
         <!-- <h6 class="card-title text-truncate"><%#= post.likes %></h6> -->
         <!-- <p><%#= post.caption.first(50) %></p> -->
       <!-- <p class="card-text"><%#= gym.city.name %></p> -->
        <!-- </div> -->
         <div class="card-link">
-          <%= link_to post.picture.large, "#", :class => "card-link link", :id => "clickme", data: {toggle: "modal", target: ".bd-example-modal-lg"} %>
+          <%= link_to post.picture.xl, "#", :class => "card-link link", :id => "clickme", data: {toggle: "modal", target: ".bd-example-modal-md", caption: post.caption, likes: post.likes, date: post.time} %>
 
         </div>
       </div>
@@ -27,12 +27,22 @@
     <% end %>
 </div>
 
+<%#= link_to url, "#", :class => "card-link link", :id => "clickme", data: {toggle: "modal", target: ".bd-example-modal-lg", texto: text, user: @username.downcase} %>
 <!-- Modal -->
 
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg" >
+<div class="modal fade bd-example-modal-md" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-md" >
     <div class="modal-content">
-      <%= image_tag("", :id => "placehere",  :style => "height: auto") %>
+      <div class="d-flex flex-column bd-highlight mb-3">
+        <div class="p-2 bd-highlight">
+          <%= image_tag("", :id => "placehere",  :style => "height: 304px") %>
+        </div>
+        <div class="p-2 bd-highlight">
+          <small id="date" class="text-muted"></small>
+          <small id="caption"></small>
+        </div>
+    </div>
     </div>
   </div>
 </div>
+

@@ -13,7 +13,7 @@ class GymsController < ApplicationController
     post.id = dumb["node"]["id"]
     post.type = dumb["node"]["__typename"]
     post.caption = dumb["node"]["edge_media_to_caption"]['edges'][0]['node']['text'] if !dumb["node"]['edge_media_to_caption']['edges'].blank?
-    post.time = dumb["node"]['taken_at_timestamp']
+    post.time = Time.at(dumb["node"]['taken_at_timestamp']).strftime("%B %d, %Y")
     post.picture = OpenStruct.new
     post.picture.small = dumb["node"]["thumbnail_resources"][0]["src"]
     post.picture.medium = dumb["node"]["thumbnail_resources"][1]["src"]

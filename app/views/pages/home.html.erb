@@ -1,6 +1,6 @@
   <div class="container-fluid">
-<%= render 'components/banner' %>
-    <h3>Thousands of gyms around the world</h3>
+<%= render 'components/banner_card' %>
+    <h4>Gyms around the world</h4>
 <div class="main-container">
 <!--       <%#= form_tag gyms_path, method: :get do %>
       <%#= text_field_tag :query,
@@ -19,11 +19,11 @@
   data-markers="<%= @markers.to_json %>"
   ></div> -->
 </div>
-<h3>Explore cities with strong CrossFit communities</h3>
+<h4 class="w-auto">Explore cities</h4>
 <%#= render 'components/publicity_banner' %>
 <%= render 'components/profile_cards' %>
 <div class="">
-<h3>Workouts to get inspired</h3>
+<h4>Workouts to get inspired</h4>
 <%= render 'components/workout_cards' %>
 </div>
  <!--  <%# @coutries.each do |country| %>
