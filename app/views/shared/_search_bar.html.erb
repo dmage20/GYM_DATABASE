@@ -1,6 +1,6 @@
 
-  <%= simple_form_for(Gym.new, as: :gym, method: :get, url: gyms_path, wrapper: :inline_form, html: { class: 'form-inline' }) do |f| %>
-     <div class="form-group">
+  <%= simple_form_for(Gym.new, as: :gym, method: :get, url: gyms_path, wrapper: :inline_form, html: { class: 'form-inline flex-grow-1' }) do |f| %>
+     <div class="form-group flex-grow-1" style="margin-bottom: 0px;">
         <!-- <i class="fas fa-search"></i> -->
         <%= f.input :address, placeholder: 'Try "Barcelona"'  %>
         <%#= f.submit 'Find', class: "btn btn-primary", id: "find-gyms"%>

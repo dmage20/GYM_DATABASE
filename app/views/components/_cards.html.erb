@@ -6,7 +6,7 @@
     <img class="card-img-top" src='https://maps.googleapis.com/maps/api/streetview?size=600x300&location=<%= gym.latitude %>,<%= gym.longitude %>&heading=151.78&pitch=-0.76&key=<%= "#{ENV['GOOGLE_API_BROWSER_KEY']}" %>' alt="Card image cap">
     <div class="card-body">
       <h6 class="card-title text-truncate"><%= gym.name %></h6>
-      <small class="text-muted text-truncate"> <%= gym.city.name %> <%= gym.country.name %></small>
+      <small class="text-truncate text-muted "><%= gym.city.name + ' ' + gym.country.name%></small>
       <!-- <p class="card-text"><%#= gym.city.name %></p> -->
     </div>
     <div class="card-footer">
