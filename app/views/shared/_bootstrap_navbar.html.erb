@@ -1,0 +1,30 @@
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<!--   <a class="navbar-brand" href="https://gngbase.com">
+    <img src="<%#= image_url 'logo.png' %>" width="45" height="45" alt="logo">
+  </a> -->
+  <%= link_to root_path, class: "navbar-brand" do %>
+    <%= image_tag "logo.png", height: 45, width:45, alt: 'logo' %>
+  <% end %>
+  <%= render 'shared/search_bar' %>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav ml-auto">
+  <% if user_signed_in? %>
+        <a class="nav-item nav-link " href="#">Schedule</a>
+        <a class="nav-item nav-link " href="#">Messages</a>
+        <a class="nav-item nav-link" href="#">Trips</a>
+        <a class="nav-item nav-link" href="#">Saved</a>
+        <%= link_to t(".log_out", default: "Logout"), destroy_user_session_path, class: "navbar-item nav-link" %>
+  <% else %>
+      <!-- Login link (when logged out) -->
+      <%= link_to t(".sign_in", default: "Login"), new_user_session_path, class: "navbar-item nav-link" %>
+      <%= link_to t(".sign_up", default: "Sign up"), new_user_registration_path, class: "navbar-item nav-link" %>
+  <% end %>
+      </div>
+      </div>
+</nav>
+
