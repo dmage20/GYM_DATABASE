@@ -25,6 +25,7 @@ gem "httparty"
 gem 'savon'
 gem 'unsplash'
 gem 'google_places'
+gem 'omniauth-facebook'
 
 gem 'jquery-rails'
 
