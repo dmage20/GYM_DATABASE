@@ -1,4 +1,5 @@
 class Bookmark < ApplicationRecord
-  belongs_to :user
-  has_one :gym
+  belongs_to :gym
+  # has_one :user
+  # validates :gym_id, uniqueness: true
 end

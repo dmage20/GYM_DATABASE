@@ -95,6 +95,7 @@ class GymsController < ApplicationController
   end
 
   def show
+    @bookmark = Bookmark.new
     @gyms = []
     @gym = Gym.find(params["id"])
     @gyms << @gym

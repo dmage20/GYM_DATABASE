@@ -1,0 +1,21 @@
+
+function refreshForm(innerHTML) {
+  const newBookmarkForm = document.getElementById('edit_gym_<%=@gym.id%>');
+  newBookmarkForm.innerHTML = innerHTML;
+}
+function addDeleteBookmark() {
+  const switchThis = document.getElementById('label');
+  if (switchThis.classList.contains('fas')) {
+    switchThis.classList.remove('fas');
+    switchThis.classList.add('far');
+    // console.log('Hello I am Ajax');
+  } else {
+    switchThis.classList.add('fas');
+    switchThis.classList.remove('far');
+    // console.log('Hello I am Ajax');
+  }
+}
+
+addDeleteBookmark();
+refreshForm('<%= j render "bookmarks/form", gym: @gym %>');
+
