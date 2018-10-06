@@ -20,7 +20,8 @@
         <%#= image_tag @profile["user"]["profile_pic_url"], :class=> "avatar-large-show" %>
       <% end %>
     <ul class="list-inline">
-        <li><h2><%= @gym.name %></h2></li>
+        <li class="list-inline-item"><h2><%= @gym.name %></h2></li>
+         <li class="list-inline-item"> <%= render 'bookmarks/form', gym: @gym, bookmark: @bookmark %> </li>
     </ul>
 
     <p> <%= @user["biography"] %> </p>

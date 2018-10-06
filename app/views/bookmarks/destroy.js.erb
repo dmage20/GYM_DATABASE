@@ -1,0 +1,18 @@
+function refreshForm(innerHTML) {
+  const newBookmarkForm = document.getElementById('edit_gym_<%=@gym.id%>');
+  newBookmarkForm.innerHTML = innerHTML;
+}
+function addDeleteBookmark() {
+  const switchThis = document.getElementById('label');
+  if (switchThis.classList.contains('fas')) {
+    switchThis.classList.remove('fas');
+    switchThis.classList.add('far');
+  } else {
+    switchThis.classList.add('fas');
+    switchThis.classList.remove('far');
+  }
+}
+
+addDeleteBookmark();
+refreshForm('<%= j render "bookmarks/form", gym: @gym %>');
+// console.log('beware for I am Ajax the destroyer of Bookmarks');
