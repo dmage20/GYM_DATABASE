@@ -1,0 +1,29 @@
+function refreshForm(innerHTML) {
+  const newReviewForm = document.getElementById('new_review');
+  newReviewForm.innerHTML = innerHTML;
+}
+
+function addReview(reviewHTML) {
+  const insertHere = document.getElementById('parent-review');
+  // const reviews = document.getElementById('new_review');
+  // reviews.insertAdjacentHTML('beforeBegin', reviewHTML);
+  insertHere.insertAdjacentHTML('afterEnd',
+   `<div class="google-review">
+      <div class="review-avatar"></div>
+      <div class="review-text">
+        ${reviewHTML}
+      </div>
+    </div>`);
+
+}
+
+<% if @review.errors.any? %>
+  refreshForm('<%= j render "reviews/form", gym: @gym, review: @review %>');
+  console.log('<%= @review.errors.full_messages%>');
+<% else %>
+  addReview('<%= j render "reviews/show", review: @review %>');
+  refreshForm('<%= j render "reviews/form", gym: @gym, review: Review.new %>');
+<% end %>
+
+
+
