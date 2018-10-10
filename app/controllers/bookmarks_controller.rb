@@ -10,7 +10,7 @@ class BookmarksController < ApplicationController
       # redirect_to gym_path(@gym)
       respond_to do |format|
         format.html { redirect_to gym_path(@gym) }
-        format.js  # <-- will render `app/views/bookmarks/create.js.erb`
+        format.js # <-- will render `app/views/bookmarks/create.js.erb`
       end
     else
       respond_to do |format|

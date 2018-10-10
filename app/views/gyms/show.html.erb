@@ -21,7 +21,9 @@
       <% end %>
     <ul class="list-inline">
         <li class="list-inline-item"><h2><%= @gym.name %></h2></li>
-         <li class="list-inline-item"> <%= render 'bookmarks/form', gym: @gym, bookmark: @bookmark %> </li>
+        <% if user_signed_in? %>
+          <li class="list-inline-item"> <%= render 'bookmarks/form', gym: @gym, bookmark: @bookmark %> </li>
+         <% end %>
     </ul>
 
     <p> <%= @user["biography"] %> </p>
@@ -77,19 +79,39 @@
 <% end %>
 
     <div class="google-reviews">
-      <h3>Google Reviews</h3>
-     <% @spot.reviews.first(3).each do |review| %>
+      <h3 id="parent-review">User Reviews</h3>
+      <% if @gym.reviews.blank? %>
+        Be the first to leave a review for <%= @gym.name %>
+      <% end %>
+      <%# @spot.reviews.first(3).each do |review| %>
+      <% @gym.reviews.last(5).each do |review| %>
       <div class="google-review">
-      <div class="review-avatar">
-        <%# binding.pry %>
-        <%#= image_tag review.profile_photo_url, :class=> "avatar-google" %>
+        <div class="review-avatar">
+          <%# binding.pry %>
+          <%#= image_tag review.profile_photo_url, :class=> "avatar-google" %>
+        </div>
+        <div class="review-text">
+          <%#= review.text.split(".")[0] %>
+          <% if @gym.reviews.blank? %>
+          Be the first to leave a review for <%= @gym.name %>
+          <% else %>
+          <%= render 'reviews/show', review: review %>
+          <% end %>
+        </div>
       </div>
-      <div class="review-text">
-        <%= review.text.split(".")[0] %>
-      </div>
-      </div>
-     <% end %>
+      <% end %>
+      <%= render 'reviews/form', gym: @gym, review: @review if user_signed_in? %>
     </div>
+
+    <!-- <div id="reviews"> -->
+      <%# if @gym.reviews.blank? %>
+        <!-- Be the first to leave a review for <%#= @gym.name %> -->
+      <%# else %>
+        <%# @gym.reviews.last(5).each do |review| %>
+        <%#= render 'reviews/show', review: review %>
+        <%# end %>
+      <%# end %>
+    <!-- </div> -->
 
       <div
   id="map" class=" show-map"

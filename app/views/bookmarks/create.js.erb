@@ -15,7 +15,11 @@ function addDeleteBookmark() {
     // console.log('Hello I am Ajax');
   }
 }
-
+<% if @bookmark.persisted? %>
 addDeleteBookmark();
 refreshForm('<%= j render "bookmarks/form", gym: @gym %>');
+ <%else %>
+  console.log('ERROR');
+<%end %>
+
 

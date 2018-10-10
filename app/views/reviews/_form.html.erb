@@ -1,0 +1,4 @@
+<%= simple_form_for([ gym, review ], remote: true) do |form| %>
+  <%= form.input :content, as: :text, label: false  %>
+  <%= form.button :submit, class: "btn btn-primary btn-sm " %>
+<% end %>
