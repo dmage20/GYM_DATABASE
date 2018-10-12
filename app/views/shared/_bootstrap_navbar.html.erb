@@ -14,10 +14,10 @@
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav ml-auto">
   <% if user_signed_in? %>
-        <a class="nav-item nav-link " href="#">Schedule</a>
-        <a class="nav-item nav-link " href="#">Messages</a>
-        <a class="nav-item nav-link" href="#">Trips</a>
-        <a class="nav-item nav-link" href="#">Saved</a>
+        <a class="nav-item nav-link disabled" href="#">Schedule</a>
+        <a class="nav-item nav-link disabled" href="#">Messages</a>
+        <a class="nav-item nav-link disabled" href="#">Membership</a>
+        <%= link_to 'Saved', bookmarks_path, class: "nav-item nav-link"  %>
         <div class="dropdown">
         <% if !current_user.image.blank? %>
           <%= image_tag current_user.image, class: "avatar-small dropdown-toggle", id: "dropdownMenuButton", "data-toggle" => "dropdown"%>

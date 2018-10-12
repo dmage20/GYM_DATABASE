@@ -1,0 +1,35 @@
+<div class="container">
+  <h3>Your Bookmarks</h3>
+
+  <div id="accordion">
+   <% @bookmarks.each_with_index do |bookmark, index| %>
+  <div class="card">
+    <div class="card-header" id="headingOne">
+      <h5 class="mb-0">
+        <button class="btn btn-link  btn-block" data-toggle="collapse" data-target="#collapse<%= index %>" aria-expanded="false" aria-controls="collapse<%= index %>">
+          <div class="d-flex flex-row">
+            <div class="p-1"><%= bookmark.gym.name %> -</div>
+            <div class="p-1"><%= bookmark.gym.city.name %></div>
+            <div class="p-1"><%= bookmark.gym.country.name %></div>
+            <div class="ml-auto p-2"><%= link_to  gym_bookmarks_path(bookmark.gym), method: :delete do %>
+                <i class="fas fa-trash-alt"></i>
+                <% end %>
+            </div>
+          </div>
+
+        </button>
+      </h5>
+    </div>
+
+    <div id="collapse<%= index %>" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+      <div class="card-body">
+        <!-- <%#= bookmark.gym.country.name %> <br> -->
+        <!-- <%#= bookmark.gym.city.name %> <br> -->
+        <%= link_to bookmark.gym.name, gym_path(bookmark.gym) %>
+      </div>
+    </div>
+  </div>
+    <% end %>
+</div>
+</div>
+

@@ -226,6 +226,7 @@ GEM
     thor (0.20.0)
     thread_safe (0.3.6)
     tilt (2.0.8)
+    to_words (1.1.1)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     uglifier (4.1.15)
@@ -280,6 +281,7 @@ DEPENDENCIES
   simple_form
   spring
   spring-watcher-listen (~> 2.0.0)
+  to_words
   uglifier
   unsplash
   web-console (>= 3.3.0)

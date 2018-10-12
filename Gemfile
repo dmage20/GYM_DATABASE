@@ -26,6 +26,7 @@ gem 'savon'
 gem 'unsplash'
 gem 'google_places'
 gem 'omniauth-facebook'
+gem 'to_words'
 
 gem 'jquery-rails'
 
