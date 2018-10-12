@@ -29,13 +29,14 @@ class BookmarksController < ApplicationController
         if @bookmark.destroy_all
           # redirect_to gym_path(@gym)
           respond_to do |format|
-          format.html { redirect_to gym_path(@gym) }
+          format.html { redirect_to request.referrer }
           format.js  # <-- will render `app/views/bookmarks/create.js.erb`
           end
         end
   end
 
-  def show
+  def index
+    @bookmarks = Bookmark.where(user_id: current_user)
 
   end
 
