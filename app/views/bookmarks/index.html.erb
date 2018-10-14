@@ -23,9 +23,18 @@
 
     <div id="collapse<%= index %>" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
       <div class="card-body">
-        <!-- <%#= bookmark.gym.country.name %> <br> -->
-        <!-- <%#= bookmark.gym.city.name %> <br> -->
-        <%= link_to bookmark.gym.name, gym_path(bookmark.gym) %>
+        <div class="d-flex">
+          <div class="p-1">
+        <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?center=#{bookmark.gym.latitude},#{bookmark.gym.longitude}&zoom=13&size=500x300&maptype=roadmap&markers=color:red%7Clabel:G%7C#{bookmark.gym.latitude},#{bookmark.gym.longitude}&key=#{ENV['GOOGLE_API_BROWSER_KEY']}" %>
+          </div>
+          <div class="p-1">
+            <%= link_to bookmark.gym.name, gym_path(bookmark.gym) %> <br>
+            <%= link_to "#{bookmark.gym.address}", "https://www.google.com/maps/search/?api=1&query=#{bookmark.gym.latitude},#{bookmark.gym.longitude}", target: '_blank' %><br>
+            <%= link_to bookmark.gym.website, target: '_blank' do %>
+              <i class="fas fa-link"></i> <%= bookmark.gym.website %>
+            <% end %>
+           </div>
+        </div>
       </div>
     </div>
   </div>
@@ -33,3 +42,4 @@
 </div>
 </div>
 
+<%#= image_tag "https://maps.googleapis.com/maps/api/streetview?size=600x300&location=#{gym.latitude},#{gym.longitude}&heading=151.78&pitch=-0.76&key=#{ENV['GOOGLE_API_BROWSER_KEY']}", class: "picture" %>
