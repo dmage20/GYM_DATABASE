@@ -86,9 +86,10 @@
       <%# @spot.reviews.first(3).each do |review| %>
       <% @gym.reviews.last(5).each do |review| %>
       <div class="google-review">
-        <div class="review-avatar">
-          <%# binding.pry %>
-          <%#= image_tag review.profile_photo_url, :class=> "avatar-google" %>
+        <div class="avatar-small">
+          <%#= image_tag review.profile_photo_url, :class=>
+          "avatar-google" %>
+          <span class="initials"><%= review.user.name[0..1].upcase %></span>
         </div>
         <div class="review-text">
           <%#= review.text.split(".")[0] %>
