@@ -29,6 +29,7 @@ gem 'omniauth-facebook'
 gem 'to_words'
 
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 
 group :development do
