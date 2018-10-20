@@ -1,37 +1,37 @@
 <div class="container">
-<div class="inbox">
- <h3>Mailbox</h3>
+  <div class="inbox">
+  <h3>Mailbox</h3>
     <div class="list-group">
-   <% @conversations.each do |conversation| %>
-   <% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
-    <% if conversation.sender_id == current_user.id %>
-      <% recipient = User.find(conversation.recipient_id) %>
-    <% else %>
-      <% recipient = User.find(conversation.sender_id) %>
+      <% @conversations.each do |conversation| %>
+      <% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
+        <% if conversation.sender_id == current_user.id %>
+          <% recipient = User.find(conversation.recipient_id) %>
+        <% else %>
+          <% recipient = User.find(conversation.sender_id) %>
+        <% end %>
+        <%= link_to "From: #{recipient.name}",   conversation_messages_path(conversation), class: "list-group-item list-group-item-action" %>
+      <% end %>
+      <% end %>
+    </div>
+  <div class="users">
+    <h3>All Users</h3>
+ <!-- <input id="basics" /> -->
+    <%= form_with url: search_path, local:true, method: :get, html: {class: "form-inline my-2 my-lg-0"} do |form| %>
+    <%= form.text_field :query, placeholder: "Search", data: {behavior: "autocomplete"}, class: "form-control mr-sm-2" %>
+    <%= form.button "Search", class: "btn btn-outline-success my-2 my-sm-0" %>
     <% end %>
-    <%= link_to "From: #{recipient.name}",   conversation_messages_path(conversation), class: "list-group-item list-group-item-action" %>
-   <% end %>
-  <% end %>
+
+
+    <div class="list">
+      <% @users.each do |user| %>
+      <div class=”item”>
+        <%= user.name %> <%= link_to 'Message me!', conversations_path(sender_id: current_user.id, recipient_id: user.id), method: :post if user.id != current_user.id %>
+      </div>
+      <% end %>
+    </div>
+
+
   </div>
-<div class="users">
- <h3>All Users</h3>
- <input id="basics" />
-   <%#= simple_form_for(User.new,  url: gyms_path, wrapper: :inline_form, html: { class: 'form-inline flex-grow-1' }) do |f| %>
-   <!--   <div class="form-group flex-grow-1" style="margin-bottom: 0px;">
-        <i class="fas fa-search"></i> -->
-        <%#= f.input :name, placeholder: 'Try "a name"', id: 'name-search'  %>
-        <%#= f.submit 'Find', class: "btn btn-primary", id: "find-users"%>
-     <!-- </div> -->
-  <!-- <%# end %> -->
-  <!-- <div class="list"> -->
-   <%# @users.each do |user| %>
-     <!-- <div class=”item”> -->
-   <%#= user.name %> <%#= link_to 'Message me!', conversations_path(sender_id: current_user.id, recipient_id: user.id), method: :post if user.id != current_user.id %>
- <!-- </div> -->
- <%# end %>
-<!--  </div>
-</div> -->
  <!--  -->
+  </div>
 </div>
-
-

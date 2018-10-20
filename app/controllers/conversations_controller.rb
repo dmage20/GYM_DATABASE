@@ -10,6 +10,7 @@ def create
   @conversation = Conversation.create!(conversation_params)
 
  end
+ Rails.cache.clear
  redirect_to conversation_messages_path(@conversation)
 end
 

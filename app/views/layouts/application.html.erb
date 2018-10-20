@@ -20,9 +20,13 @@
     <title>Gngbase</title>
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
-    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <!-- <script src="//code.jquery.com/jquery-1.11.2.min.js"></script> -->
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%#= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
+    <%#= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_API_BROWSER_KEY']}" %>
+    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?libraries=places&key=#{ENV['GOOGLE_API_BROWSER_KEY']}" %>
+    <%= javascript_include_tag 'application' %>
+
   </head>
   <body>
     <%= render 'shared/bootstrap_navbar' %>
@@ -31,10 +35,9 @@
     <!-- <p class="alert"><%= alert %></p> -->
     <%= yield %>
     <%= render 'shared/footer' %>
-    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?libraries=places&key=#{ENV['GOOGLE_API_BROWSER_KEY']}" %>
-      <%= javascript_include_tag 'application' %>
-    <%= javascript_pack_tag 'application' %>
+    <%#= javascript_pack_tag 'application' %>
     <%= javascript_pack_tag "map" %>
+
 
   </body>
 </html>

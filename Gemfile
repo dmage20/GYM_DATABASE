@@ -30,6 +30,7 @@ gem 'to_words'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+gem 'turbolinks', '~> 5.2.0'
 
 
 group :development do
