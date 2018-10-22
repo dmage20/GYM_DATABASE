@@ -5,20 +5,24 @@ end
 
 def index
  @messages = @conversation.messages
-  if @messages.length > 10
-   @over_ten = true
-   @messages = @messages[-10..-1]
+ @message = @conversation.messages.new
+  respond_to do |format|
+  format.js
+  format.html{}
   end
-  if params[:m]
-   @over_ten = false
-   @messages = @conversation.messages
-  end
- if @messages.last
-  if @messages.last.user_id != current_user.id
-   @messages.last.read = true;
-  end
- end
-  @message = @conversation.messages.new
+  # if @messages.length > 10
+  #  @over_ten = true
+  #  @messages = @messages[-10..-1]
+  # end
+  # if params[:m]
+  #  @over_ten = false
+  #  @messages = @conversation.messages
+  # end
+ # if @messages.last
+ #  if @messages.last.user_id != current_user.id
+ #   @messages.last.read = true;
+ #  end
+ # end
 end
 
 def new

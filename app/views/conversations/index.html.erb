@@ -3,6 +3,7 @@
  <h3>Mailbox</h3>
     <div class="list-group">
    <% @conversations.each do |conversation| %>
+
    <% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
     <% if conversation.sender_id == current_user.id %>
       <% recipient = User.find(conversation.recipient_id) %>
@@ -10,6 +11,8 @@
       <% recipient = User.find(conversation.sender_id) %>
     <% end %>
     <%= link_to "From: #{recipient.name}",   conversation_messages_path(conversation), class: "list-group-item list-group-item-action" %>
+    <%= link_to "Delete", conversation_path(conversation, sender_id: conversation.sender_id, recipient_id: conversation.recipient_id ), method: :delete %>
+
    <% end %>
   <% end %>
   </div>
@@ -34,4 +37,5 @@
  <!--  -->
 </div>
 
-
+</div>
+</div>
