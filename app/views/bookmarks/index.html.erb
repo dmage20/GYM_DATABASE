@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container col-lg-6">
   <h3>Your Bookmarks</h3>
 
   <div id="accordion">
@@ -23,9 +23,9 @@
 
     <div id="collapse<%= index %>" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
       <div class="card-body">
-        <div class="d-flex">
+        <div class="d-flex flex-md-row flex-column-reverse">
           <div class="p-1">
-        <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?center=#{bookmark.gym.latitude},#{bookmark.gym.longitude}&zoom=13&size=500x300&maptype=roadmap&markers=color:red%7Clabel:G%7C#{bookmark.gym.latitude},#{bookmark.gym.longitude}&key=#{ENV['GOOGLE_API_BROWSER_KEY']}" %>
+        <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?center=#{bookmark.gym.latitude},#{bookmark.gym.longitude}&zoom=13&size=300x180&maptype=roadmap&markers=color:red%7Clabel:G%7C#{bookmark.gym.latitude},#{bookmark.gym.longitude}&key=#{ENV['GOOGLE_API_BROWSER_KEY']}" %>
           </div>
           <div class="p-1">
             <%= link_to bookmark.gym.name, gym_path(bookmark.gym) %> <br>
