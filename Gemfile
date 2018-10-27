@@ -30,6 +30,9 @@ gem 'to_words'
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
+# canlendar
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
 
 
 group :development do

@@ -5,3 +5,8 @@
 
 //= require popper
 //= require bootstrap
+
+//= require moment
+//= require fullcalendar
+
+$('#calendar').fullCalendar({});
