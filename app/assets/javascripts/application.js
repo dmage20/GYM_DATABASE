@@ -8,5 +8,6 @@
 
 //= require moment
 //= require fullcalendar
+//= require daterangepicker
+//= require turbolinks
 
-$('#calendar').fullCalendar({});
