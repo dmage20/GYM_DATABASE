@@ -20,9 +20,12 @@
     <title>Gngbase</title>
     <%= csrf_meta_tags %>
     <%= action_cable_meta_tag %>
-    <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+    <!-- <script src="//code.jquery.com/jquery-1.11.2.min.js"></script> -->
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%#= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
+    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?libraries=places&key=#{ENV['GOOGLE_API_BROWSER_KEY']}" %>
+      <%= javascript_include_tag 'application' %>
+      <!-- <script src="/assets/application-077af06bfba3a711e8fadf13dd86ef83a80550ffbb4df6e8703921f1c35ba0ac.js"></script> -->
   </head>
   <body>
     <%= render 'shared/bootstrap_navbar' %>
@@ -30,11 +33,11 @@
     <!-- <p class="notice"><%= notice %></p> -->
     <!-- <p class="alert"><%= alert %></p> -->
     <%= yield %>
+    <div id='remote_container'></div>
     <%= render 'shared/footer' %>
-    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?libraries=places&key=#{ENV['GOOGLE_API_BROWSER_KEY']}" %>
-      <%= javascript_include_tag 'application' %>
-    <%= javascript_pack_tag 'application' %>
-    <%= javascript_pack_tag "map" %>
+    <%#= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_API_BROWSER_KEY']}" %>
+        <%= javascript_pack_tag 'application' %>
+          <%= javascript_pack_tag "map" %>
 
   </body>
 </html>
