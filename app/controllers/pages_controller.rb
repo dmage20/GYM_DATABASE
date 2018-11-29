@@ -57,7 +57,7 @@ class PagesController < ApplicationController
       @results << element
     end
 
-     @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
+     @instagram = JSON.parse(@results[4].children.text.strip.chomp(";").last(-21))
      @media = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]["edge_owner_to_timeline_media"]["edges"]
      @profile_pic_url =  @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]["profile_pic_url"]
      @workouts = []
