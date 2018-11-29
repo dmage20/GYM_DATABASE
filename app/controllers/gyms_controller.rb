@@ -54,7 +54,7 @@ class GymsController < ApplicationController
       html_doc.search('script').each do |element|
         @results << element
       end
-      @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
+      @instagram = JSON.parse(@results[4].children.text.strip.chomp(";").last(-21))
       @media = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]["edge_owner_to_timeline_media"]["edges"]
       media_hash_to_object(@media)
       @user = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]
@@ -72,7 +72,7 @@ class GymsController < ApplicationController
         @results << element
 
         end
-      @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
+      @instagram = JSON.parse(@results[4].children.text.strip.chomp(";").last(-21))
       @media = @instagram["entry_data"]["LocationsPage"][0]["graphql"]["location"]["edge_location_to_media"]["edges"].first(12)
       media_hash_to_object(@media)
   end
@@ -89,7 +89,7 @@ class GymsController < ApplicationController
         @results << element
 
         end
-      @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
+      @instagram = JSON.parse(@results[4].children.text.strip.chomp(";").last(-21))
       @media =  @instagram["entry_data"]["TagPage"][0]["graphql"]["hashtag"]["edge_hashtag_to_media"]["edges"].first(12)
       media_hash_to_object(@media)
   end
@@ -137,7 +137,7 @@ class GymsController < ApplicationController
       html_doc.search('script').each do |element|
         @results << element
       end
-      @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
+      @instagram = JSON.parse(@results[4].children.text.strip.chomp(";").last(-21))
       @media = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]["edge_owner_to_timeline_media"]["edges"]
       media_hash_to_object(@media)
       @user = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]
@@ -153,7 +153,7 @@ class GymsController < ApplicationController
         @results << element
 
         end
-      @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
+      @instagram = JSON.parse(@results[4].children.text.strip.chomp(";").last(-21))
       @media = @instagram["entry_data"]["LocationsPage"][0]["graphql"]["location"]["edge_location_to_media"]["edges"].first(12)
       media_hash_to_object(@media)
   elsif @gym.hashtag.present?
@@ -167,7 +167,7 @@ class GymsController < ApplicationController
         @results << element
 
         end
-      @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
+      @instagram = JSON.parse(@results[4].children.text.strip.chomp(";").last(-21))
       @media =  @instagram["entry_data"]["TagPage"][0]["graphql"]["hashtag"]["edge_hashtag_to_media"]["edges"].first(12)
       media_hash_to_object(@media)
   end
