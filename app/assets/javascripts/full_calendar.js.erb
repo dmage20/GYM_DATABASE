@@ -2,6 +2,8 @@ var initialize_calendar;
 initialize_calendar = function() {
   $('.calendar').each(function(){
     var calendar = $(this);
+    var identifier = calendar[0].id;
+    console.log(identifier);
     calendar.fullCalendar({
       header: {
         left: 'prev,next today',
@@ -12,10 +14,10 @@ initialize_calendar = function() {
       selectHelper: true,
       editable: true,
       eventLimit: true,
-      events: '/events.json',
+      events: `/gyms/${identifier}/events.json`,
 
       select: function(start, end) {
-        $.getScript('/events/new', function() {
+        $.getScript(`/gyms/${identifier}/events/new`, function() {
           $('#event_date_range').val(moment(start).format("MM/DD/YYYY HH:mm") + ' - ' + moment(end).format("MM/DD/YYYY HH:mm"))
           date_range_picker();
           $('.start_hidden').val(moment(start).format('YYYY-MM-DD HH:mm'));

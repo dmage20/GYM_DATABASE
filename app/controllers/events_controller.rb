@@ -2,7 +2,8 @@ class EventsController < ApplicationController
   before_action :set_event, only: [:show, :edit, :update, :destroy]
 
   def index
-    @events = Event.where(start: params[:start]..params[:end])
+    @identifier = params["gym_id"]
+    @events = Event.where(start: params[:start]..params[:end], gym_id: params["gym_id"])
   end
 
   def show
@@ -17,6 +18,7 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
+    @event.gym_id = params["gym_id"]
     @event.save
   end
 
