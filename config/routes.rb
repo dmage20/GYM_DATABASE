@@ -7,9 +7,11 @@ Rails.application.routes.draw do
   resources :gyms, only: [:index, :show] do
     resource :bookmarks, only: [:create, :destroy]
     resources :reviews, only: :create
+    # resources :events, only: :create
+    resources :events
   end
   resources :bookmarks, only: :index
-  resources :events
+  # resources :events, except:[:create]
 
   resources :conversations do
   resources :messages
