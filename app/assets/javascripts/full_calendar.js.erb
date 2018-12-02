@@ -3,7 +3,7 @@ initialize_calendar = function() {
   $('.calendar').each(function(){
     var calendar = $(this);
     var identifier = calendar[0].id;
-    console.log(identifier);
+    // console.log(identifier);
     calendar.fullCalendar({
       header: {
         left: 'prev,next today',
@@ -14,6 +14,7 @@ initialize_calendar = function() {
       selectHelper: true,
       editable: true,
       eventLimit: true,
+      longPressDelay: 200,
       events: `/gyms/${identifier}/events.json`,
 
       select: function(start, end) {
