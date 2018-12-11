@@ -1,11 +1,33 @@
   <%#= render 'components/banner_show' %>
 <div class="main-container">
   <div class="d-flex flex-md-row flex-column-reverse mb-3">
-  <div class="p-2 bd-highlight flex-shrink-1">
-    <%= render 'components/instagram_cards' %>
-    <div class="container col-lg-8">
-    <!-- <div class='calendar' id="<%=params["id"]%>" ></div> -->
-    </div>
+  <div class="p-2 bd-highlight flex-shrink-1 flex-grow-1">
+
+      <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Photos</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">WOD</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Other</a>
+        </li>
+      </ul>
+      <div class="tab-content" id="pills-tabContent">
+      <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+
+        <%= render 'components/instagram_cards' %>
+
+      </div>
+      <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+
+      </div>
+      <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+      <%#= render 'components/wod_cards' %>
+      </div>
+      </div>
+
   </div>
   <div class="p-2 bd-highlight information ">
   <!-- <div class="information"> -->
@@ -118,7 +140,7 @@
       <%= render 'reviews/form', gym: @gym, review: @review if user_signed_in? %>
     </div>
     <div class="bookings">
-      <h3>Book a Class Below <i class="fas fa-arrow-down"></i></h3>
+      <h3 class="text-center">Book a Class Below <i class="fas fa-arrow-down"></i></h3>
       <div class='calendar' id="<%=params["id"]%>" ></div>
     </div>
 

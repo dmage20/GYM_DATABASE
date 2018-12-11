@@ -28,7 +28,6 @@ class GymsController < ApplicationController
     post.owner.follower_count = @profile['user']['follower_count'] if ! @profile.blank?
     post.owner.follower_count_text = @profile['user']['byline'] if ! @profile.blank?
     @array_of_posts << post
-    # binding.pry
     end
 
   end
@@ -72,7 +71,7 @@ class GymsController < ApplicationController
         @results << element
 
         end
-      @instagram = JSON.parse(@results[4].children.text.strip.chomp(";").last(-21))
+      @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
       @media = @instagram["entry_data"]["LocationsPage"][0]["graphql"]["location"]["edge_location_to_media"]["edges"].first(12)
       media_hash_to_object(@media)
   end
@@ -93,6 +92,9 @@ class GymsController < ApplicationController
       @media =  @instagram["entry_data"]["TagPage"][0]["graphql"]["hashtag"]["edge_hashtag_to_media"]["edges"].first(12)
       media_hash_to_object(@media)
   end
+
+
+
 
   def show
     @bookmark = Bookmark.new
@@ -217,7 +219,6 @@ class GymsController < ApplicationController
     # second_serialized = open(second_url).read
     # @instagram = JSON.parse(second_serialized)
     # class_schedule
-
   end
 
 

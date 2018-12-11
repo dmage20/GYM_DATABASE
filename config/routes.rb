@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :wods
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks'}
   devise_scope :user do
   get '/users/sign_out' => 'devise/sessions#destroy'
@@ -7,12 +8,13 @@ Rails.application.routes.draw do
   resources :gyms, only: [:index, :show] do
     resource :bookmarks, only: [:create, :destroy]
     resources :reviews, only: :create
+    resources :wods
     # resources :events, only: :create
     resources :events
   end
+  get '/views/pages/crossfitwods' => 'pages#crossfitwods'
   resources :bookmarks, only: :index
   # resources :events, except:[:create]
-
   resources :conversations do
   resources :messages
   end

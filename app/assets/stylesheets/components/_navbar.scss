@@ -132,7 +132,9 @@ input[type=text]:focus {
     // height: 36px;
     // vertical-align: middle;
 }
-
+.nav-pills .nav-link.active{
+  background-color: #4ecca3;
+}
 .btn-primary:hover {
     opacity: .85;
     background-color: #4ecca3;
