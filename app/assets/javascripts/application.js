@@ -10,4 +10,5 @@
 //= require fullcalendar
 //= require daterangepicker
 //= require turbolinks
+//= require trix
 

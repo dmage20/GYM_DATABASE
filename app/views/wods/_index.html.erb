@@ -1,0 +1,36 @@
+<!--   <div class="d-flex justify-content-center">.
+
+  </div> -->
+<%#= render 'components/navs' %>
+
+
+    <div class="row">
+      <% @wods.order(created_at: :desc).each do |post| %>
+
+      <div class="col-sm-4 wod" style="padding-bottom: 10px">
+        <div class="card align-self-stretch" style="height:100%">
+          <div class="card-header text-center">
+            <% if post.created_at.today? %>
+              <h4 style="margin: 0px"><span class="badge badge-warning">New</span></h4>
+            <% elsif @gym.admins.users.include?(current_user) %>
+            <%= post.created_at.to_date %> <%="by #{User.find(post.user_id).name.to_s}" if post.user_id.present? %>
+            <% else %>
+              <%= post.created_at.to_date %>
+            <% end %>
+          </div>
+          <div class="card-body text-center">
+            <!-- <h5 class="card-title">Card title</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+            <p class="card-text"><%#= post.body %></p> -->
+            <%= post.body.html_safe %>
+            <% if post.created_at.today? %>
+              <a href="#" class="link">Another link</a>
+              <a href="#" class="btn btn-primary btn-sm">Post Score</a>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <% end %>
+  </div>
+
+

@@ -1,4 +1,6 @@
 <%= simple_form_for([ gym, review ], remote: true) do |form| %>
+  <div class="form-with-padding">
   <%= form.input :content, as: :text, label: false  %>
   <%= form.button :submit, class: "btn btn-primary btn-sm " %>
+  </div>
 <% end %>

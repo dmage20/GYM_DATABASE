@@ -1,33 +1,51 @@
-  <%#= render 'components/banner_show' %>
+      <%#= render 'components/navs' %>
 <div class="main-container">
   <div class="d-flex flex-md-row flex-column-reverse mb-3">
   <div class="p-2 bd-highlight flex-shrink-1 flex-grow-1">
 
       <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab" aria-controls="pills-home" aria-selected="true">Photos</a>
+          <a class="nav-link active" id="pills-Photos-tab" data-toggle="pill" href="#pills-Photos" role="tab" aria-controls="pills-Photos" aria-selected="true">Photos</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false">WOD</a>
+          <a class="nav-link" id="pills-WOD-tab" data-toggle="pill" href="#pills-WOD" role="tab" aria-controls="pills-WOD" aria-selected="false">WODs</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Other</a>
+          <a class="nav-link" id="pills-scores-tab" data-toggle="pill" href="#pills-scores" role="tab" aria-controls="pills-scores" aria-selected="false">Board</a>
         </li>
+        <% if @gym.admins.users.include?(current_user) %>
+          <li class="nav-item">
+            <a class="nav-link" id="pills-Make-WOD-tab" data-toggle="pill" href="#pills-Make-WOD" role="tab" aria-controls="pills-Make-WOD" aria-selected="false">Box Admin</a>
+          </li>
+        <% end %>
       </ul>
+<!-----pills content bellow---------pils control above----- -->
       <div class="tab-content" id="pills-tabContent">
-      <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
 
-        <%= render 'components/instagram_cards' %>
+        <div class="tab-pane fade show active" id="pills-Photos" role="tabpanel" aria-labelledby="pills-home-tab">
+          <%= render 'components/instagram_cards' %>
+        </div>
+
+        <div class="tab-pane fade" id="pills-WOD" role="tabpanel" aria-labelledby="pills-profile-tab">
+          <%= render 'wods/index' %>
+        </div>
+
+        <div class="tab-pane fade" id="pills-scores" role="tabpanel" aria-labelledby="pills-scores-tab">
+          <%= render 'whiteboards/show' %>
+        </div>
+
+        <div class="tab-pane fade" id="pills-Make-WOD" role="tabpanel" aria-labelledby="pills-contact-tab">
+
+          <div class="col-lg-7">
+            <h5>Make a WOD</h5>
+            <%= render 'wods/form', gym: @gym, wod: @wod %>
+          </div>
+        </div>
 
       </div>
-      <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
 
-      </div>
-      <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-      <%#= render 'components/wod_cards' %>
-      </div>
-      </div>
-
+      <!-- -end of pills buttons------- -->
+      <%#= render 'components/instagram_cards' %>
   </div>
   <div class="p-2 bd-highlight information ">
   <!-- <div class="information"> -->
@@ -44,12 +62,16 @@
  <% if  !@profile.blank? %>
         <%#= image_tag @profile["user"]["profile_pic_url"], :class=> "avatar-large-show" %>
       <% end %>
-    <ul class="list-inline">
-        <li class="list-inline-item"><h2><%= @gym.name %></h2></li>
+    <div class="d-flex flex-row">
+      <div class="p-2">
+        <h2><%= @gym.name %></h2>
+      </div>
+      <div class="p-2">
         <% if user_signed_in? %>
-          <li class="list-inline-item"> <%= render 'bookmarks/form', gym: @gym, bookmark: @bookmark %> </li>
+          <%= render 'bookmarks/form', gym: @gym, bookmark: @bookmark %>
          <% end %>
-    </ul>
+      </div>
+    </div>
 
      <%= @user["biography"] %>
      <!-- <i class="far fa-bookmark"></i> -->
@@ -68,7 +90,7 @@
     </ul>
   </div> -->
 <% if !@spot.blank? %>
-  <p>
+  <p style="margin-bottom: 3px;">
     <% if !@profile.blank? %>
       <%= link_to "https://www.instagram.com/#{@profile["user"]["username"]}", target: '_blank' do %>
           <i class="fab fa-instagram"></i> <%= @username %>
@@ -84,18 +106,22 @@
   <i class="fas fa-phone-volume fa-lg"></i> <%= @spot.international_phone_number %> <br>
   <!-- <p> <i class="far fa-clock fa-lg"></i></p> -->
   </p>
-  <p>
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+  <!-- <p> -->
+    <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
     <i class="far fa-clock fa-lg"></i> Hours
     </button>
-  </p>
+    <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#multiCollapseExample2" aria-expanded="false" aria-controls="multiCollapseExample2">User Reviews
+    </button>
+    <button class="btn btn-primary btn-sm" type="button" data-toggle="collapse" data-target="#multiCollapseExample3" aria-expanded="false" aria-controls="multiCollapseExample3">Pricing
+    </button>
+  <!-- </p> -->
     <div class="collapse" id="collapseExample">
-    <div class="card card-body">
+    <div class="card card-body" style="background-color: none;">
       <div class="hours">
     <% if !@hours.blank? %>
       <table class="table table-sm">
-  <thead>
-  </thead>
+        <thead>
+        </thead>
   <tbody>
     <% @hours.each do |thing| %>
     <tr>
@@ -112,21 +138,24 @@
 <% end %>
     </div>
 </div>
-
-
+    <div class="collapse multi-collapse" id="multiCollapseExample2">
+      <div class="card card-body">
+           <!-- reviews------------------------ -->
     <div class="google-reviews">
-      <h3 id="parent-review">User Reviews</h3>
+      <h3 id="parent-review" style="padding-top: 0px;">User Reviews</h3>
       <% if @gym.reviews.blank? %>
         Be the first to leave a review for <%= @gym.name %>
       <% end %>
       <%# @spot.reviews.first(3).each do |review| %>
-      <% @gym.reviews.last(5).each do |review| %>
+      <% @gym.reviews.last(3).each do |review| %>
       <div class="google-review">
-        <div class="avatar-small">
+        <div class=' <%= ["bg-primary", "bg-success", "bg-warning"].sample %>' style="padding-left: 4px;">
           <%#= image_tag review.profile_photo_url, :class=>
           "avatar-google" %>
-          <span class="initials"><%= review.user.name[0..1].upcase %></span>
+          <span class=""><%= review.user.name %></span>
         </div>
+        <!-- <span class="initials"><%= review.user.name.capitalize %></span> -->
+
         <div class="review-text">
           <%#= review.text.split(".")[0] %>
           <% if @gym.reviews.blank? %>
@@ -139,8 +168,18 @@
       <% end %>
       <%= render 'reviews/form', gym: @gym, review: @review if user_signed_in? %>
     </div>
+    <!-- end of reviews--------------------- -->
+      </div>
+    </div>
+    <div class="collapse multi-collapse" id="multiCollapseExample3">
+      <div class="card card-body">
+        Prices
+      </div>
+    </div>
+
+
     <div class="bookings">
-      <h3 class="text-center">Book a Class Below <i class="fas fa-arrow-down"></i></h3>
+      <h3 class="text-center" style="padding-top:0">Book a Class Below <i class="fas fa-arrow-down"></i></h3>
       <div class='calendar' id="<%=params["id"]%>" ></div>
     </div>
 
@@ -162,6 +201,11 @@
   ></div>
   <!-- </div> -->
   <!-- </div> -->
+  <div id="admins">
+    <% if !@gym.admins.users.include?(current_user) && user_signed_in?%>
+      <%= render 'admins/form' %>
+    <% end %>
+  </div>
 
   </div>
 </div>

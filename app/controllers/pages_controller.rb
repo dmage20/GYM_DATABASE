@@ -6,7 +6,7 @@ class PagesController < ApplicationController
   skip_before_action :authenticate_user!, only: [:home, :gyms]
 
   def crossfitwods
-    wod_profile("crossfitwod")
+    wod_profile("thecrossfitmayhem")
   end
 
   def home
@@ -30,7 +30,7 @@ class PagesController < ApplicationController
 
       # call the mayhem_profile function and pass it crossfit mayhem
       mayhem_profile("thecrossfitmayhem")
-      # wod_profile("crossfitwod")
+      wod_profile("thecrossfitmayhem")
       # add unsplash image to each city in @cities
       @photograpers = []
       @unsplash_cities = @cities.each do |city|
@@ -69,7 +69,6 @@ class PagesController < ApplicationController
      @media.each do |post|
       @workouts << post if !post["node"]["edge_media_to_caption"]["edges"].first["node"]["text"].downcase.match('post score').blank?
      end
-     binding.pry
   end
 
   def wod_profile(username)
@@ -86,9 +85,11 @@ class PagesController < ApplicationController
      @instagram = JSON.parse(@results[4].children.text.strip.chomp(";").last(-21))
      @media = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]["edge_owner_to_timeline_media"]["edges"]
      @profile_pic_url =  @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]["profile_pic_url"]
-
+    @workouts = []
+    @media.each { |each| @workouts << each if !each["node"]["edge_media_to_caption"]["edges"].first["node"]["text"].downcase.match('post score').blank?
+    }
     @array_of_wods = []
-    @media.each do |dumb|
+    @workouts.each do |dumb|
     wod = OpenStruct.new
     wod.id = dumb["node"]["id"]
     wod.type = dumb["node"]["__typename"]

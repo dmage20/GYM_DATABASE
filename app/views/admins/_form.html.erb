@@ -1,0 +1,7 @@
+<% if @admin.new_record? %>
+  <%= simple_form_for([ @gym, @admin ], method: :post, remote: true) do |form| %>
+  <%= form.button :submit, class: "btn btn-primary btn-sm " %>
+<% end %>
+<% else %>
+<% end %>
+

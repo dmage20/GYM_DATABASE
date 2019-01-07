@@ -1,7 +1,7 @@
 
 <% if Bookmark.exists?(user_id: current_user.id , gym_id: gym.id) %>
 <%= simple_form_for(@gym, url: gym_bookmarks_path(@gym), remote: true, method: :delete, html: { class: 'form-inline ' })  do |form| %>
-  <%= button_tag type: 'submit', class: "btn btn-primary",id: "bookmark-label" do %>
+  <%= button_tag type: 'submit', class: "btn btn-primary ",id: "bookmark-label" do %>
     <% if !current_user.nil? && !(Bookmark.where(user_id: current_user.id , gym_id: gym.id)).blank? %>
       <i class="fas fa-bookmark" id="label"></i>
     <% else %>
@@ -12,7 +12,7 @@
 
 <% else %>
 <%= simple_form_for(@gym, url: gym_bookmarks_path(@gym), remote: true, method: :post, html: { class: 'form-inline ' })  do |form| %>
-  <%= button_tag type: 'submit', class: "btn btn-primary",id: "bookmark-label" do %>
+  <%= button_tag type: 'submit', class: "btn btn-primary ",id: "bookmark-label" do %>
     <% if !current_user.nil? && !(Bookmark.where(user_id: current_user.id , gym_id: gym.id)).blank? %>
       <i class="fas fa-bookmark" id="label"></i>
     <% else %>

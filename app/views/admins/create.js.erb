@@ -1,0 +1,14 @@
+<% if @admin.persisted? %>
+  $('#new_admin').hide();
+  var current_tab = $("#pills-tab > li").slice(-1)[0]
+  current_tab.insertAdjacentHTML('afterEnd',
+  `<li class="nav-item">
+        <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false">Make WOD</a>
+      </li>`
+
+    );
+  // $("#pills-tab").load(location.href + " #pills-tab");
+
+ <%else %>
+  console.log('ERROR');
+<% end %>
