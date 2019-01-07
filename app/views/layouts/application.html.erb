@@ -25,9 +25,12 @@
     <%#= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
     <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?libraries=places&key=#{ENV['GOOGLE_API_BROWSER_KEY']}" %>
       <%= javascript_include_tag 'application' %>
-      <!-- <script src="/assets/application-077af06bfba3a711e8fadf13dd86ef83a80550ffbb4df6e8703921f1c35ba0ac.js"></script> -->
   </head>
-  <body>
+   <%if params["action"] == "index" && params["controller"] == "conversations" || params["action"] == "index" && params["controller"] == "bookmarks"%>
+    <body class="background">
+  <% else %>
+    <body>
+  <% end %>
     <%= render 'shared/bootstrap_navbar' %>
     <%= render 'shared/flashes' %>
     <!-- <p class="notice"><%= notice %></p> -->
@@ -35,9 +38,8 @@
     <%= yield %>
     <div id='remote_container'></div>
     <%= render 'shared/footer' %>
-    <%#= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{ENV['GOOGLE_API_BROWSER_KEY']}" %>
-        <%= javascript_pack_tag 'application' %>
-          <%= javascript_pack_tag "map" %>
+        <%#= javascript_pack_tag 'application' %>
 
+          <%= javascript_pack_tag "map" %>
   </body>
 </html>

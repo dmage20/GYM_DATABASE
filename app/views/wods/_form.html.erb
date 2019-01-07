@@ -1,0 +1,5 @@
+<%= simple_form_for([ gym, wod ], remote: true) do |form| %>
+  <%= form.hidden_field :body, as: :text, label: false  %>
+  <trix-editor input="wod_body"></trix-editor>
+  <%= form.button :submit, class: "btn btn-primary btn-sm ", style: "margin-top: 10px" %>
+<% end %>

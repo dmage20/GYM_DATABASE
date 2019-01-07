@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_11_013551) do
+ActiveRecord::Schema.define(version: 2018_12_26_064931) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "admins", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "gym_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["gym_id"], name: "index_admins_on_gym_id"
+    t.index ["user_id"], name: "index_admins_on_user_id"
+  end
 
   create_table "bookings", force: :cascade do |t|
     t.integer "total_price"
@@ -132,6 +141,27 @@ ActiveRecord::Schema.define(version: 2018_11_11_013551) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  create_table "whiteboards", force: :cascade do |t|
+    t.bigint "gym_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["gym_id"], name: "index_whiteboards_on_gym_id"
+  end
+
+  create_table "wods", force: :cascade do |t|
+    t.text "instructions"
+    t.text "body"
+    t.datetime "date"
+    t.bigint "gym_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["gym_id"], name: "index_wods_on_gym_id"
+    t.index ["user_id"], name: "index_wods_on_user_id"
+  end
+
+  add_foreign_key "admins", "gyms"
+  add_foreign_key "admins", "users"
   add_foreign_key "bookings", "gyms"
   add_foreign_key "bookings", "users"
   add_foreign_key "bookmarks", "gyms"
@@ -144,4 +174,7 @@ ActiveRecord::Schema.define(version: 2018_11_11_013551) do
   add_foreign_key "messages", "users"
   add_foreign_key "reviews", "gyms"
   add_foreign_key "reviews", "users"
+  add_foreign_key "whiteboards", "gyms"
+  add_foreign_key "wods", "gyms"
+  add_foreign_key "wods", "users"
 end

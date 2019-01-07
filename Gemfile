@@ -36,6 +36,7 @@ gem 'momentjs-rails'
 # gem 'daterangepicker-rails'
 gem 'bootstrap-daterangepicker-rails'
 gem 'turbolinks', '~> 5.2.0'
+gem 'trix'
 
 
 group :development do

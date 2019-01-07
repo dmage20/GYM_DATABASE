@@ -19,11 +19,23 @@
   align-items: center;
   justify-content: space-around;
 }
+.background{
+  // background-color: #E7ECF0;
+  background-image: url(<%= image_url 'upsidedown.jpg' %>);
+  background-size: cover !important;
+  background-position: center;
+
+}
 body{
   background-color: #E7ECF0;
 }
 .container-fluid{
 width: calc(100vw - 5vw);
 
+}
+
+.container {
+ // height: fill-available;
+ min-height: fill-available;
 }
 

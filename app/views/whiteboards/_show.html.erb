@@ -1,0 +1,58 @@
+<div class="card w-95">
+  <div class="card-body">
+    <h4 class="card-title">Whiteboard</h4>
+      <div class="row">
+        <div class="col pr-0 scores">
+          <div class="card align-self-stretch">
+           <div class="card-body">
+            <h5 class="card-title">WOD</h5>
+            <%= render 'wods/show' if !@wods.blank? %>
+          </div>
+          </div>
+        </div>
+        <div class="col-md-5 p-0 scores">
+          <div class="card align-self-stretch" style="height: 100%">
+            <div class="card-body">
+            <h5 class="card-title"> Scores </h5>
+            </div>
+          </div>
+        </div>
+        <div class="col pl-0 scores">
+          <div class="card align-self-stretch">
+            <div class="card-body">
+            <h5 class="card-title">Announcements</h5>
+            <% @events.order('start').select{ |t| t.start.future?}.first(2).each do |thing|%>
+              <div class='card <%= thing.color === 'green' ? 'bg-success' : 'bg-danger' %>'>
+               <% if thing.start.future? || thing.start.today? %>
+                <%= thing.title %> <br>
+                <%= thing.start.to_date.to_s %>
+               <% end %>
+              </div>
+            <% end %>
+          </div>
+          </div>
+        </div>
+      </div>
+
+</div>
+</div>
+<!-- <div class="card p-2">
+  <h4 class="card-title">Whiteboard</h4>
+  <div class="d-flex flex-md-row">
+    <div class="p-2">
+      <div class="card">
+        hello
+      </div>
+    </div>
+    <div class="p-2">
+      <div class="card">
+        hello
+      </div>
+    </div>
+    <div class="p-2">
+      <div class="card">
+        hello
+      </div>
+    </div>
+  </div>
+</div> -->

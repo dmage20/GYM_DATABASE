@@ -18,6 +18,7 @@
         <%= link_to 'Messages', conversations_path, class: "nav-item nav-link" %>
         <a class="nav-item nav-link disabled" href="#">Membership</a>
         <%= link_to 'Saved', bookmarks_path, class: "nav-item nav-link"  %>
+        <%= link_to 'WODs', views_pages_crossfitwods_path, class: "nav-item nav-link"  %>
         <div class="dropdown">
         <% if !current_user.image.blank? %>
           <%= image_tag current_user.image, class: "avatar-small dropdown-toggle", id: "dropdownMenuButton", "data-toggle" => "dropdown"%>

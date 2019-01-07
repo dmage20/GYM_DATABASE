@@ -9,7 +9,7 @@ function addReview(reviewHTML) {
   // reviews.insertAdjacentHTML('beforeBegin', reviewHTML);
   insertHere.insertAdjacentHTML('afterEnd',
    `<div class="google-review">
-      <div class="avatar-small">
+      <div class="avatar-small" style="background-color:<%= ['#ff8000','#d3560e', '#851e52','#521168','#1fe5bd'].sample %>">
         <span class="initials"><%= current_user.name[0..1].upcase %></span>
       </div>
       <div class="review-text">

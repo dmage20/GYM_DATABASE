@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="row">
+    <% @array_of_wods.each_with_index do |post, index| %>
+    <div class="col-sm-4 wod" style="padding-bottom: 10px">
+      <div class="card align-self-stretch" style="height:100%">
+        <div class="card-header text-center">
+            <h4 style="margin: 0px"><span class="badge badge-warning"><%= post.time %></span></h4>
+        </div>
+        <div class="card-body text-center">
+          <%= post.caption.partition("Post scores to comments.\n.\n")[2].partition("#crossfitmayhem")[0]  %> <br>
+            <%= "Liked by #{post.likes} "%> <br>
+              <small class="text-muted text-truncate">
+                <%= link_to "https://www.instagram.com/#{@username}", target: '_blank', class: 'text-truncate' do %>
+                  <i class="fab fa-instagram"></i> <%= @username %>
+                <% end %>
+              </small>
+          </div>
+
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

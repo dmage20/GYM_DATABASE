@@ -3,18 +3,26 @@ initialize_calendar = function() {
   $('.calendar').each(function(){
     var calendar = $(this);
     var identifier = calendar[0].id;
-    // console.log(identifier);
     calendar.fullCalendar({
+      defaultView: 'month',
+      fixedWeekCount: false,
+      // hiddenDays: [0],
+      // showNonCurrentDates: false,
+
       header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'month,agendaWeek,agendaDay'
+        // left: 'prev,next today',
+        // center: 'title',
+        // right: 'month,agendaWeek,agendaDay'
+        // right: 'month'
+        left: 'title',
+        right: 'prev,next',
       },
       selectable: true,
       selectHelper: true,
       editable: true,
       eventLimit: true,
       longPressDelay: 200,
+      // Duration: '01:00:00',
       events: `/gyms/${identifier}/events.json`,
 
       select: function(start, end) {
@@ -24,7 +32,9 @@ initialize_calendar = function() {
           $('.start_hidden').val(moment(start).format('YYYY-MM-DD HH:mm'));
           $('.end_hidden').val(moment(end).format('YYYY-MM-DD HH:mm'));
         });
-
+        // console.log(end.format())
+        // console.log('----------')
+        // console.log(start.format())
         calendar.fullCalendar('unselect');
       },
 

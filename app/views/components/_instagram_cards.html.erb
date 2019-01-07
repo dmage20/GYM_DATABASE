@@ -12,7 +12,7 @@
       <!-- <p class="card-text"><%#= gym.city.name %></p> -->
        <!-- </div> -->
         <div class="card-link">
-          <%= link_to post.picture.xl, "#", :class => "card-link link", :id => "clickme", data: {toggle: "modal", target: ".bd-example-modal-md", caption: post.caption, likes: post.likes, date: post.time} %>
+          <%= link_to post.picture.xl, "#", :class => "card-link link", :id => "clickme", data: {toggle: "modal", target: ".bd-example-modal-md", caption: post.caption.first(200), likes: post.likes, date: post.time} %>
 
         </div>
       </div>

@@ -1,0 +1,13 @@
+function refreshForm(innerHTML) {
+  const newWodForm = document.getElementById('new_wod');
+  newWodForm.innerHTML = innerHTML;
+}
+
+<% if @wod.errors.any? %>
+  // console.log('you have errors')
+  refreshForm('<%= j render "wods/form", gym: @gym, wod: @wod %>');
+  console.log('<%= @wod.errors.full_messages %>');
+<% else %>
+  refreshForm('<%= j render "wods/form", gym: @gym, wod: Wod.new %>');
+// console.log('<%= j render "wods/form", gym: @gym, wod: Wod.new %>');
+<% end %>

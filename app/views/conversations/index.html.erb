@@ -1,11 +1,10 @@
-<div class="container col-lg-7">
-  <!-- <div class="inbox"> -->
-    <h3>Mailbox</h3>
-      <!-- srtart iteration -->
+<!-- -------------------------------------------- -->
+<div class="container col-lg-7 ">
+    <h3 class="text-primary">Mailbox</h3>
         <div class="list-group">
       <% @conversations.each do |conversation| %>
-        <div class="container col-lg-7">
-        <% if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
+        <div class="list-group-item">
+        <%# if conversation.sender_id == current_user.id || conversation.recipient_id == current_user.id %>
           <% if conversation.sender_id == current_user.id %>
           <% recipient = User.find(conversation.recipient_id) %>
           <% else %>
@@ -21,21 +20,18 @@
             <i class="fas fa-trash-alt fa-3x"></i>
           <% end %>
         </div>
-        <% end %>
+        <%# end %>
 
       </div>
       </div>
       <% end %>
-      <!-- end iteration -->
     </div>
-    <div class="container col-lg-7">
+    <div class=" col-lg-7">
     <div class="users">
-      <h3>Start a Message</h3>
+      <h3 class="text-primary">Start a Message</h3>
       <input id="basics" placeholder="type a name" />
-      <!-- <input data-provide="datepicker"> -->
 
-      <!-- <input type="text" data-provide='datepicker' > -->
     </div>
     </div>
-  <!-- </div> -->
 </div>
+

@@ -1,0 +1,18 @@
+<% wod = @wods.order('created_at').last %>
+<!-- <div class="card align-self-stretch" style="height:100%"> -->
+  <div class="card-header text-center" style="background-color: white">
+    <!-- <h4 style="margin: 0px"><span class="badge badge-warning"><%#= wod.created_at.to_date %></span></h4> -->
+    <%= wod.created_at.to_date.strftime('%B %d %Y') %>
+  </div>
+    <div class="card-body text-center">
+            <!-- <h5 class="card-title">Card title</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
+            <p class="card-text"><%#= post.body %></p> -->
+      <%= wod.body.html_safe %>
+      <% if wod.created_at.today? %>
+          <a href="#" class="link">Another link</a>
+          <a href="#" class="btn btn-primary btn-sm">Post Score</a>
+          <h4 style="margin: 0px"><span class="badge badge-warning">New</span></h4>
+      <% end %>
+    </div>
+        <!-- </div> -->

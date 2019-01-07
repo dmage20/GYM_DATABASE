@@ -1,20 +1,19 @@
 <div class="container col-lg-6">
-  <h3>Your Bookmarks</h3>
-
+  <h3 class="text-primary">Your Bookmarks</h3>
   <div id="accordion">
    <% @bookmarks.each_with_index do |bookmark, index| %>
   <div class="card">
     <div class="card-header" id="headingOne">
-      <h5 class="mb-0">
+      <h5 class="mb-0 ">
         <button class="btn btn-link  btn-block" data-toggle="collapse" data-target="#collapse<%= index %>" aria-expanded="false" aria-controls="collapse<%= index %>">
-          <div class="d-flex flex-row">
-            <div class="p-1"><%= bookmark.gym.name %> -</div>
-            <div class="p-1"><%= bookmark.gym.city.name %></div>
-            <div class="p-1"><%= bookmark.gym.country.name %></div>
-            <div class="ml-auto p-2"><%= link_to  gym_bookmarks_path(bookmark.gym), method: :delete do %>
+          <div class="d-flex flex-row text-truncate justify-content-start">
+            <div class="p-2"><%= link_to  gym_bookmarks_path(bookmark.gym), method: :delete do %>
                 <i class="fas fa-trash-alt"></i>
                 <% end %>
             </div>
+            <div class="p-1"><%= bookmark.gym.name %> -</div>
+            <div class="p-1"><%= bookmark.gym.city.name %></div>
+            <div class="p-1"><%= bookmark.gym.country.name %></div>
           </div>
 
         </button>
@@ -27,9 +26,9 @@
           <div class="p-1">
         <%= image_tag "https://maps.googleapis.com/maps/api/staticmap?center=#{bookmark.gym.latitude},#{bookmark.gym.longitude}&zoom=13&size=300x180&maptype=roadmap&markers=color:red%7Clabel:G%7C#{bookmark.gym.latitude},#{bookmark.gym.longitude}&key=#{ENV['GOOGLE_API_BROWSER_KEY']}" %>
           </div>
-          <div class="p-1">
+          <div class="p-1 text-truncate">
             <%= link_to bookmark.gym.name, gym_path(bookmark.gym) %> <br>
-            <%= link_to "#{bookmark.gym.address}", "https://www.google.com/maps/search/?api=1&query=#{bookmark.gym.latitude},#{bookmark.gym.longitude}", target: '_blank' %><br>
+            <%= link_to "View in Gmaps", "https://www.google.com/maps/search/?api=1&query=#{bookmark.gym.latitude},#{bookmark.gym.longitude}", target: '_blank' %><br>
             <%= link_to bookmark.gym.website, target: '_blank' do %>
               <i class="fas fa-link"></i> <%= bookmark.gym.website %>
             <% end %>
