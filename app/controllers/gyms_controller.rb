@@ -3,7 +3,7 @@ class GymsController < ApplicationController
   require 'nokogiri'
   require 'i18n'
   require 'savon'
-  require 'google_places'
+  # require 'google_places'
   skip_before_action :authenticate_user!, only: [:index, :show]
 
   def media_hash_to_object(array_of_hashes)
@@ -53,7 +53,13 @@ class GymsController < ApplicationController
       html_doc.search('script').each do |element|
         @results << element
       end
-      @instagram = JSON.parse(@results[4].children.text.strip.chomp(";").last(-21))
+      if @results[4].children.text.strip.chomp(";").last(-21) == "oaded(window._sharedData)"
+
+        @instagram = JSON.parse(@results[3].children.text.strip.chomp(";").last(-21))
+      else
+        @instagram = JSON.parse(@results[4].children.text.strip.chomp(";").last(-21))
+      end
+      # @instagram = JSON.parse(@results[4].children.text.strip.chomp(";").last(-21))
       @media = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]["edge_owner_to_timeline_media"]["edges"]
       media_hash_to_object(@media)
       @user = @instagram["entry_data"]["ProfilePage"][0]["graphql"]["user"]
@@ -97,6 +103,7 @@ class GymsController < ApplicationController
 
 
   def show
+    @score = Score.new
     @wod = Wod.new
     @wods = Wod.where(gym_id: params["id"])
     @admin = Admin.new

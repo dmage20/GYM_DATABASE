@@ -4,7 +4,8 @@ class Gym < ApplicationRecord
   has_many :bookings
   has_many :bookmarks, dependent: :destroy
   has_many :reviews, dependent: :destroy
-  has_many :admins
+  has_many :admins, dependent: :destroy
+  has_many :scores, dependent: :destroy
   has_one :whiteboard
   # belongs_to :user
   has_many :users, through: :admin

@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   resources :gyms, only: [:index, :show] do
     resource :bookmarks, only: [:create, :destroy]
     resources :reviews, only: :create
-    resources :wods
+    resources :wods do
+      resources :scores, only: :create
+    end
     resources :whiteboard, only: :show
     resources :events
     resources :admins, only: [:create, :destroy]

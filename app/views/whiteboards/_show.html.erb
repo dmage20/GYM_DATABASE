@@ -14,9 +14,42 @@
           <div class="card align-self-stretch" style="height: 100%">
             <div class="card-body">
             <h5 class="card-title"> Scores </h5>
+              <% if !@gym.scores.blank? %>
+
+                <% scores_last_wod = @gym.scores.where(wod_id: @wods.order('created_at').last.id).sort { |s| s.time} %>
+                <% class_times = @gym.scores.where(wod_id: @wods.order('created_at').last.id).select(:time).distinct.pluck(:time).sort_by { |c| c.hour}.uniq { |date| date.hour} %>
+              <%#= class_times =  @gym.scores.where(wod_id: @wods.order('created_at').last.id).select(:time).distinct.pluck(:time).map { |date| date.hour }.uniq.sort %>
+              <%# class_times.each_with_index do |ct, index| %>
+                <div class="row">
+                <% class_times.each do |class_hour| %>
+                  <% class_scores = scores_last_wod.select { |a| a.time.hour == class_hour.hour} %>
+              <%# class_scores = @gym.scores.map{|s|s if s.time == ct && s.wod_id == @wods.order('created_at').last.id} %>
+                      <%# binding.pry %>
+                      <div class="w-50 " style="">
+                        <div style="padding-right: 30px;">
+                          <div class="card-header font-weight-bold" style="background-color: white;  padding-top: 3px; ">
+                            <%= class_hour.strftime('%l %P') %>
+                          </div>
+                          </div>
+                          <% class_scores.each do |score|  %>
+                          <div class="card-body text-left" style="padding-left: 0; font-size: small; padding-top: 6px; padding-bottom: 3px;">
+                            <%= score.user.name.split(" ").first %> - <%= score.content %> <br>
+                        </div>
+                    <%# class_scores.delete_if {|score| score == nil }.each do |is| %>
+                    <% end %>
+                      </div>
+
+                <% end %>
+                </div>
+              <% end %>
+
+                  <div class="dropdown-divider"></div>
+          <%= render 'scores/form',  wod: @wods.order('created_at').last, score: @score if user_signed_in? && !@wods.order('created_at').last.blank? %>
+
             </div>
           </div>
         </div>
+
         <div class="col pl-0 scores">
           <div class="card align-self-stretch">
             <div class="card-body">
@@ -24,8 +57,7 @@
             <% @events.order('start').select{ |t| t.start.future?}.first(2).each do |thing|%>
               <div class='card <%= thing.color === 'green' ? 'bg-success' : 'bg-danger' %>'>
                <% if thing.start.future? || thing.start.today? %>
-                <%= thing.title %> <br>
-                <%= thing.start.to_date.to_s %>
+                <%= thing.title %> <%= thing.start.to_date.to_s %>
                <% end %>
               </div>
             <% end %>
@@ -33,7 +65,6 @@
           </div>
         </div>
       </div>
-
 </div>
 </div>
 <!-- <div class="card p-2">

@@ -11,4 +11,5 @@
 //= require daterangepicker
 //= require turbolinks
 //= require trix
+//= require bootstrap-datetimepicker
 

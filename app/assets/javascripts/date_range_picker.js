@@ -32,3 +32,4 @@ $(document).on('turbolinks:load', date_range_picker);
 //   })
 // };
 // $(document).on('turbolinks:load', date_range_picker);
+
