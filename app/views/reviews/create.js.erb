@@ -9,19 +9,34 @@ function addReview(reviewHTML) {
   // reviews.insertAdjacentHTML('beforeBegin', reviewHTML);
   insertHere.insertAdjacentHTML('afterEnd',
    `<div class="google-review">
-      <div class="avatar-small" style="background-color:<%= ['#ff8000','#d3560e', '#851e52','#521168','#1fe5bd'].sample %>">
-        <span class="initials"><%= current_user.name[0..1].upcase %></span>
+      <div class="<%= ["bg-primary", "bg-success", "bg-warning"].sample %> ">
+        <span class=""><%= current_user.name %></span>
       </div>
       <div class="review-text">
         ${reviewHTML}
       </div>
     </div>`);
 
+  $('#review-notice').hide();
 }
 
 <% if @review.errors.any? %>
   refreshForm('<%= j render "reviews/form", gym: @gym, review: @review %>');
-  console.log('<%= @review.errors.full_messages%>');
+  // console.log('<%= @review.errors.full_messages%>');
+  // alert('<%= @review.errors.full_messages.first %>');
+  function popUpErrors(){
+    const insertHere = document.querySelector('.form-with-padding')
+    insertHere.insertAdjacentHTML('beforebegin',
+
+  `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+   <%=@review.errors.full_messages.first%>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  </div>`
+      );
+  }
+  popUpErrors()
 <% else %>
   addReview('<%= j render "reviews/show", review: @review %>');
   refreshForm('<%= j render "reviews/form", gym: @gym, review: Review.new %>');

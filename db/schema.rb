@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_26_064931) do
+ActiveRecord::Schema.define(version: 2019_01_10_061430) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -120,6 +120,19 @@ ActiveRecord::Schema.define(version: 2018_12_26_064931) do
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
+  create_table "scores", force: :cascade do |t|
+    t.bigint "wod_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "content"
+    t.datetime "time"
+    t.bigint "gym_id"
+    t.index ["gym_id"], name: "index_scores_on_gym_id"
+    t.index ["user_id"], name: "index_scores_on_user_id"
+    t.index ["wod_id"], name: "index_scores_on_wod_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -174,6 +187,9 @@ ActiveRecord::Schema.define(version: 2018_12_26_064931) do
   add_foreign_key "messages", "users"
   add_foreign_key "reviews", "gyms"
   add_foreign_key "reviews", "users"
+  add_foreign_key "scores", "gyms"
+  add_foreign_key "scores", "users"
+  add_foreign_key "scores", "wods"
   add_foreign_key "whiteboards", "gyms"
   add_foreign_key "wods", "gyms"
   add_foreign_key "wods", "users"

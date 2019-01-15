@@ -123,23 +123,27 @@ input[type=text]:focus {
 // }
 .btn-primary {
     // color: white;
-    background-color: #4ecca3;
-    border-color: #4ecca3;
+    // background-color: #4ecca3;
+    // border-color: #4ecca3;
     // border-radius: 2px;
     transition: background 0.35s ease;
     // padding: 0 16px;
-    text-transform: uppercase;
+    // text-transform: uppercase;
     // height: 36px;
     // vertical-align: middle;
 }
+a{
+  // color: #4ecca3;
+  text-decoration: none !important;
+}
 .nav-pills .nav-link.active{
-  background-color: #4ecca3;
+  // background-color: #4ecca3;
 }
 .btn-primary:hover {
-    opacity: .85;
-    background-color: #4ecca3;
-    color: black;
-    border-color: #4ecca3;
+    // opacity: .85;
+    // background-color: #4ecca3;
+    // color: black;
+    // border-color: #4ecca3;
 }
 // .pac-container.pac-logo.hdpi{
 //   // display:block !important;

@@ -1,0 +1,32 @@
+
+<%#= simple_form_for([ gym, wod, score ], remote: true) do |form| %>
+  <!-- <div class="form-with-padding"> -->
+  <%#= form.input :content, as: :text, label: false  %>
+  <%#= form.input :time, as: :datetime, label: false  %>
+  <%#= form.button :submit, class: "btn btn-primary btn-sm " %>
+  <!-- </div> -->
+<%# end %>
+
+
+<%= simple_form_for(@score, url: gym_wod_scores_path(@gym, wod ), remote: true, method: :post, html: { class: '' })  do |form| %>
+<div class="form-row">
+    <div class="col">
+      <%= form.input :content, as: :string, label: false, class: 'form-control'  %>
+    </div>
+    <div class="col">
+      <span id="other" class="btn-dark btn btn-sm"><i class="far fa-clock"></i>
+      <%= form.hidden_field :time, as: :text, label: false %>
+    </span>
+    </div>
+</div>
+      <!-- <input type="text" id="datefilter" value="" /> -->
+      <!-- <input type="text" name="datetimes" /> -->
+  <%#= form.input :time, as: :text, label: false, class: 'form-control' %>
+  <%#= form.time_select :time,  { prompt: {hour: 'Choose hour'}, minute_step: 60, ampm: true }, { class: 'form-control' } %>
+      <%= form.button :submit, class: "btn btn-primary btn-sm" %>
+    <!-- </div> -->
+  <!-- </div> -->
+<% end %>
+
+
+

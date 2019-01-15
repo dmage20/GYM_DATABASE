@@ -12,17 +12,21 @@
       <!-- <p class="card-text"><%#= gym.city.name %></p> -->
        <!-- </div> -->
         <div class="card-link">
-          <%= link_to post.picture.xl, "#", :class => "card-link link", :id => "clickme", data: {toggle: "modal", target: ".bd-example-modal-md", caption: post.caption.first(200), likes: post.likes, date: post.time} %>
+          <%= link_to post.picture.xl, "#", :class => "card-link link", :id => "clickme", data: {toggle: "modal", target: ".bd-example-modal-md", caption: post.caption.to_s.first(200), likes: post.likes, date: post.time} %>
 
         </div>
       </div>
-       <div class="card-footer">
+       <div class="card-footer text-center">
          <small class="text-muted text-truncate">
-          <%= link_to "https://www.instagram.com/#{post.owner.username}", target: '_blank', class: 'text-truncate' do %>
-            <i class="fab fa-instagram"></i> <%= post.owner.username %>
-              <% end %>
+          <%#= link_to "https://www.instagram.com/#{post.owner.username}", target: '_blank', class: 'text-truncate' do %>
+            <%= post.likes %>
+            <i class="fa fa-heart likes"></i>
+             <%= post.time %>
+              <%# end %>
          </small>
        </div>
+
+
     </div>
     <% end %>
 </div>
