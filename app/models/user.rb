@@ -5,7 +5,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, omniauth_providers: %i[facebook]
   has_many :bookings, dependent: :destroy
   has_many :admins, dependent: :destroy
-  has_many :scoresn, dependent: :destroy
+  has_many :scores, dependent: :destroy
   def self.from_omniauth(auth)
   where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
     user.email = auth.info.email

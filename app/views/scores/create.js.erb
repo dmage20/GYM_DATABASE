@@ -1,0 +1,79 @@
+
+<% if @score.errors.any? %>
+  // console.log('<%= raw @score.errors.full_messages.to_s%>')
+  popUpErrors();
+<% end %>
+
+<% if @score.wod.scores.pluck(:time).select{ |thing| thing == @score.time}.count >= 2 && !@score.errors.any?%>
+      addScore('<%= j render "scores/show", score: @score %>')
+      // console.log('in the existing time');
+<% end %>
+
+<% if @score.wod.scores.pluck(:time).select{ |thing| thing == @score.time}.count < 2 && !@score.errors.any? %>
+    newScore('<%= j render "scores/show", score: @score %>')
+    // console.log('in the new time');
+<% end %>
+
+<%if !@score.time.blank?%>
+  function refreshForm(innerHTML) {
+    const newReviewForm = document.getElementById('new_score');
+    newReviewForm.innerHTML = innerHTML;
+  }
+
+  function addScore(scoreHTML) {
+
+
+    <% array_of_class_hours = @score.wod.scores.pluck(:time).uniq { |date| date.hour}.map { |thing| thing.hour}.sort %>
+    <% group = array_of_class_hours.index(@score.time.hour).to_i %>
+
+    var group = group
+    var insertHere = $('.score-id-' + '<%=group%>')[$('.score-id-' + '<%=group%>').length - 1];
+    insertHere.insertAdjacentHTML('afterEnd',
+    `<div class="card-body text-left score-id-${group}" style="padding-left: 0; font-size: small; padding-top: 6px; padding-bottom: 3px;">
+                             ${scoreHTML} <br>
+                        </div>`);
+  }
+
+  function newScore(scoreHTML) {
+    <% array_of_class_hours = @score.wod.scores.pluck(:time).uniq { |date| date.hour}.map { |thing| thing.hour}.sort %>
+    <% new_class_hours = array_of_class_hours << @score.time.hour %>
+    <% insert_point = new_class_hours.index(@score.time.hour).to_i %>
+    var insert_point = insert_point
+    var insertHere_two = $( '.class-time-' + '<%= insert_point - 1%>')[0]
+    var insertHere_three = $('.card-title')[2]
+
+  <% if insert_point == 0 %>
+    insertHere_three.insertAdjacentHTML('afterEnd',
+  <% end %>
+  <% if insert_point != 0 %>
+    insertHere_two.insertAdjacentHTML('afterEnd',
+  <% end %>
+    `<div class="w-50 class-time-${insert_point}" style="">
+     <div style="padding-right: 30px;">
+        <div class="card-header font-weight-bold " style="background-color: white;  padding-top: 3px; ">
+            <%=@score.time.strftime('%l %P') if !@score.time.blank?%>
+        </div>
+      </div>
+      <div class="card-body text-left score-id-${insert_point}" style="padding-left: 0; font-size: small; padding-top: 6px; padding-bottom: 3px;">
+          ${scoreHTML} <br>
+      </div>
+    </div>`);
+  }
+<%end%>
+function popUpErrors(){
+    const insertHere = document.querySelector('#new_score')
+    insertHere.insertAdjacentHTML('beforebegin',
+
+  `<div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <% @score.errors.full_messages.each do |error| %>
+      <%= raw error %> <br>
+    <% end %>
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+  </div>`
+      );
+  }
+
+
+
