@@ -4,7 +4,7 @@
 <!-- <div style="font-weight: bold;"><%#= link_to gym.name, gym_path(gym) %></div> -->
 <%#= link_to 'website', gym.website, target: '_blank' %>
 
-<div class="container" style="width: 200px;">
+<div class="container" >
    <div class="card">
     <img class="card-img-top" src='https://maps.googleapis.com/maps/api/streetview?size=600x300&location=<%= gym.latitude %>,<%= gym.longitude %>&heading=151.78&pitch=-0.76&key=<%= "#{ENV['GOOGLE_API_BROWSER_KEY']}" %>' alt="Card image cap">
     <div class="card-body">
@@ -12,9 +12,9 @@
       <small class="text-muted text-truncate"> <%= gym.city.name %> <%= gym.country.name %></small>
       <!-- <p class="card-text"><%#= gym.city.name %></p> -->
     </div>
-    <div class="card-footer">
+    <!-- <div class="card-footer"> -->
 
-    </div>
+    <!-- </div> -->
     <div class="card-link">
           <%= link_to "Link", gym_path(gym), :class=> "card-link" %>
         </div>

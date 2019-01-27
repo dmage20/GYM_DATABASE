@@ -10,11 +10,18 @@
   </div>
   <div class="p-2 bd-highlight information ">
   <div
+  id="map"
+  style="width: 100%;
+  height: 600px;"
+  data-markers="<%= @markers.to_json %>"
+  data-mapbox-api-key="<%= ENV['MAPBOX_API_KEY'] %>"
+  ></div>
+ <!--  <div
   id="map" class="hidden-xs"
   style="width: 100%;
   height: 600px;"
   data-markers="<%= @markers.to_json %>"
-  ></div>
+  ></div> -->
 </div>
   <!-- </div> -->
 <!--       <%#= form_tag gyms_path, method: :get do %>
