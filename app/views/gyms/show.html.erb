@@ -100,7 +100,7 @@
   <!-- <p> -->
     <%= link_to @gym.website, target: '_blank' do %>
       <i class="fas fa-link"></i> <%=  @gym.website.split("www.").second.blank? ? @gym.website.split("//").second : @gym.website.split("www.").second  %>
-    <% end %> <br>
+      <% end %> <br>
     <%= @spot.formatted_address %>
   <%= link_to @spot.url, target: '_blank' do %>
   <i class="fas fa-map-marker-alt fa-lg"></i> <%= "Google Maps" %>
@@ -123,23 +123,22 @@
     <div class="collapse" id="collapseExample">
     <div class="card card-body" style="background-color: none;">
       <div class="hours">
-    <% if !@hours.blank? %>
-      <table class="table table-sm">
-        <thead>
-        </thead>
-  <tbody>
-    <% @hours.each do |thing| %>
-    <tr>
-      <th scope="row" style="
-    width: 103px;"><%= thing.partition(":").first %></th>
-      <td><%= thing.partition(":").third.delete(' ') %></td>
-    </tr>
-    <% end %>
-  </tbody>
-</table>
+        <% if !@hours.blank? %>
+        <table class="table table-sm">
+          <thead>
+          </thead>
+          <tbody>
+          <% @hours.each do |thing| %>
+            <tr>
+              <th scope="row" style=" width: 103px;"><%= thing.partition(":").first %></th>
+              <td><%= thing.partition(":").third.delete(' ') %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
 
-    <% end %>
-  </div>
+        <% end %>
+      </div>
 <% end %>
     </div>
 </div>

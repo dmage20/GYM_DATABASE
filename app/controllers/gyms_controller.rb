@@ -116,8 +116,9 @@ class GymsController < ApplicationController
         @markers = @gyms.map do |gym|
         {
           lat: gym.latitude,
-          lng: gym.longitude,
-          infoWindow: { content: render_to_string(partial: "/gyms/map_box", locals: { gym: gym }) }
+          lng: gym.longitude
+          # ,
+          # infoWindow: { content: render_to_string(partial: "/gyms/map_box", locals: { gym: gym }) }
         }
       end
 # -----search for gym possible instagram ids and pick the one with most followers
@@ -201,7 +202,7 @@ class GymsController < ApplicationController
       end
 
      end
-
+# -------------------------------------------------
   end
 
 
@@ -236,11 +237,11 @@ class GymsController < ApplicationController
         {
           lat: gym.latitude,
           lng: gym.longitude,
-          infoWindow: { content: render_to_string(partial: "/gyms/map_box", locals: { gym: gym }) }
+          infoWindow: render_to_string(partial: "/gyms/map_box", locals: { gym: gym })
+          # infoWindow: { content: render_to_string(partial: "/gyms/map_box", locals: { gym: gym }) }
         }
       end
   end
-
 end
     #   sql_query = " \
     #     cities.name @@ :query \

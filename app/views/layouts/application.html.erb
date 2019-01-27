@@ -22,7 +22,8 @@
     <%= action_cable_meta_tag %>
     <!-- <script src="//code.jquery.com/jquery-1.11.2.min.js"></script> -->
     <%= stylesheet_link_tag 'application', media: 'all' %>
-    <%#= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
+    <!-- added below when moving to mapbox -->
+    <%= stylesheet_pack_tag 'application', media: 'all' %> <!-- Uncomment if you import CSS in app/javascript/packs/application.js -->
     <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?libraries=places&key=#{ENV['GOOGLE_API_BROWSER_KEY']}" %>
       <%= javascript_include_tag 'application' %>
   </head>
@@ -38,8 +39,8 @@
     <%= yield %>
     <div id='remote_container'></div>
     <%= render 'shared/footer' %>
-        <%#= javascript_pack_tag 'application' %>
+        <%= javascript_pack_tag 'application' %>
 
-          <%= javascript_pack_tag "map" %>
+          <%#= javascript_pack_tag "map" %>
   </body>
 </html>
