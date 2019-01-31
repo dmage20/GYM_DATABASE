@@ -1,4 +1,8 @@
 // document.addEventListener("turbolinks:load", function() {
+
+
+
+
 document.addEventListener("DOMContentLoaded", function() {
   $input = $("#basics")
 
@@ -36,3 +40,4 @@ document.addEventListener("DOMContentLoaded", function() {
   }
   $input.easyAutocomplete(options)
 });
+
