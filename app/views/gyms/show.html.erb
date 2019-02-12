@@ -39,6 +39,10 @@
           <div class="col-lg-7">
             <h5>Make a WOD</h5>
             <%= render 'wods/form', gym: @gym, wod: @wod %>
+            <div class="bookings">
+              <h3 class="text-center" style="padding-top:0">Create an Event<i class="fas fa-arrow-down"></i></h3>
+                <div class='calendar' id="<%=params["id"]%>" ></div>
+            </div>
           </div>
         </div>
 
@@ -194,16 +198,13 @@
             Become an admin for this gym
             <%= render 'admins/form' %>
             <% end %>
+
           </div>
       <% end %>
 
       </div>
     </div>
     <!-- , method: :delete, id: "delete-conversation"  -->
-    <div class="bookings">
-      <h3 class="text-center" style="padding-top:0">Book a Class Below <i class="fas fa-arrow-down"></i></h3>
-      <div class='calendar' id="<%=params["id"]%>" ></div>
-    </div>
 
     <!-- <div id="reviews"> -->
       <%# if @gym.reviews.blank? %>
@@ -223,11 +224,12 @@
   ></div> -->
   <!-- </div> -->
   <!-- </div> -->
-  <div id="admins">
-    <% if !@gym.admins.users.include?(current_user) && user_signed_in?%>
-      <%= render 'admins/form' %>
-    <% end %>
-  </div>
+
+<!--   <div id="admins">
+    <%# if !@gym.admins.users.include?(current_user) && user_signed_in?%>
+      <%#= render 'admins/form' %>
+    <%# end %>
+  </div> -->
 
   </div>
 </div>
